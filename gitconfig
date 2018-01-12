@@ -1,0 +1,13 @@
+[gpg]
+	program = /usr/local/MacGPG2/bin/gpg
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[user]
+	name = Spotlight
+	email = awesomebing1@gmail.com
+	signingkey = CC3F4E0080AC47A3
+[commit]
+	gpgsign = true
