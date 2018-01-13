@@ -6,6 +6,9 @@ export ZPLUG_HOME=/usr/local/opt/zplug
 source $ZPLUG_HOME/init.zsh
 
 zplug "plugins/git", from:oh-my-zsh
+zplug "plugins/iterm2", from:oh-my-zsh
+zplug "lib/completion", from:oh-my-zsh
+zplug "lib/directories", from:oh-my-zsh
 
 # Stuff that modifies
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
@@ -13,6 +16,7 @@ zplug "zsh-users/zsh-autosuggestions", defer:3
 zplug "zsh-users/zsh-completions", defer:3
 
 setopt prompt_subst # Make sure prompt is able to be generated properly.
+setopt auto_cd # Get that ~ in here.
 zplug "caiogondim/bullet-train.zsh", use:bullet-train.zsh-theme, defer:3
 
 # Configure prompt to my liking.
