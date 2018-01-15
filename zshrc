@@ -7,13 +7,12 @@ source $ZPLUG_HOME/init.zsh
 
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/iterm2", from:oh-my-zsh
-zplug "lib/completion", from:oh-my-zsh
-zplug "lib/directories", from:oh-my-zsh
+zplug "lib/*", from:oh-my-zsh
 
 # Stuff that modifies
-zplug "zsh-users/zsh-syntax-highlighting", defer:3
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions", defer:3
-zplug "zsh-users/zsh-completions", defer:3
+zplug "zsh-users/zsh-completions", defer:2
 
 setopt prompt_subst # Make sure prompt is able to be generated properly.
 setopt auto_cd # Get that ~ in here.
@@ -31,6 +30,7 @@ BULLETTRAIN_PROMPT_ORDER=(
   go
   git
 )
+BULLETTRAIN_PROMPT_CHAR=">"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
