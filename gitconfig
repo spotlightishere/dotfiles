@@ -7,7 +7,7 @@
 	smudge = git-lfs smudge -- %f
 [user]
 	name = Spotlight
-	email = awesomebing1@gmail.com
+	email = spotlight@joscomputing.space
 	signingkey = CC3F4E0080AC47A3
 [commit]
 	gpgsign = true

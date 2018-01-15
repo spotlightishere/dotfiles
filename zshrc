@@ -48,7 +48,7 @@ zplug load
 #########
 
 # Local stuff, homebrew python, theos
-export PATH="${HOME}/bin:/usr/local/opt/theos/python/libexec/bin:${PATH}"
+export PATH="${HOME}/bin:${HOME}/bin/android-sdk/platform-tools:/usr/local/opt/theos/python/libexec/bin:${PATH}"
 export EDITOR=nano
 
 # Google Cloud tools
