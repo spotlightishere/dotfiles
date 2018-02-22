@@ -48,21 +48,25 @@ zplug load
 #########
 
 # Local stuff, homebrew python, theos
-export PATH="${HOME}/bin:${HOME}/bin/android-sdk/platform-tools:/usr/local/opt/theos/python/libexec/bin:${PATH}"
-export EDITOR=nano
+export PATH="${HOME}/bin:${HOME}/bin/android-sdk/platform-tools:${PATH}"
+if [[ $OSTYPE == darwin* ]]; then
+  # Google Cloud tools
+  # On Arch and etcetera, we'd be installing these ourselves and putting it in global path.
+  # Not on a Mac, so...
+  source ${HOME}/bin/google-cloud-sdk/completion.zsh.inc
+  source ${HOME}/bin/google-cloud-sdk/path.zsh.inc
+fi
 
-# Google Cloud tools
-source ${HOME}/bin/google-cloud-sdk/completion.zsh.inc
-source ${HOME}/bin/google-cloud-sdk/path.zsh.inc
+export EDITOR=nano
 
 # Go
 export GOPATH=${HOME}/go
 export PATH=${GOPATH}/bin:${PATH}
 
 # theos
-export THEOS=/usr/local/opt/theos
+export THEOS=${HOME}/.theos
 export PATH=${THEOS}/bin:$PATH
-export THEOS_DEVICE_IP=192.168.1.167 THEOS_DEVICE_PORT=22
+export THEOS_DEVICE_IP=192.168.1.173 THEOS_DEVICE_PORT=22
 
 # devkitPro and the like
 export DEVKITPRO=${HOME}/devkitPro
