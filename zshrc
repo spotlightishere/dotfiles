@@ -11,6 +11,7 @@ fi
 
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/iterm2", from:oh-my-zsh
+zplug "felixr/docker-zsh-completion"
 zplug "lib/*", from:oh-my-zsh
 
 # Stuff that modifies
@@ -85,3 +86,8 @@ fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+if [[ $OSTYPE == darwin* ]]; then
+  # Fix Homebrew pathing.
+  export PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
+fi
