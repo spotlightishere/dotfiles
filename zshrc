@@ -2,8 +2,12 @@
 # zplug configuraton
 #########
 
-export ZPLUG_HOME=/usr/local/opt/zplug
-source $ZPLUG_HOME/init.zsh
+if [[ $OSTYPE == darwin* ]]; then
+  export ZPLUG_HOME=/usr/local/opt/zplug
+  source $ZPLUG_HOME/init.zsh
+elif [[ $OSTYPE == linux* ]]; then
+  source /usr/share/zsh/scripts/zplug/init.zsh
+fi
 
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/iterm2", from:oh-my-zsh
@@ -73,4 +77,11 @@ export DEVKITPRO=${HOME}/devkitPro
 export DEVKITPPC=${DEVKITPRO}/devkitPPC
 export DEVKITARM=${DEVKITPRO}/devkitARM
 
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi
+
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ]]
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
