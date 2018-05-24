@@ -8,6 +8,6 @@
 [user]
 	name = Spotlight
 	email = spotlight@joscomputing.space
-	signingkey = CC3F4E0080AC47A3
+	signingkey = A1C731549463236D88A17111CC3F4E0080AC47A3
 [commit]
 	gpgsign = true
