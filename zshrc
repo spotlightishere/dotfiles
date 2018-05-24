@@ -1,13 +1,8 @@
 #########
 # zplug configuraton
 #########
-
-if [[ $OSTYPE == darwin* ]]; then
-  export ZPLUG_HOME=/usr/local/opt/zplug
-  source $ZPLUG_HOME/init.zsh
-elif [[ $OSTYPE == linux* ]]; then
-  source /usr/share/zsh/scripts/zplug/init.zsh
-fi
+export ZPLUG_HOME=$HOME/.zplug
+source $ZPLUG_HOME/init.zsh
 
 zplug "plugins/git", from:oh-my-zsh
 zplug "plugins/iterm2", from:oh-my-zsh
@@ -71,7 +66,7 @@ export PATH=${GOPATH}/bin:${PATH}
 # theos
 export THEOS=${HOME}/.theos
 export PATH=${THEOS}/bin:$PATH
-export THEOS_DEVICE_IP=192.168.1.173 THEOS_DEVICE_PORT=22
+export THEOS_DEVICE_IP=localhost THEOS_DEVICE_PORT=2222
 
 # devkitPro and the like
 export DEVKITPRO=${HOME}/devkitPro
