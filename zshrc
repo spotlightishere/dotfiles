@@ -69,20 +69,20 @@ export PATH=${THEOS}/bin:$PATH
 export THEOS_DEVICE_IP=localhost THEOS_DEVICE_PORT=2222
 
 # devkitPro and the like
-export DEVKITPRO=${HOME}/devkitPro
-export DEVKITPPC=${DEVKITPRO}/devkitPPC
-export DEVKITARM=${DEVKITPRO}/devkitARM
+export DEVKITPRO=/opt/devkitpro
+export DEVKITARM=/opt/devkitpro/devkitARM
+export DEVKITPPC=/opt/devkitpro/devkitPPC
+export PATH=/opt/devkitpro/tools/bin:$PATH
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
 fi
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ]]
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
 if [[ $OSTYPE == darwin* ]]; then
   # Fix Homebrew pathing.
   export PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
 fi
+
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ]]
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
