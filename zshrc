@@ -49,13 +49,10 @@ zplug load
 
 # Local stuff, homebrew python, theos
 export PATH="${HOME}/bin:${HOME}/bin/android-sdk/platform-tools:${PATH}"
-if [[ $OSTYPE == darwin* ]]; then
-  # Google Cloud tools
-  # On Arch and etcetera, we'd be installing these ourselves and putting it in global path.
-  # Not on a Mac, so...
-  source ${HOME}/bin/google-cloud-sdk/completion.zsh.inc
-  source ${HOME}/bin/google-cloud-sdk/path.zsh.inc
-fi
+
+# Google Cloud tools
+source ${HOME}/bin/google-cloud-sdk/completion.zsh.inc
+source ${HOME}/bin/google-cloud-sdk/path.zsh.inc
 
 export EDITOR=nano
 
