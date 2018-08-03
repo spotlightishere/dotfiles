@@ -1,5 +1,3 @@
-[gpg]
-	program = /usr/local/MacGPG2/bin/gpg
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
@@ -11,3 +9,5 @@
 	signingkey = A1C731549463236D88A17111CC3F4E0080AC47A3
 [commit]
 	gpgsign = true
+[color]
+	ui = auto
