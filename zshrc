@@ -54,7 +54,7 @@ export PATH="${HOME}/bin:${HOME}/bin/android-sdk/platform-tools:${PATH}"
 source ${HOME}/bin/google-cloud-sdk/completion.zsh.inc
 source ${HOME}/bin/google-cloud-sdk/path.zsh.inc
 
-export EDITOR=nano
+export EDITOR=vim
 
 # Go
 export GOPATH=${HOME}/go
@@ -83,3 +83,13 @@ fi
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ]]
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+
+# Adapted from https://github.com/isaacmorneau/dotfiles/blob/882f11172a2c0fd1aa7020d627d2978e5d60f6b0/.bashrc#L125-L130
+function mvsane () {
+    for F in "$@"
+    do
+        mv "$F" $(echo "$F" | sed -r 's/[ ]+/_/g;s/[^a-zA-Z0-9_.-]//g;s/[_-]{2,}/-/g;')
+    done
+}
+. "/Users/spot/bin/acme.sh.env"
