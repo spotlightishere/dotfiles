@@ -23,7 +23,6 @@ BULLETTRAIN_PROMPT_ORDER=(
   time
   status
   custom
-  context
   dir
   screen
   ruby
@@ -31,6 +30,7 @@ BULLETTRAIN_PROMPT_ORDER=(
   git
 )
 BULLETTRAIN_PROMPT_CHAR=">"
+BULLETTRAIN_DIR_BG="black"
 
 # Install plugins if there are plugins that have not been installed
 if ! zplug check --verbose; then
@@ -47,14 +47,21 @@ zplug load
 # the env _essentials_
 #########
 
-# Local stuff, homebrew python, theos
-export PATH="${HOME}/bin:${HOME}/bin/android-sdk/platform-tools:${PATH}"
+export PATH="${HOME}/bin:$PATH"
+
+# Android SDK
+if [ -d ${HOME}/bin/android-sdk ]; then
+  export PATH="${HOME}/bin/android-sdk/platform-tools:${PATH}"
+fi
 
 # Google Cloud tools
-source ${HOME}/bin/google-cloud-sdk/completion.zsh.inc
-source ${HOME}/bin/google-cloud-sdk/path.zsh.inc
+if [ -d ${HOME}/bin/google-cloud-sdk ]; then
+  source ${HOME}/bin/google-cloud-sdk/completion.zsh.inc
+  source ${HOME}/bin/google-cloud-sdk/path.zsh.inc
+fi
 
-export EDITOR=vim
+# iTerm2 integration, only if detected as installed
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Go
 export GOPATH=${HOME}/go
@@ -63,13 +70,14 @@ export PATH=${GOPATH}/bin:${PATH}
 # theos
 export THEOS=${HOME}/.theos
 export PATH=${THEOS}/bin:$PATH
-export THEOS_DEVICE_IP=localhost THEOS_DEVICE_PORT=2222
 
 # devkitPro and the like
-export DEVKITPRO=/opt/devkitpro
-export DEVKITARM=/opt/devkitpro/devkitARM
-export DEVKITPPC=/opt/devkitpro/devkitPPC
-export PATH=/opt/devkitpro/tools/bin:$PATH
+if [ -d /opt/devkitpro ]; then
+  export DEVKITPRO=/opt/devkitpro
+  export DEVKITARM=/opt/devkitpro/devkitARM
+  export DEVKITPPC=/opt/devkitpro/devkitPPC
+  export PATH=/opt/devkitpro/tools/bin:$PATH
+fi
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
         source /etc/profile.d/vte.sh
@@ -80,10 +88,10 @@ if [[ $OSTYPE == darwin* ]]; then
   export PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
 fi
 
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ]]
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
+if [ -s $HOME/.rvm/scripts/rvm ]; then
+    source "$HOME/.rvm/scripts/rvm"
+    export PATH="$PATH:$HOME/.rvm/bin"
+fi
 
 # Adapted from https://github.com/isaacmorneau/dotfiles/blob/882f11172a2c0fd1aa7020d627d2978e5d60f6b0/.bashrc#L125-L130
 function mvsane () {
@@ -92,4 +100,6 @@ function mvsane () {
         mv "$F" $(echo "$F" | sed -r 's/[ ]+/_/g;s/[^a-zA-Z0-9_.-]//g;s/[_-]{2,}/-/g;')
     done
 }
-. "/Users/spot/bin/acme.sh.env"
+
+# Personal preferences
+export EDITOR=vim
