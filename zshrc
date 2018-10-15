@@ -5,7 +5,6 @@ export ZPLUG_HOME=$HOME/.zplug
 source $ZPLUG_HOME/init.zsh
 
 zplug "plugins/git", from:oh-my-zsh
-zplug "plugins/iterm2", from:oh-my-zsh
 zplug "felixr/docker-zsh-completion"
 zplug "lib/*", from:oh-my-zsh
 
