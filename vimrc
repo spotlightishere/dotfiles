@@ -3,6 +3,7 @@ filetype off
 syntax on
 set number
 filetype plugin indent on
+set backspace=indent,eol,start
 
 " two-spaced tabs
 set tabstop=2
