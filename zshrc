@@ -59,6 +59,10 @@ if [ -d ${HOME}/bin/google-cloud-sdk ]; then
   source ${HOME}/bin/google-cloud-sdk/path.zsh.inc
 fi
 
+if [ -d ${HOME}/bin/YaTools ]; then
+  export PATH="${HOME}/bin/YaTools:${PATH}"
+fi
+
 # iTerm2 integration, only if detected as installed
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
@@ -102,3 +106,4 @@ function mvsane () {
 
 # Personal preferences
 export EDITOR=vim
+export GO111MODULE=true
