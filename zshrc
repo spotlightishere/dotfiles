@@ -106,4 +106,4 @@ function mvsane () {
 
 # Personal preferences
 export EDITOR=vim
-export GO111MODULE=true
+export GO111MODULE=on
