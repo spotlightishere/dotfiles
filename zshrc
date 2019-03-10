@@ -107,3 +107,6 @@ function mvsane () {
 # Personal preferences
 export EDITOR=vim
 export GO111MODULE=on
+if [ -d $HOME/.keysrc ]; then
+  source keysrc
+fi
