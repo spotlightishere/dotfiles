@@ -83,7 +83,7 @@ if [ -d /opt/devkitpro ]; then
 fi
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-        source /etc/profile.d/vte.sh
+  source /etc/profile.d/vte.sh
 fi
 
 if [[ $OSTYPE == darwin* ]]; then
@@ -92,16 +92,16 @@ if [[ $OSTYPE == darwin* ]]; then
 fi
 
 if [ -s $HOME/.rvm/scripts/rvm ]; then
-    source "$HOME/.rvm/scripts/rvm"
-    export PATH="$PATH:$HOME/.rvm/bin"
+  source "$HOME/.rvm/scripts/rvm"
+  export PATH="$PATH:$HOME/.rvm/bin"
 fi
 
 # Adapted from https://github.com/isaacmorneau/dotfiles/blob/882f11172a2c0fd1aa7020d627d2978e5d60f6b0/.bashrc#L125-L130
 function mvsane () {
-    for F in "$@"
-    do
-        mv "$F" $(echo "$F" | sed -r 's/[ ]+/_/g;s/[^a-zA-Z0-9_.-]//g;s/[_-]{2,}/-/g;')
-    done
+  for F in "$@"
+  do
+    mv "$F" $(echo "$F" | sed -r 's/[ ]+/_/g;s/[^a-zA-Z0-9_.-]//g;s/[_-]{2,}/-/g;')
+  done
 }
 
 # Personal preferences
