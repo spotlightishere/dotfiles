@@ -10,10 +10,9 @@ zplug "felixr/docker-zsh-completion"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-autosuggestions", defer:2
 zplug "zsh-users/zsh-completions", defer:2
-zplug "zsh-users/zsh-history-substring-search", defer:2
 
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+bindkey "$terminfo[kcuu1]" history-beginning-search-backward
+bindkey "$terminfo[kcud1]" history-beginning-search-forward
 
 setopt prompt_subst # Make sure prompt is able to be generated properly.
 setopt auto_cd # Get that ~ in here.
