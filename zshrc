@@ -4,17 +4,25 @@
 export ZPLUG_HOME=$HOME/.zplug
 source $ZPLUG_HOME/init.zsh
 
-zplug "plugins/git", from:oh-my-zsh
 zplug "felixr/docker-zsh-completion"
-zplug "lib/*", from:oh-my-zsh
 
 # Stuff that modifies
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-autosuggestions", defer:3
+zplug "zsh-users/zsh-autosuggestions", defer:2
 zplug "zsh-users/zsh-completions", defer:2
+zplug "zsh-users/zsh-history-substring-search", defer:2
+
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
 
 setopt prompt_subst # Make sure prompt is able to be generated properly.
 setopt auto_cd # Get that ~ in here.
+setopt hist_ignore_all_dups # Goodbye, random duplicates.
+setopt inc_append_history # Write it asap
+setopt share_history # goodbye, out-of-sync cross-shell passwords
+setopt auto_list # magic and things involving listing of items
+setopt auto_menu # Use a menu because I'm _that_ type of person
+
 zplug "caiogondim/bullet-train.zsh", use:bullet-train.zsh-theme, defer:3
 
 # Configure prompt to my liking.
@@ -109,4 +117,8 @@ export EDITOR=vim
 export GO111MODULE=on
 if [ -f $HOME/.keysrc ]; then
   source $HOME/.keysrc
+fi
+
+if [ -d $HOME/.ghcup ]; then
+  export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 fi
