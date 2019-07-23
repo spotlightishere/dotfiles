@@ -17,6 +17,7 @@ bindkey "$terminfo[kcud1]" history-beginning-search-forward
 setopt prompt_subst # Make sure prompt is able to be generated properly.
 setopt auto_cd # Get that ~ in here.
 setopt hist_ignore_all_dups # Goodbye, random duplicates.
+setopt hist_ignore_space # ' ' more like ._.
 setopt inc_append_history # Write it asap
 setopt share_history # goodbye, out-of-sync cross-shell passwords
 setopt auto_list # magic and things involving listing of items
@@ -53,6 +54,9 @@ zplug load
 # the env _essentials_
 #########
 
+export HISTFILE="$HOME/.zsh_history"
+export HISTSIZE=3000
+export SAVEHIST=$HISTSIZE
 export PATH="${HOME}/bin:$PATH"
 
 # Android SDK
@@ -90,7 +94,11 @@ if [ -d /opt/devkitpro ]; then
 fi
 
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-  source /etc/profile.d/vte.sh
+  if [ -s /etc/profile.d/vte.sh ]; then
+    source /etc/profile.d/vte.sh
+  elif [ -s /etc/profile.d/vte-2.91.sh ]; then
+    source /etc/profile.d/vte-2.91.sh
+  fi
 fi
 
 if [[ $OSTYPE == darwin* ]]; then
@@ -102,14 +110,6 @@ if [ -s $HOME/.rvm/scripts/rvm ]; then
   source "$HOME/.rvm/scripts/rvm"
   export PATH="$PATH:$HOME/.rvm/bin"
 fi
-
-# Adapted from https://github.com/isaacmorneau/dotfiles/blob/882f11172a2c0fd1aa7020d627d2978e5d60f6b0/.bashrc#L125-L130
-function mvsane () {
-  for F in "$@"
-  do
-    mv "$F" $(echo "$F" | sed -r 's/[ ]+/_/g;s/[^a-zA-Z0-9_.-]//g;s/[_-]{2,}/-/g;')
-  done
-}
 
 # Personal preferences
 export EDITOR=vim
