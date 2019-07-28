@@ -7,3 +7,6 @@
 [submodule "vim/pack/normal/start/vim-go"]
 	path = vim/pack/normal/start/vim-go
 	url = https://github.com/fatih/vim-go.git
+[submodule "vim/pack/normal/start/vim-toml"]
+	path = vim/pack/normal/start/vim-toml
+	url = https://github.com/cespare/vim-toml.git
