@@ -1,3 +1,5 @@
+# Based on http://stackoverflow.com/a/41420448/4757
+
 function expand-multiple-dots() {
     local MATCH
     if [[ $LBUFFER =~ '(^| )\.\.\.+' ]]; then
