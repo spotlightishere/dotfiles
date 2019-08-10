@@ -14,6 +14,7 @@ zplug "zsh-users/zsh-completions", defer:2
 bindkey "$terminfo[kcuu1]" history-beginning-search-backward
 bindkey "$terminfo[kcud1]" history-beginning-search-forward
 
+source $HOME/.zsh/expand-multiple-dots.zsh # cd .../.../<tab>?
 setopt prompt_subst # Make sure prompt is able to be generated properly.
 setopt auto_cd # Get that ~ in here.
 setopt hist_ignore_all_dups # Goodbye, random duplicates.
@@ -120,4 +121,8 @@ fi
 
 if [ -d $HOME/.ghcup ]; then
   export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+fi
+
+if [ -d $HOME/.fastlane ]; then
+  export PATH="$HOME/.fastlane/bin:$PATH"
 fi
