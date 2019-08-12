@@ -59,6 +59,7 @@ export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=3000
 export SAVEHIST=$HISTSIZE
 export PATH="${HOME}/bin:$PATH"
+export GPG_TTY=$(tty)
 
 # Android SDK
 if [ -d ${HOME}/bin/android-sdk ]; then
@@ -69,10 +70,6 @@ fi
 if [ -d ${HOME}/bin/google-cloud-sdk ]; then
   source ${HOME}/bin/google-cloud-sdk/completion.zsh.inc
   source ${HOME}/bin/google-cloud-sdk/path.zsh.inc
-fi
-
-if [ -d ${HOME}/bin/YaTools ]; then
-  export PATH="${HOME}/bin/YaTools:${PATH}"
 fi
 
 # iTerm2 integration, only if detected as installed
