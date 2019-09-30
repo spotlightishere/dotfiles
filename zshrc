@@ -7,9 +7,10 @@ source $ZPLUG_HOME/init.zsh
 zplug "felixr/docker-zsh-completion"
 
 # Stuff that modifies
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-autosuggestions", defer:2
-zplug "zsh-users/zsh-completions", defer:2
+zplug "zsh-users/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-autosuggestions"
+zplug "zsh-users/zsh-completions"
+zplug "johnhamelink/rvm-zsh", lazy:true
 
 bindkey "$terminfo[kcuu1]" history-beginning-search-backward
 bindkey "$terminfo[kcud1]" history-beginning-search-forward
@@ -102,11 +103,6 @@ fi
 if [[ $OSTYPE == darwin* ]]; then
   # Fix Homebrew pathing.
   export PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
-fi
-
-if [ -s $HOME/.rvm/scripts/rvm ]; then
-  source "$HOME/.rvm/scripts/rvm"
-  export PATH="$PATH:$HOME/.rvm/bin"
 fi
 
 # Personal preferences
