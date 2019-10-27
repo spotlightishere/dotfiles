@@ -11,6 +11,7 @@ zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "johnhamelink/rvm-zsh", lazy:true
+zplug 'mfaerevaag/wd', as:command, use:"wd.sh", hook-load:"wd() { . $ZPLUG_REPOS/mfaerevaag/wd/wd.sh }"
 
 bindkey "$terminfo[kcuu1]" history-beginning-search-backward
 bindkey "$terminfo[kcud1]" history-beginning-search-forward
@@ -110,6 +111,10 @@ export EDITOR=vim
 export GO111MODULE=on
 if [ -f $HOME/.keysrc ]; then
   source $HOME/.keysrc
+fi
+
+if [ -d $HOME/.cargo ]; then
+  export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
 if [ -d $HOME/.ghcup ]; then
