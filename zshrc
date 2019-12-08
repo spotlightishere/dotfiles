@@ -10,11 +10,16 @@ zplug "felixr/docker-zsh-completion"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-history-substring-search"
 zplug "johnhamelink/rvm-zsh", lazy:true
 zplug 'mfaerevaag/wd', as:command, use:"wd.sh", hook-load:"wd() { . $ZPLUG_REPOS/mfaerevaag/wd/wd.sh }"
 
-bindkey "$terminfo[kcuu1]" history-beginning-search-backward
-bindkey "$terminfo[kcud1]" history-beginning-search-forward
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
+# Preserve opacity
+# See: https://github.com/zsh-users/zsh-autosuggestions/issues/431#issuecomment-502329696
+# Will most likely need removal at a point.
+ZSH_AUTOSUGGEST_IGNORE_WIDGETS=(${(@)ZSH_AUTOSUGGEST_IGNORE_WIDGETS:#zle-\*} zle-\^line-init)
 
 source $HOME/.zsh/expand-multiple-dots.zsh # cd .../.../<tab>?
 setopt prompt_subst # Make sure prompt is able to be generated properly.
