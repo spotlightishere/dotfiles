@@ -10,7 +10,6 @@ zplug "felixr/docker-zsh-completion"
 zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
-zplug "johnhamelink/rvm-zsh", lazy:true
 
 bindkey "$terminfo[kcuu1]" history-beginning-search-backward
 bindkey "$terminfo[kcud1]" history-beginning-search-forward
@@ -118,4 +117,10 @@ fi
 
 if [ -d $HOME/.fastlane ]; then
   export PATH="$HOME/.fastlane/bin:$PATH"
+fi
+
+# RVM must be last.
+if [ -d $HOME/.rvm ]; then
+  PATH=${PATH}:$HOME/.rvm/bin
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ]]
 fi
