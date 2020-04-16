@@ -11,7 +11,6 @@ zplug "zsh-users/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-autosuggestions"
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-history-substring-search"
-zplug "johnhamelink/rvm-zsh", lazy:true
 zplug 'mfaerevaag/wd', as:command, use:"wd.sh", hook-load:"wd() { . $ZPLUG_REPOS/mfaerevaag/wd/wd.sh }"
 
 bindkey "^[[A" history-beginning-search-backward
@@ -119,7 +118,7 @@ if [ -f $HOME/.keysrc ]; then
 fi
 
 if [ -d $HOME/.cargo ]; then
-  export PATH="$HOME/.cargo/bin:$PATH"
+  source $HOME/.cargo/env
 fi
 
 if [ -d $HOME/.ghcup ]; then
@@ -128,4 +127,10 @@ fi
 
 if [ -d $HOME/.fastlane ]; then
   export PATH="$HOME/.fastlane/bin:$PATH"
+fi
+
+# RVM must be last.
+if [ -d $HOME/.rvm ]; then
+  PATH=${PATH}:$HOME/.rvm/bin
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ]]
 fi
