@@ -1,17 +1,12 @@
-#########
-# zplug configuraton
-#########
-export ZPLUG_HOME=$HOME/.zplug
-source $ZPLUG_HOME/init.zsh
+function load_plugin() {
+  source ~/.zsh/$1/$1.plugin.zsh
+}
 
-zplug "felixr/docker-zsh-completion"
-
-# Stuff that modifies
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "zsh-users/zsh-autosuggestions"
-zplug "zsh-users/zsh-completions"
-zplug "zsh-users/zsh-history-substring-search"
-zplug 'mfaerevaag/wd', as:command, use:"wd.sh", hook-load:"wd() { . $ZPLUG_REPOS/mfaerevaag/wd/wd.sh }"
+# Things that modify
+load_plugin "zsh-syntax-highlighting"
+load_plugin "zsh-autosuggestions"
+load_plugin "zsh-completions"
+load_plugin "zsh-history-substring-search"
 
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
@@ -30,7 +25,9 @@ setopt share_history # goodbye, out-of-sync cross-shell passwords
 setopt auto_list # magic and things involving listing of items
 setopt auto_menu # Use a menu because I'm _that_ type of person
 
-zplug "caiogondim/bullet-train.zsh", use:bullet-train.zsh-theme, defer:3
+# Theme requires oh-my-zsh's git functions.
+source ~/.zsh/theme.zsh
+source ~/.zsh/bullet-train.zsh/bullet-train.zsh-theme
 
 # Configure prompt to my liking.
 BULLETTRAIN_PROMPT_ORDER=(
@@ -45,17 +42,6 @@ BULLETTRAIN_PROMPT_ORDER=(
 )
 BULLETTRAIN_PROMPT_CHAR=">"
 BULLETTRAIN_DIR_BG="black"
-
-# Install plugins if there are plugins that have not been installed
-if ! zplug check --verbose; then
-  printf "Install? [y/N]: "
-  if read -q; then
-    echo; zplug install
-  fi
-fi
-
-# Let's do this.
-zplug load
 
 #########
 # the env _essentials_
@@ -74,7 +60,6 @@ fi
 
 # Google Cloud tools
 if [ -d ${HOME}/bin/google-cloud-sdk ]; then
-  source ${HOME}/bin/google-cloud-sdk/completion.zsh.inc
   source ${HOME}/bin/google-cloud-sdk/path.zsh.inc
 fi
 
@@ -108,6 +93,8 @@ fi
 if [[ $OSTYPE == darwin* ]]; then
   # Fix Homebrew pathing.
   export PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
+  # Fix ZSH site-functions pathing due to Homebrew.
+  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
 fi
 
 # Personal preferences
@@ -133,4 +120,13 @@ fi
 if [ -d $HOME/.rvm ]; then
   PATH=${PATH}:$HOME/.rvm/bin
   [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ]]
+fi
+
+autoload -Uz compinit
+compinit
+
+# Google Cloud tries to prematurely call compinit for completion.
+# I don't want >1 second load times.
+if [ -d ${HOME}/bin/google-cloud-sdk ]; then
+  source ${HOME}/bin/google-cloud-sdk/completion.zsh.inc
 fi
