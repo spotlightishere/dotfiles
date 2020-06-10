@@ -3,10 +3,10 @@ function load_plugin() {
 }
 
 # Things that modify
-load_plugin "zsh-syntax-highlighting"
 load_plugin "zsh-autosuggestions"
 load_plugin "zsh-completions"
 load_plugin "zsh-history-substring-search"
+load_plugin "zsh-syntax-highlighting"
 
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
@@ -35,7 +35,6 @@ BULLETTRAIN_PROMPT_ORDER=(
   status
   custom
   dir
-  screen
   ruby
   go
   git
