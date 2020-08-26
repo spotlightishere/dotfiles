@@ -1,13 +1,15 @@
 [filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
 [user]
-	name = Spotlight
+  name = Spotlight
   email = spotlight@joscomputing.space
   signingkey = 6EF6CBB6420B81DA3CCACFEA874AA355B3209BDC
 [commit]
-	gpgsign = true
+  gpgsign = true
 [color]
-	ui = auto
+  ui = auto
+[pull]
+  rebase = true
