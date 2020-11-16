@@ -1,4 +1,4 @@
-function load_plugin() {
+load_plugin() {
   source ~/.zsh/$1/$1.plugin.zsh
 }
 
@@ -118,7 +118,7 @@ fi
 # RVM must be last.
 if [ -d $HOME/.rvm ]; then
   PATH=${PATH}:$HOME/.rvm/bin
-  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" ]]
+  source "$HOME/.rvm/scripts/rvm"
 fi
 
 autoload -Uz compinit
