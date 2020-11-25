@@ -57,21 +57,17 @@ if [ -d ${HOME}/bin/android-sdk ]; then
   export PATH="${HOME}/bin/android-sdk/platform-tools:${PATH}"
 fi
 
-# Google Cloud tools
-if [ -d ${HOME}/bin/google-cloud-sdk ]; then
-  source ${HOME}/bin/google-cloud-sdk/path.zsh.inc
+# Go
+if [ -d ${HOME}/go ]; then
+  export GOPATH=${HOME}/go
+  export PATH=${GOPATH}/bin:${PATH}
 fi
 
-# iTerm2 integration, only if detected as installed
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# Go
-export GOPATH=${HOME}/go
-export PATH=${GOPATH}/bin:${PATH}
-
 # theos
-export THEOS=${HOME}/.theos
-export PATH=${THEOS}/bin:$PATH
+if [ -d ${HOME}/.theos ]; then
+  export THEOS=${HOME}/.theos
+  export PATH=${THEOS}/bin:$PATH
+fi
 
 # devkitPro and the like
 if [ -d /opt/devkitpro ]; then
@@ -81,19 +77,31 @@ if [ -d /opt/devkitpro ]; then
   export PATH=/opt/devkitpro/tools/bin:$PATH
 fi
 
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-  if [ -s /etc/profile.d/vte.sh ]; then
-    source /etc/profile.d/vte.sh
-  elif [ -s /etc/profile.d/vte-2.91.sh ]; then
-    source /etc/profile.d/vte-2.91.sh
-  fi
-fi
-
 if [[ $OSTYPE == darwin* ]]; then
-  # Fix Homebrew pathing.
-  export PATH="/usr/local/bin:/usr/local/sbin:${PATH}"
-  # Fix ZSH site-functions pathing due to Homebrew.
-  FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+  # Under x86_64, we assume brew is in /usr/local.
+  # However, under arm64e, it may be under /opt/homebrew.
+  # Alternatively, the user may not have Homebrew installed
+  # whatsoever, in which nothing needs to be done.
+  # (By user, I mean me, and the occasional VM.)
+  if [ -f /usr/local/bin/brew ]; then
+    BREW_PREFIX="/usr/local"
+    BREW_FOUND=true
+  elif [ -f /opt/homebrew/bin/brew ]; then
+    BREW_PREFIX="/opt/homebrew"
+    BREW_FOUND=true
+  else
+    BREW_FOUND=false
+  fi
+
+  if $BREW_FOUND; then
+    # Ensure Homebrew can be found within the path.
+    export PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
+  fi
+
+  # Under Darwin, we also want iTerm2 integration if possible.
+  if [ -f ${HOME}/.iterm2_shell_integration.zsh ]; then
+    source "${HOME}/.iterm2_shell_integration.zsh"
+  fi
 fi
 
 # Personal preferences
@@ -127,5 +135,6 @@ compinit
 # Google Cloud tries to prematurely call compinit for completion.
 # I don't want >1 second load times.
 if [ -d ${HOME}/bin/google-cloud-sdk ]; then
+  source ${HOME}/bin/google-cloud-sdk/path.zsh.inc
   source ${HOME}/bin/google-cloud-sdk/completion.zsh.inc
 fi
