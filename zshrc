@@ -96,6 +96,7 @@ if [[ $OSTYPE == darwin* ]]; then
   if $BREW_FOUND; then
     # Ensure Homebrew can be found within the path.
     export PATH="${BREW_PREFIX}/bin:${BREW_PREFIX}/sbin:${PATH}"
+    export FPATH="${BREW_PREFIX}/share/zsh/site-functions:$FPATH"
   fi
 
   # Under Darwin, we also want iTerm2 integration if possible.
