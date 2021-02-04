@@ -25,22 +25,8 @@ setopt share_history # goodbye, out-of-sync cross-shell passwords
 setopt auto_list # magic and things involving listing of items
 setopt auto_menu # Use a menu because I'm _that_ type of person
 
-# Theme requires oh-my-zsh's git functions.
-source ~/.zsh/theme.zsh
-source ~/.zsh/bullet-train.zsh/bullet-train.zsh-theme
-
-# Configure prompt to my liking.
-BULLETTRAIN_PROMPT_ORDER=(
-  time
-  status
-  custom
-  dir
-  ruby
-  go
-  git
-)
-BULLETTRAIN_PROMPT_CHAR=">"
-BULLETTRAIN_DIR_BG="black"
+source ~/.zsh/powerlevel10k/powerlevel10k.zsh-theme
+source ~/.p10k.zsh
 
 #########
 # the env _essentials_
