@@ -33,7 +33,7 @@ source ~/.p10k.zsh
 #########
 
 export HISTFILE="$HOME/.zsh_history"
-export HISTSIZE=3000
+export HISTSIZE=5000
 export SAVEHIST=$HISTSIZE
 export PATH="${HOME}/bin:$PATH"
 export GPG_TTY=$(tty)
