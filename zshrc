@@ -98,16 +98,24 @@ if [ -f $HOME/.keysrc ]; then
   source $HOME/.keysrc
 fi
 
+# Rust
 if [ -d $HOME/.cargo ]; then
   source $HOME/.cargo/env
 fi
 
+# Haskell
 if [ -d $HOME/.ghcup ]; then
   export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 fi
 
+# Fastlane
 if [ -d $HOME/.fastlane ]; then
   export PATH="$HOME/.fastlane/bin:$PATH"
+fi
+
+# Haxe
+if [ -d $BREW_PREFIX/lib/haxe ]; then
+  export HAXE_STD_PATH="$BREW_PREFIX/lib/haxe/std"
 fi
 
 # RVM must be last.
