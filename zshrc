@@ -118,6 +118,11 @@ if [ -d $BREW_PREFIX/lib/haxe ]; then
   export HAXE_STD_PATH="$BREW_PREFIX/lib/haxe/std"
 fi
 
+# Prefer using the latest Swift toolchain installed if available.
+if [ -d /Library/Developer/Toolchains/swift-latest.xctoolchain ]; then
+  export PATH="/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin:$PATH"
+fi
+
 # RVM must be last.
 if [ -d $HOME/.rvm ]; then
   PATH=${PATH}:$HOME/.rvm/bin
