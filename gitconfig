@@ -4,8 +4,8 @@
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
 [user]
-	name = Spotlight
-	email = spotlight@joscomputing.space
+  name = Spotlight
+  email = spotlight@joscomputing.space
   signingkey = 6EF6CBB6420B81DA3CCACFEA874AA355B3209BDC
 [commit]
   gpgsign = true
@@ -14,4 +14,4 @@
 [pull]
   rebase = true
 [init]
-	defaultBranch = main
+  defaultBranch = main
