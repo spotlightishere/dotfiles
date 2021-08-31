@@ -97,6 +97,11 @@ if [ -f $HOME/.keysrc ]; then
   source $HOME/.keysrc
 fi
 
+# Allow nix if possible
+if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
+  source $HOME/.nix-profile/etc/profile.d/nix.sh
+fi
+
 # Rust
 if [ -d $HOME/.cargo ]; then
   source $HOME/.cargo/env
