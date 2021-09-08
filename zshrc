@@ -8,12 +8,8 @@ load_plugin "zsh-completions"
 load_plugin "zsh-history-substring-search"
 load_plugin "zsh-syntax-highlighting"
 
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
-# Preserve opacity
-# See: https://github.com/zsh-users/zsh-autosuggestions/issues/431#issuecomment-502329696
-# Will most likely need removal at a point.
-ZSH_AUTOSUGGEST_IGNORE_WIDGETS=(${(@)ZSH_AUTOSUGGEST_IGNORE_WIDGETS:#zle-\*} zle-\^line-init)
+bindkey '^[[A' history-beginning-search-backward
+bindkey '^[[B' history-beginning-search-forward
 
 source $HOME/.zsh/expand-multiple-dots.zsh # cd .../.../<tab>?
 setopt prompt_subst # Make sure prompt is able to be generated properly.
