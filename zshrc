@@ -32,6 +32,8 @@ source ~/.p10k.zsh
 #########
 # the env _essentials_
 #########
+# Goodbye, Atom. Sorry, muscle memory.
+alias atom='code'
 
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=5000
