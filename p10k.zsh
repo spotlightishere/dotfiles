@@ -35,6 +35,7 @@
     newline
     # =========================[ Line #1 ]=========================
     time                    # current time
+    context
     dir                     # current directory
     rvm                     # ruby version from rvm (https://rvm.io)
     vcs                     # git status
