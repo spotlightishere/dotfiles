@@ -32,9 +32,6 @@ source ~/.p10k.zsh
 #########
 # the env _essentials_
 #########
-# Goodbye, Atom. Sorry, muscle memory.
-alias atom='code'
-
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=5000
 export SAVEHIST=$HISTSIZE
@@ -85,6 +82,12 @@ if [[ $OSTYPE == darwin* ]]; then
   if $BREW_FOUND; then
     # Ensure Homebrew can be found within the path.
     eval $($BREW_PREFIX/bin/brew shellenv)
+  fi
+
+  # If we have it available, permit MacPorts.
+  if [ -f /opt/local/bin/port ]; then
+    export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+    export MANPATH="/opt/local/share/man:$MANPATH"
   fi
 
   # Under Darwin, we also want iTerm2 integration if possible.
