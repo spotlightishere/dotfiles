@@ -10,9 +10,6 @@
 [submodule "vim/pack/normal/start/vim-toml"]
 	path = vim/pack/normal/start/vim-toml
 	url = https://github.com/cespare/vim-toml.git
-[submodule "vim/pack/normal/start/vim-elixir"]
-	path = vim/pack/normal/start/vim-elixir
-	url = https://github.com/elixir-editors/vim-elixir
 [submodule "zsh/zsh-syntax-highlighting"]
 	path = zsh/zsh-syntax-highlighting
 	url = https://github.com/zsh-users/zsh-syntax-highlighting
