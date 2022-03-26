@@ -127,6 +127,11 @@ if [ -d /Library/Developer/Toolchains/swift-latest.xctoolchain ]; then
   export PATH="/Library/Developer/Toolchains/swift-latest.xctoolchain/usr/bin:$PATH"
 fi
 
+# Support mint (https://github.com/yonaskolb/Mint)
+if [ -d $HOME/.mint/bin ]; then
+  export PATH="$HOME/.mint/bin:$PATH"
+fi
+
 # RVM must be last.
 if [ -d $HOME/.rvm ]; then
   PATH=${PATH}:$HOME/.rvm/bin
