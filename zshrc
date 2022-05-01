@@ -60,7 +60,6 @@ if [ -d /opt/devkitpro ]; then
   export DEVKITPRO=/opt/devkitpro
   export DEVKITARM=/opt/devkitpro/devkitARM
   export DEVKITPPC=/opt/devkitpro/devkitPPC
-  export PATH=/opt/devkitpro/tools/bin:$PATH
 fi
 
 if [[ $OSTYPE == darwin* ]]; then
@@ -98,8 +97,9 @@ if [ -f $HOME/.keysrc ]; then
 fi
 
 # Allow nix if possible
-if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then
-  source $HOME/.nix-profile/etc/profile.d/nix.sh
+if [ -d /nix ]; then
+  # https://github.com/NixOS/nix/issues/2033
+  export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
 fi
 
 # Rust
