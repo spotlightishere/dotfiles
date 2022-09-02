@@ -147,3 +147,8 @@ if [ -d ${HOME}/bin/google-cloud-sdk ]; then
   source ${HOME}/bin/google-cloud-sdk/path.zsh.inc
   source ${HOME}/bin/google-cloud-sdk/completion.zsh.inc
 fi
+
+# Similarly for Scaleway...
+if [ -d ${HOME}/.config/scw ]; then
+  eval "$(scw autocomplete script shell=zsh)"
+fi
