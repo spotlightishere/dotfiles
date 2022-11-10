@@ -7,9 +7,10 @@ set backspace=indent,eol,start
 
 " two-spaced tabs
 set tabstop=2
-set softtabstop=0 noexpandtab
+set softtabstop=0
 set shiftwidth=2
-set tabstop=2 softtabstop=0 expandtab shiftwidth=2 smarttab
+set noexpandtab
+set smarttab
 
 " custom filetypes
 autocmd BufNewFile,BufRead *.plist set syntax=xml
