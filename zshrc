@@ -103,7 +103,7 @@ if [ -d /nix ]; then
 fi
 
 # Rust
-if [ -d $HOME/.cargo ]; then
+if [ -d $HOME/.cargo/env ]; then
   source $HOME/.cargo/env
 fi
 
