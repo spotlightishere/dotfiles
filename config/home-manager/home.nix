@@ -52,7 +52,7 @@
       # TODO: expand-multiple-dots.zsh should be bundled alone.
       {
         name = "exand-multiple-dots";
-        src = "/home/spotlight/.dotfiles/zsh";
+        src = "${config.home.homeDirectory}/.dotfiles/zsh";
         file = "expand-multiple-dots.zsh";
       }
     ];
@@ -90,7 +90,7 @@
 
   # We must source the p10k config.
   # TODO: We should manage the config via programs.zsh.plugins.
-  home.file.".p10k.zsh".source = "/home/spotlight/.dotfiles/p10k.zsh";
+  home.file.".p10k.zsh".source = "${config.home.homeDirectory}/.dotfiles/p10k.zsh";
   programs.zsh.initExtra = ''
     source $HOME/.p10k.zsh
 
@@ -115,3 +115,4 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
+
