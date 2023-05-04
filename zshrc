@@ -103,9 +103,8 @@ if [ -f $HOME/.keysrc ]; then
 fi
 
 # Allow nix if possible
-if [ -d /nix ]; then
-  # https://github.com/NixOS/nix/issues/2033
-  export NIX_PATH=$HOME/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+  . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
 
 # Rust
