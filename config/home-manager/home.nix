@@ -1,5 +1,3 @@
-{ config, pkgs, ... }:
-
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -16,11 +14,11 @@
 
   home.packages = with pkgs; [
     dogdns
+    go
     htop
     mtr
     ncdu
     tmux
-    vim
   ];
 
   # Very opinionated :)
@@ -59,6 +57,34 @@
     # The .p10k.zsh config is beneath.
   };
 
+  programs.vim = {
+    enable = true;
+    plugins = with pkgs; [
+      pkgs.vimPlugins.vim-airline
+      pkgs.vimPlugins.vim-airline-themes
+      pkgs.vimPlugins.vim-go
+    ];
+    settings = {
+      number = true;
+
+      # Two-spaced tabs
+      tabstop = 2;
+      expandtab = false;
+    };
+    extraConfig = ''
+      set nocompatible
+      filetype off
+      syntax on
+      filetype plugin indent on
+      set backspace=indent,eol,start
+
+      " custom filetypes
+      autocmd BufNewFile,BufRead *.plist set syntax=xml
+
+      " vim-airline
+      let g:airline_powerline_fonts = 1
+    '';
+  };
 
   # We must source the p10k config.
   # TODO: We should manage the config via programs.zsh.plugins.
