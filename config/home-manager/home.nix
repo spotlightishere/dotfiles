@@ -15,7 +15,6 @@
     "/home/spotlight";
 
   home.packages = with pkgs; [
-    dogdns
     go
     htop
     mtr
@@ -23,6 +22,23 @@
     tmux
   ];
 
+  # Git
+  programs.git = {
+    enable = true;
+    lfs.enable = true;
+    
+    userName = "Spotlight";
+    userEmail = "spotlight@joscomputing.space";
+    signing = {
+      key = "6EF6CBB6420B81DA3CCACFEA874AA355B3209BDC";
+      signByDefault = true;
+    };
+    extraConfig = {
+      color.ui = "auto";
+      pull.rebase = true;
+      init.defaultBranch = "main";
+    };
+  };
   # Very opinionated :)
   programs.zsh = {
     enable = true;
