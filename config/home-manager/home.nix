@@ -94,12 +94,9 @@
   programs.zsh.initExtra = ''
     source $HOME/.p10k.zsh
 
-    # We manually include zsh-history-substring-search.
-    autoload -U history-search
-    zle -N history-beginning-search-backward history-search
-    zle -N history-beginning-search-forward history-search
-    bindkey '^[[A' history-beginning-search-backward
-    bindkey '^[[B' history-beginning-search-forward
+    # History search, but from beginning
+    bindkey "^[[A" history-beginning-search-backward
+    bindkey "^[[B" history-beginning-search-forward
   '';
 
   # This value determines the Home Manager release that your
