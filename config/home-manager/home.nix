@@ -65,10 +65,9 @@
         };
         file = "powerlevel10k.zsh-theme";
       }
-      # TODO: expand-multiple-dots.zsh should be bundled alone.
       {
-        name = "exand-multiple-dots";
-        src = "${config.home.homeDirectory}/.dotfiles/zsh";
+        name = "expand-multiple-dots";
+        src = "${config.home.homeDirectory}/.dotfiles/zsh/expand-multiple-dots";
         file = "expand-multiple-dots.zsh";
       }
     ];
