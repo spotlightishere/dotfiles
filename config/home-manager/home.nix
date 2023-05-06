@@ -1,6 +1,16 @@
 { config, pkgs, ... }:
 
-{
+# In order to allow reuse of the iTerm2 shell integrations repo
+# for both its utility symlinks and zsh initialization plugin,
+# we define how to fetch it here.
+let
+  iterm2_shell_integration = pkgs.fetchFromGitHub {
+    owner = "gnachman";
+    repo = "iTerm2-shell-integration";
+    rev = "43a6dd3259be5dcdb36e733d0898924d9d8c059d";
+    sha256 = "gsP72bEgNa+F9rjhLPMgzHtrrqIIFcZxPx3uDBtixp0=";
+  };
+in {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   # TODO(spotlightishere): Is there a cleaner approach?
@@ -78,6 +88,11 @@
         src = "${config.home.homeDirectory}/.dotfiles/zsh/expand-multiple-dots";
         file = "expand-multiple-dots.zsh";
       }
+      {
+        name = "iterm2-shell-integration";
+        src = iterm2_shell_integration;
+        file = "shell_integration/zsh";
+      }
     ];
     # The .p10k.zsh config is beneath.
   };
@@ -120,6 +135,8 @@
   # We must source the p10k config.
   # TODO: We should manage the config via programs.zsh.plugins.
   home.file.".p10k.zsh".source = "${config.home.homeDirectory}/.dotfiles/p10k.zsh";
+  # We'd also like to have the iTerm2 shell integration utilities in ~/.iterm2.
+  home.file.".iterm2".source = "${iterm2_shell_integration}/utilities";
   programs.zsh.initExtra = ''
     source $HOME/.p10k.zsh
 
