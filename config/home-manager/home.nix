@@ -140,6 +140,9 @@ in {
   programs.zsh.initExtra = ''
     source $HOME/.p10k.zsh
 
+    # pushd
+    setopt AUTO_PUSHD
+
     # History search, but from beginning
     bindkey "^[[A" history-beginning-search-backward
     bindkey "^[[B" history-beginning-search-forward
