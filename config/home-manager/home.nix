@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 # In order to allow reuse of the iTerm2 shell integrations repo
 # for both its utility symlinks and zsh initialization plugin,
@@ -49,6 +49,15 @@ in {
       init.defaultBranch = "main";
     };
   };
+      
+  # GPG
+  programs.gpg.enable = true;
+  home.file.".gnupg/gpg-agent.conf" = lib.mkIf pkgs.stdenv.isDarwin {
+    text = ''
+      pinentry-program "${pkgs.pinentry_mac}/Applications/pinentry-mac.app/Contents/MacOS/pinentry-mac"
+    '';
+  };
+
   # password-store
   programs.password-store = {
     enable = true;
