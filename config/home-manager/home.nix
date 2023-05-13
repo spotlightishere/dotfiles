@@ -25,11 +25,15 @@ in {
     "/home/spotlight";
 
   home.packages = with pkgs; [
+    ffmpeg
     go
+    google-cloud-sdk
     htop
     mtr
     ncdu
     tmux
+    virt-manager
+    yt-dlp
   ];
 
   # Git
