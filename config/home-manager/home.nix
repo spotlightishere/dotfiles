@@ -89,16 +89,6 @@ in {
     enableSyntaxHighlighting = true;
     plugins = with pkgs; [
       {
-        name = "p10k";
-        src = fetchFromGitHub {
-          owner = "romkatv";
-          repo = "powerlevel10k";
-          rev = "v1.18.0";
-          sha256 = "IiMYGefF+p4bUueO/9/mJ4mHMyJYiq+67GgNdGJ6Eew=";
-        };
-        file = "powerlevel10k.zsh-theme";
-      }
-      {
         name = "expand-multiple-dots";
         src = "${config.home.homeDirectory}/.dotfiles/zsh/expand-multiple-dots";
         file = "expand-multiple-dots.zsh";
@@ -109,7 +99,11 @@ in {
         file = "shell_integration/zsh";
       }
     ];
+    
+    # We use powerlevel10k as our ZSH theme.
+    # By using the derivation in nixpkgs, we also get gitstatusd.
     # The .p10k.zsh config is beneath.
+    initExtraBeforeCompInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
   };
 
   programs.vim = {
