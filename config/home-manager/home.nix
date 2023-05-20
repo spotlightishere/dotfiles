@@ -31,8 +31,10 @@ in {
     htop
     mtr
     ncdu
+    pry
     tmux
     virt-manager
+    wget
     yt-dlp
   ];
 
