@@ -33,7 +33,9 @@ in {
     ncdu
     pry
     pwgen
+    rustup
     tmux
+    unar
     virt-manager
     wget
     yt-dlp
