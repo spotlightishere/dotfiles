@@ -110,6 +110,12 @@ in {
         src = iterm2_shell_integration;
         file = "shell_integration/zsh";
       }
+      {
+        # Our zsh-powerlevel10k configuration file.
+        name = "p10k";
+        src = ./zsh/p10k;
+        file = "p10k.zsh";
+      }
     ];
     
     # We use powerlevel10k as our ZSH theme.
@@ -153,17 +159,10 @@ in {
     '';
   };
 
-  home.file = {
-    # We must source the p10k config.
-    # TODO: We should manage the config via programs.zsh.plugins.
-    ".p10k.zsh".source = ./zsh/p10k.zsh;
-    # We'd also like to have the iTerm2 shell integration utilities in ~/.iterm2.
-    ".iterm2".source = "${iterm2_shell_integration}/utilities";
-  };
+  # We'd like to have the iTerm2 shell integration utilities in ~/.iterm2.
+  home.file.".iterm2".source = "${iterm2_shell_integration}/utilities";
 
   programs.zsh.initExtra = ''
-    source $HOME/.p10k.zsh
-
     # pushd
     setopt AUTO_PUSHD
 
