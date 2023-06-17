@@ -25,18 +25,26 @@ in {
     "/home/spotlight";
 
   home.packages = with pkgs; [
+    cloc
+    croc
     ffmpeg
     go
     google-cloud-sdk
+    gradle
     htop
+    jdk
+    jq
     mtr
     ncdu
+    nixopsUnstable
+    p7zip
     pry
     pwgen
     rustup
     tmux
     unar
     virt-manager
+    watch
     wget
     yt-dlp
   ];
