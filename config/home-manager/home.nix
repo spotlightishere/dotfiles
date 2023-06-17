@@ -7,8 +7,8 @@ let
   iterm2_shell_integration = pkgs.fetchFromGitHub {
     owner = "gnachman";
     repo = "iTerm2-shell-integration";
-    rev = "43a6dd3259be5dcdb36e733d0898924d9d8c059d";
-    sha256 = "gsP72bEgNa+F9rjhLPMgzHtrrqIIFcZxPx3uDBtixp0=";
+    rev = "6554045b1184b213fdc9d731a45e8a75858291de";
+    sha256 = "yhgowvJfxVdJE1yVYPWnJYvzhMsPc+HgkmDa++CcTDo=";
   };
 in {
   # Home Manager needs a bit of information about you and the
