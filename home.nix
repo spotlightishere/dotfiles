@@ -102,7 +102,7 @@ in {
     plugins = with pkgs; [
       {
         name = "expand-multiple-dots";
-        src = "${config.home.homeDirectory}/.dotfiles/zsh/expand-multiple-dots";
+        src = ./zsh/expand-multiple-dots;
         file = "expand-multiple-dots.zsh";
       }
       {
@@ -153,11 +153,14 @@ in {
     '';
   };
 
-  # We must source the p10k config.
-  # TODO: We should manage the config via programs.zsh.plugins.
-  home.file.".p10k.zsh".source = "${config.home.homeDirectory}/.dotfiles/p10k.zsh";
-  # We'd also like to have the iTerm2 shell integration utilities in ~/.iterm2.
-  home.file.".iterm2".source = "${iterm2_shell_integration}/utilities";
+  home.file = {
+    # We must source the p10k config.
+    # TODO: We should manage the config via programs.zsh.plugins.
+    ".p10k.zsh".source = ./zsh/p10k.zsh;
+    # We'd also like to have the iTerm2 shell integration utilities in ~/.iterm2.
+    ".iterm2".source = "${iterm2_shell_integration}/utilities";
+  };
+
   programs.zsh.initExtra = ''
     source $HOME/.p10k.zsh
 
