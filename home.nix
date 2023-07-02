@@ -27,18 +27,23 @@ in {
   home.packages = with pkgs; [
     cloc
     croc
+    exiftool
     ffmpeg
     go
     google-cloud-sdk
     gradle
     htop
+    imagemagick
+    jadx
     jdk
     jq
     mtr
     ncdu
     nixopsUnstable
     p7zip
+    pngcrush
     pry
+    protobuf
     pwgen
     rustup
     tmux
@@ -98,7 +103,7 @@ in {
     # Common plugins.
     enableAutosuggestions = true;
     enableCompletion = true;
-    enableSyntaxHighlighting = true;
+    syntaxHighlighting.enable = true;
     plugins = with pkgs; [
       {
         name = "expand-multiple-dots";
