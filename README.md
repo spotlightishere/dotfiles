@@ -1,14 +1,19 @@
 # Spotlight's dotfiles
-On devices I consider personal, I like having a similar style within zsh. I heavily utilize macOS, BSD and various Linux, so it's important that these dotfiles work consistently across them all.
+I heavily utilize macOS, BSD and various Linux distributions, so it's important that these dotfiles work consistently across them all.
 
-I make heavy usage of Git submodules. Occasionally, these are updated. Please ensure when pulling my dotfiles that you also `git submodule update`.
+As such, I utilize [Nix](https://nixos.org) with [home-manager](https://github.com/nix-community/home-manager).
+
+
+## Expectations
+Please don't consider this a great basis for your own configuration - it works well for me!
+As such, some things may make assumptions you would not as well :)
 
 ## Installation
-```
-git clone --recursive https://git.joscomputing.space/spotlight/dotfiles ~/.dotfiles
-cp ~/.dotfiles/dotfilesrc ~/.dotfilesrc
-pip3 install dotfiles
-dotfiles --sync --force
-```
+This may require things to be adapted based on the platform.
 
-This creates a symbolic link from any file or directory within `~/.dotfiles/` to their respective place in `~/`. I prefer the `.dotfilesrc` to be managed as well.
+```
+git clone https://git.joscomputing.space/spotlight/dotfiles ~/.config/home-manager
+# Or as otherwise described for flake usage within the Home Manager manual:
+# https://nix-community.github.io/home-manager/index.html#sec-flakes-standalone
+nix run home-manager/master -- init --switch
+```
