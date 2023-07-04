@@ -8,6 +8,12 @@ As such, I utilize [Nix](https://nixos.org) with [home-manager](https://github.c
 Please don't consider this a great basis for your own configuration - it works well for me!
 As such, some things may make assumptions you would not as well :)
 
+A few assumptions are made, reflecting my current knowledge of Nix:
+ - All Darwin machines are assumed to be desktop devices.
+    - (This is not true, but... we'll take it.)
+ - All Linux machines are... not, and fit a dotfiles-only configuration.
+    - (This is not true, but for the most part works due to packages being provided by other package managers.)
+
 ## Installation
 This may require things to be adapted based on the platform.
 
