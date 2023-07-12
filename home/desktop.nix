@@ -3,6 +3,7 @@
 {
   # Commonly used packages.
   home.packages = with pkgs; [
+    binwalk
     cloc
     croc
     exiftool
@@ -15,14 +16,17 @@
     jadx
     jdk
     jq
+    meld
     mtr
     ncdu
+    neofetch
     nixopsUnstable
     p7zip
     pngcrush
     pry
     protobuf
     pwgen
+    radare2
     rustup
     tmux
     unar
