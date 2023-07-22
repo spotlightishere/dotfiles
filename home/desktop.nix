@@ -6,6 +6,7 @@
 
   # Commonly used packages.
   home.packages = with pkgs; [
+    bazel
     binwalk
     cloc
     croc
