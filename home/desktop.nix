@@ -33,6 +33,7 @@
     pwgen
     radare2
     rustup
+    swiftformat
     tmux
     unar
     virt-manager
