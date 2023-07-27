@@ -31,6 +31,7 @@
     pry
     protobuf
     pwgen
+    qemu
     radare2
     rustup
     swiftformat
