@@ -40,6 +40,7 @@
     virt-manager
     watch
     wget
+    xz
     yt-dlp
   ];
 
