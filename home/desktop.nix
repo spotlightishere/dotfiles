@@ -6,7 +6,7 @@
 
   # Commonly used packages.
   home.packages = with pkgs; [
-    bazel
+    bazelisk
     binwalk
     cloc
     croc
@@ -22,6 +22,7 @@
     jq
     meld
     monaco-powerline
+    mtools
     mtr
     ncdu
     neofetch
