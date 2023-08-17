@@ -24,7 +24,10 @@
     monaco-powerline
     mtools
     mtr
-    ncdu
+    # TODO: Zig currently has issues under Darwin, so
+    # we'll temporarily prefer ncdu 1.x.
+    # See also: https://github.com/NixOS/nixpkgs/pull/249722
+    ncdu_1
     neofetch
     nixopsUnstable
     p7zip
