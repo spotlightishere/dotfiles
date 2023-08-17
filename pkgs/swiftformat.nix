@@ -1,19 +1,14 @@
 { stdenv, lib, fetchFromGitHub, swift, swiftpm, swiftPackages }:
 
-# This derivation is impure: it relies on an Xcode toolchain being installed
-# and available in the expected place. The values of sandboxProfile and
-# hydraPlatforms are copied pretty directly from the MacVim derivation, which
-# is also impure.
-
 stdenv.mkDerivation rec {
   pname = "swiftformat";
-  version = "0.52.0";
+  version = "0.52.1";
 
   src = fetchFromGitHub {
     owner = "nicklockwood";
     repo = "SwiftFormat";
     rev = version;
-    sha256 = "sha256-Y8ZbmFdrNCzfGLeA+nPc0DHXBHaUw6JFpONbm+LnTjk=";
+    sha256 = "sha256-0JSspbYIYXfE3oDMi2EfR7pZzQsEtbvB8LJplOtq2sk=";
   };
 
   nativeBuildInputs = [ swift swiftpm ];
