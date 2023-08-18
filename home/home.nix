@@ -33,6 +33,7 @@ in {
       color.ui = "auto";
       pull.rebase = true;
       init.defaultBranch = "main";
+      blame.ignoreRevsFile = ".git-blame-ignore-revs";
     };
   };
 
