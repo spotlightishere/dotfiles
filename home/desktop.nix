@@ -10,6 +10,7 @@
     binwalk
     cloc
     croc
+    dmg2img
     exiftool
     ffmpeg
     go
@@ -25,6 +26,7 @@
     mtools
     mtr
     ncdu
+    nmap
     neofetch
     nixopsUnstable
     p7zip
