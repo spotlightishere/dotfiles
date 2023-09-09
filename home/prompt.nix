@@ -17,7 +17,7 @@ in {
     # We want several options:
     autocd = true;
     history = {
-      ignoreDups = true;
+      ignoreAllDups = true;
       ignoreSpace = true;
     };
 
@@ -43,7 +43,7 @@ in {
         file = "p10k.zsh";
       }
     ];
-    
+
     # We use powerlevel10k as our ZSH theme.
     # By using the derivation in nixpkgs, we also get gitstatusd.
     # The .p10k.zsh config is beneath.

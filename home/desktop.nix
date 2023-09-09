@@ -13,6 +13,7 @@
     dmg2img
     exiftool
     ffmpeg
+    gcc-arm-embedded
     go
     google-cloud-sdk
     gradle
@@ -45,6 +46,7 @@
     wget
     xz
     yt-dlp
+    zola
   ];
 
   # GPG
