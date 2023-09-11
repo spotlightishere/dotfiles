@@ -1,7 +1,6 @@
 { config, lib, pkgs, specialArgs, ... }:
 
 let
-  prompt = specialArgs.prompt or false;
   desktop = specialArgs.desktop or false;
 in {
   # It's standard convention that Darwin has the username
@@ -26,7 +25,7 @@ in {
     userEmail = "spotlight@joscomputing.space";
     # Only specify signing if GPG is otherwise being pulled in;
     # i.e. in a prompt configuration.
-    signing = lib.mkIf (prompt) {
+    signing = {
       key = "6EF6CBB6420B81DA3CCACFEA874AA355B3209BDC";
       signByDefault = true;
     };
@@ -39,14 +38,14 @@ in {
   };
 
   # Only include the desktop configuration if not dotfiles only.
-  imports = (lib.optional (prompt) (
-    # vim, etc
+  imports = [
+    # vim, etc.
     ./editor.nix
-    # zsh, etc
+    # zsh, etc.
     ./prompt.nix
-  )) ++ (lib.optional (desktop)
-    ./desktop.nix
-  ) ++ [];
+  ]
+  # Primarily GUI applications for desktop usage
+  ++ (lib.optional (desktop) ./desktop.nix);
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

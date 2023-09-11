@@ -13,10 +13,7 @@
   outputs = { nixpkgs, home-manager, ... }:
     let
       homeManager = { system, specialArgs ? {
-        # Whether to configure the zsh prompt.
-        prompt = true;
-
-        # Whether to also install several useful cli tools and desktop applications.
+        # Whether to install desktop-targeted tools and applications.
         #
         # (This primarily focuses around macOS - please use and adopt at your own risk.)
         desktop = false;
