@@ -1,7 +1,8 @@
 { config, lib, pkgs, specialArgs, ... }:
 
 let
-  dotfilesOnly = specialArgs.dotfilesOnly;
+  prompt = specialArgs.prompt or false;
+  desktop = specialArgs.desktop or false;
 in {
   # It's standard convention that Darwin has the username
   # "spot" - "spotlight" was reserved by the system at some point.
@@ -24,8 +25,8 @@ in {
     userName = "Spotlight";
     userEmail = "spotlight@joscomputing.space";
     # Only specify signing if GPG is otherwise being pulled in;
-    # i.e. not in a dotfiles only configuration.
-    signing = lib.mkIf (!dotfilesOnly) {
+    # i.e. in a prompt configuration.
+    signing = lib.mkIf (prompt) {
       key = "6EF6CBB6420B81DA3CCACFEA874AA355B3209BDC";
       signByDefault = true;
     };
@@ -38,14 +39,14 @@ in {
   };
 
   # Only include the desktop configuration if not dotfiles only.
-  imports = [
-    # zsh, etc
-    ./editor.nix
+  imports = (lib.optional (prompt) (
     # vim, etc
+    ./editor.nix
+    # zsh, etc
     ./prompt.nix
-  ] ++ (lib.optional (!dotfilesOnly)
+  )) ++ (lib.optional (desktop)
     ./desktop.nix
-  );
+  ) ++ [];
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

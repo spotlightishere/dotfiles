@@ -13,7 +13,13 @@
   outputs = { nixpkgs, home-manager, ... }:
     let
       homeManager = { system, specialArgs ? {
-        dotfilesOnly = false;
+        # Whether to configure the zsh prompt.
+        prompt = true;
+
+        # Whether to also install several useful cli tools and desktop applications.
+        #
+        # (This primarily focuses around macOS - please use and adopt at your own risk.)
+        desktop = false;
       } }:
         home-manager.lib.homeManagerConfiguration {
           modules = [
@@ -28,7 +34,6 @@
         # require dotfiles. For now, this is mostly true :)
         x86_64-linux.homeConfigurations.spotlight = homeManager {
           system = "x86_64-linux";
-          specialArgs.dotfilesOnly = true;
         };
 
         # Similarly (as of writing), all aarch64 Linux devices are headless
@@ -36,15 +41,16 @@
         # This should likely be dealt with in the future!
         aarch64-linux.homeConfigurations.spotlight = homeManager {
           system = "aarch64-linux";
-          specialArgs.dotfilesOnly = true;
         };
 
         # For all architecture variants of Darwin, we don't want only dotfiles.
         aarch64-darwin.homeConfigurations.spot = homeManager {
           system = "aarch64-darwin";
+          specialArgs.desktop = true;
         };
         x86_64-darwin.homeConfigurations.spot = homeManager {
           system = "x86_64-darwin";
+          specialArgs.desktop = true;
         };
       };
     };
