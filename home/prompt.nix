@@ -62,14 +62,4 @@ in {
 
   # We'd like to have the iTerm2 shell integration utilities in ~/.iterm2.
   home.file.".iterm2".source = "${iterm2_shell_integration}/utilities";
-
-  # We'd also like to have Nix sourced by default within .zshenv, as
-  # non-interactive shells don't always source ~/.zprofile or similar.
-  programs.zsh.envExtra = ''
-    # Nix
-    if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-      . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-    fi
-    # End Nix
-  '';
 }
