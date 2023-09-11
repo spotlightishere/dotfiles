@@ -43,11 +43,17 @@
         # For all architecture variants of Darwin, we don't want only dotfiles.
         aarch64-darwin.homeConfigurations.spot = homeManager {
           system = "aarch64-darwin";
-          specialArgs.desktop = true;
+          specialArgs = {
+            desktop = true;
+            gpg = true;
+          };
         };
         x86_64-darwin.homeConfigurations.spot = homeManager {
           system = "x86_64-darwin";
-          specialArgs.desktop = true;
+          specialArgs = {
+            desktop = true;
+            gpg = true;
+          };
         };
       };
     };

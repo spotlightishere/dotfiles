@@ -2,6 +2,7 @@
 
 let
   desktop = specialArgs.desktop or false;
+  gpg = specialArgs.gpg or false;
 in {
   # It's standard convention that Darwin has the username
   # "spot" - "spotlight" was reserved by the system at some point.
@@ -23,12 +24,6 @@ in {
     
     userName = "Spotlight";
     userEmail = "spotlight@joscomputing.space";
-    # Only specify signing if GPG is otherwise being pulled in;
-    # i.e. in a prompt configuration.
-    signing = {
-      key = "6EF6CBB6420B81DA3CCACFEA874AA355B3209BDC";
-      signByDefault = true;
-    };
     extraConfig = {
       color.ui = "auto";
       pull.rebase = true;
@@ -45,7 +40,9 @@ in {
     ./prompt.nix
   ]
   # Primarily GUI applications for desktop usage
-  ++ (lib.optional (desktop) ./desktop.nix);
+  ++ (lib.optional (desktop) ./desktop.nix)
+  # Configuration reliant on GPG keys being available
+  ++ (lib.optional (gpg) ./desktop.nix);
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
