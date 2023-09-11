@@ -12,12 +12,7 @@
 
   outputs = { nixpkgs, home-manager, ... }:
     let
-      homeManager = { system, specialArgs ? {
-        # Whether to install desktop-targeted tools and applications.
-        #
-        # (This primarily focuses around macOS - please use and adopt at your own risk.)
-        desktop = false;
-      } }:
+      homeManager = { system, specialArgs ? { } }:
         home-manager.lib.homeManagerConfiguration {
           modules = [
             ./home/home.nix

@@ -1,7 +1,12 @@
 { config, lib, pkgs, specialArgs, ... }:
 
 let
+  # Whether to install desktop-targeted tools and applications.
+  #
+  # (This primarily focuses around macOS - please use and adopt at your own risk.)
   desktop = specialArgs.desktop or false;
+
+  # Whether to configure various programs to leverage GPG.
   gpg = specialArgs.gpg or false;
 in {
   # It's standard convention that Darwin has the username
@@ -40,9 +45,9 @@ in {
     ./prompt.nix
   ]
   # Primarily GUI applications for desktop usage
-  ++ (lib.optional (desktop) ./desktop.nix)
+  ++ lib.optional (desktop) ./desktop.nix
   # Configuration reliant on GPG keys being available
-  ++ (lib.optional (gpg) ./desktop.nix);
+  ++ lib.optional (gpg) ./gpg.nix;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
