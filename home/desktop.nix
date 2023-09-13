@@ -29,7 +29,6 @@
     ncdu
     nmap
     neofetch
-    nixopsUnstable
     p7zip
     pngcrush
     pry
