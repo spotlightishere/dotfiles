@@ -29,6 +29,6 @@ stdenv.mkDerivation rec {
     license = licenses.mit;
     maintainers = [ maintainers.bdesham ];
     platforms = with lib.platforms; linux ++ darwin;
-    hydraPlatforms = [];
+    hydraPlatforms = [ ];
   };
 }

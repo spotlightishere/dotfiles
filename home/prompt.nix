@@ -9,7 +9,8 @@ let
     rev = "6554045b1184b213fdc9d731a45e8a75858291de";
     sha256 = "yhgowvJfxVdJE1yVYPWnJYvzhMsPc+HgkmDa++CcTDo=";
   };
-in {
+in
+{
   # Very opinionated :)
   programs.zsh = {
     enable = true;

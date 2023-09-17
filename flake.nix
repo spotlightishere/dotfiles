@@ -20,7 +20,8 @@
           pkgs = nixpkgs.legacyPackages.${system};
           extraSpecialArgs = specialArgs;
         };
-    in {
+    in
+    {
       packages = {
         # We currently assume that all x86_64-linux devices only
         # require dotfiles. For now, this is mostly true :)
@@ -50,6 +51,13 @@
             gpg = true;
           };
         };
+      };
+
+      formatter = {
+        aarch64-darwin = nixpkgs.legacyPackages.x86_64-darwin.nixpkgs-fmt;
+        x86_64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixpkgs-fmt;
+        aarch64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
+        x86_64-linux = nixpkgs.legacyPackages.aarch64-linux.nixpkgs-fmt;
       };
     };
 }

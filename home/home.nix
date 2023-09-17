@@ -8,25 +8,28 @@ let
 
   # Whether to configure various programs to leverage GPG.
   gpg = specialArgs.gpg or false;
-in {
+in
+{
   # It's standard convention that Darwin has the username
   # "spot" - "spotlight" was reserved by the system at some point.
   # (Sigh... the downsides of sharing a namesake.)
-  home.username = if pkgs.stdenv.isDarwin then
-    "spot"
-  else
-    "spotlight";
+  home.username =
+    if pkgs.stdenv.isDarwin then
+      "spot"
+    else
+      "spotlight";
 
-  home.homeDirectory = if pkgs.stdenv.isDarwin then
-    "/Users/spot"
-  else
-    "/home/spotlight";
+  home.homeDirectory =
+    if pkgs.stdenv.isDarwin then
+      "/Users/spot"
+    else
+      "/home/spotlight";
 
   # Git
   programs.git = {
     enable = true;
     lfs.enable = true;
-    
+
     userName = "Spotlight";
     userEmail = "spotlight@joscomputing.space";
     extraConfig = {
