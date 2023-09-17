@@ -46,5 +46,6 @@
     xz
     yt-dlp
     zola
+    zstd
   ];
 }
