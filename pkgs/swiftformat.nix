@@ -12,10 +12,7 @@ clangStdenv.mkDerivation rec {
   };
 
   nativeBuildInputs = [ swift swiftpm ];
-  buildInputs = [ swiftPackages.Foundation ];
-
-  # We only install the swiftformat binary, so don't need the other products.
-  swiftpmFlags = [ "--product swiftformat" ];
+  buildInputs = [ swiftPackages.Dispatch swiftPackages.Foundation ];
 
   installPhase = ''
     binPath="$(swiftpmBinPath)"
