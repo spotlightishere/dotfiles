@@ -23,6 +23,7 @@
     jdk
     jq
     meld
+    mitmproxy
     monaco-powerline
     mtools
     mtr
