@@ -55,6 +55,12 @@ in
       # pushd
       setopt AUTO_PUSHD
 
+      # Per-device, flexible configuration
+      # (Contrary to its name, it should not house keys.)
+      if [ -f $HOME/.keysrc ]; then
+        source $HOME/.keysrc
+      fi
+
       # History search, but from beginning
       bindkey "^[[A" history-beginning-search-backward
       bindkey "^[[B" history-beginning-search-forward
