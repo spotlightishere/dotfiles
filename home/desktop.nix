@@ -10,7 +10,6 @@
     binwalk
     cloc
     croc
-    dmg2img
     exiftool
     ffmpeg
     gcc-arm-embedded
@@ -22,6 +21,7 @@
     jadx
     jdk
     jq
+    libusbmuxd
     meld
     mitmproxy
     monaco-powerline
