@@ -21,6 +21,7 @@
     jadx
     jdk
     jq
+    libimobiledevice
     libusbmuxd
     meld
     mitmproxy
