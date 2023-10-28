@@ -53,17 +53,17 @@
         };
       };
 
-     nixosModules.default = {
-       imports = [
-         home-manager.nixosModules.home-manager
-         {
-           home-manager.useGlobalPkgs = true;
-           home-manager.useUserPackages = true;
-           home-manager.users.spotlight = import ./home/home.nix;
-           home-manager.extraSpecialArgs = { desktop = false; gpg = false; };
-         }
-       ];
-     };
+      nixosModules.default = {
+        imports = [
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.spotlight = import ./home/home.nix;
+            home-manager.extraSpecialArgs = { desktop = false; gpg = false; };
+          }
+        ];
+      };
 
       formatter = {
         aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixpkgs-fmt;
