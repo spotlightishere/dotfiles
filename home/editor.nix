@@ -6,8 +6,8 @@
     # Let's not grab _all_ of Vim.
     packageConfigurable = pkgs.vim;
     plugins = with pkgs; [
-      pkgs.vimPlugins.vim-airline
-      pkgs.vimPlugins.vim-airline-themes
+      vimPlugins.vim-airline
+      vimPlugins.vim-airline-themes
     ];
 
     settings = {
