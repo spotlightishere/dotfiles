@@ -10,6 +10,7 @@
     binwalk
     cloc
     croc
+    dmg2img
     exiftool
     ffmpeg
     gcc-arm-embedded
