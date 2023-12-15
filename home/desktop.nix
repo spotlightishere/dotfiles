@@ -12,7 +12,7 @@
     croc
     dmg2img
     exiftool
-    ffmpeg
+    ffmpeg-full
     gcc-arm-embedded
     go
     google-cloud-sdk
