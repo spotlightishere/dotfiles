@@ -42,6 +42,7 @@
     rustup
     swiftformat
     tmux
+    trippy
     unar
     virt-manager
     watch
