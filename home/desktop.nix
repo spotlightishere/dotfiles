@@ -28,6 +28,7 @@
     monaco-powerline
     mtools
     mtr
+    nodejs_21.pkgs.pnpm
     ncdu
     nmap
     neofetch
