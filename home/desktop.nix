@@ -19,7 +19,7 @@
     htop
     imagemagick
     jadx
-    jdk
+    jdk21
     jq
     libimobiledevice
     libusbmuxd
