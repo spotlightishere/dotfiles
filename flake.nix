@@ -51,6 +51,16 @@
             gpg = true;
           };
         };
+
+        # For a special case: with the Steam Deck, we have to assume the user
+        # is named `deck` due to its immutable system image.
+        x86_64-linux.homeConfigurations.deck = homeManager {
+          system = "x86_64-linux";
+          specialArgs = {
+            gpg = true;
+            username = "deck";
+          };
+        };
       };
 
       nixosModules.default = {
