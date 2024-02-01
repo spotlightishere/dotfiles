@@ -7,6 +7,7 @@
   # Commonly used packages.
   home.packages = with pkgs; [
     binwalk
+    bun
     cloc
     croc
     dmg2img
@@ -24,7 +25,6 @@
     libimobiledevice
     libusbmuxd
     meld
-    mitmproxy
     monaco-powerline
     mtools
     mtr
