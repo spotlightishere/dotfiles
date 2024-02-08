@@ -18,6 +18,8 @@
     google-cloud-sdk
     gradle
     htop
+    # telnet
+    inetutils
     imagemagick
     jadx
     jdk21
