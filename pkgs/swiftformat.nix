@@ -2,13 +2,13 @@
 
 clangStdenv.mkDerivation rec {
   pname = "swiftformat";
-  version = "0.53.1";
+  version = "0.53.2";
 
   src = fetchFromGitHub {
     owner = "nicklockwood";
     repo = "SwiftFormat";
     rev = version;
-    sha256 = "sha256-8G0H3C8ZpLm2XLGmIDfOJcSmLo3COIPQQKoeKd7pNoc=";
+    sha256 = "sha256-bQVbIdfBvQyo56f+T+66ldJuJ8GNPHCE8zHpa6gqNbs=";
   };
 
   nativeBuildInputs = [ swift swiftpm ];
