@@ -21,8 +21,7 @@
     # telnet
     inetutils
     imagemagick
-    # Currently broken on Darwin due to xdg-user-dirs
-    # jadx
+    jadx
     jdk21
     jq
     libimobiledevice
