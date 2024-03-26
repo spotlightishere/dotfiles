@@ -23,7 +23,7 @@ in
     };
 
     # Common plugins.
-    enableAutosuggestions = true;
+    autosuggestion.enable = true;
     enableCompletion = true;
     syntaxHighlighting.enable = true;
     plugins = with pkgs; [
