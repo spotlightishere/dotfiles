@@ -42,6 +42,7 @@
     qemu
     radare2
     rustup
+    socat
     swiftformat
     tmux
     unar
