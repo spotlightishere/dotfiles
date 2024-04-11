@@ -4,14 +4,26 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Allows for easy enumeration of available Darwin and Linux systems.
+    all-systems.url = "github:nix-systems/default";
+    darwin-systems.url = "github:nix-systems/default-darwin";
+    linux-systems.url = "github:nix-systems/default-linux";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, linux-systems, darwin-systems, all-systems, ... }:
     let
+      # TODO(spotlightishere): Is there a better way to approach this that doesn't
+      # involve importing so many separate flakes?
+      #
+      # (We could manually merge Darwin and Linux themselves, but this is primarily for readability.)
+      allSystems = nixpkgs.lib.genAttrs (import all-systems);
+      darwinSystems = nixpkgs.lib.genAttrs (import darwin-systems);
+      linuxSystems = nixpkgs.lib.genAttrs (import linux-systems);
+
       homeManager = { system, specialArgs ? { } }:
         home-manager.lib.homeManagerConfiguration {
           modules = [
@@ -22,64 +34,72 @@
         };
     in
     {
-      packages = {
-        # We currently assume that all x86_64-linux devices only
-        # require dotfiles. For now, this is mostly true :)
-        x86_64-linux.homeConfigurations.spotlight = homeManager {
-          system = "x86_64-linux";
-        };
+      # There's a few things going on here that are all merged in the end.
+      # We start with system-specific packages, providing home-manager.
+      packages =
+        ##########################
+        # Linux-specific options #
+        ##########################
+        linuxSystems
+          (system: {
+            homeConfigurations = {
+              # First, we currently assume that Linux devices
+              # only require dotfiles and utilize the username `spotlight`.
+              #
+              # For now, this is effectively true, sans a few specific configurations :)
+              spotlight = homeManager {
+                system = system;
+                specialArgs = {
+                  desktop = false;
+                  gpg = false;
+                };
+              };
 
-        # Similarly (as of writing), all aarch64 Linux devices are headless
-        # and primarily managed by other distro package managers.
-        # This should likely be dealt with in the future!
-        aarch64-linux.homeConfigurations.spotlight = homeManager {
-          system = "aarch64-linux";
-        };
+              # For a special case: with the Steam Deck, we have to assume the user
+              # is named `deck` due to its immutable system image.
+              deck = homeManager {
+                system = system;
+                specialArgs = {
+                  gpg = true;
+                  username = "deck";
+                };
+              };
+            };
+          })
 
-        # For all architecture variants of Darwin, we don't want only dotfiles.
-        aarch64-darwin.homeConfigurations.spot = homeManager {
-          system = "aarch64-darwin";
-          specialArgs = {
-            desktop = true;
-            gpg = true;
+        //
+
+        ###########################
+        # Darwin-specific options #
+        ###########################
+        darwinSystems (system: {
+          # We use the username `spot` under Darwin.
+          # We also assume that desktop applications should be made available, alongside GPG.
+          homeConfigurations.spot = homeManager {
+            system = system;
+            specialArgs = {
+              desktop = true;
+              gpg = true;
+            };
           };
-        };
-        x86_64-darwin.homeConfigurations.spot = homeManager {
-          system = "x86_64-darwin";
-          specialArgs = {
-            desktop = true;
-            gpg = true;
-          };
-        };
+        });
 
-        # For a special case: with the Steam Deck, we have to assume the user
-        # is named `deck` due to its immutable system image.
-        x86_64-linux.homeConfigurations.deck = homeManager {
-          system = "x86_64-linux";
-          specialArgs = {
-            gpg = true;
-            username = "deck";
-          };
-        };
-      };
-
+      # We provide a NixOS module for easy usage within other system flakes.
+      # (Again, we assume a default name of `spotlight` under Linux.)
       nixosModules.default = {
         imports = [
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.spotlight = import ./home/home.nix;
-            home-manager.extraSpecialArgs = { desktop = false; gpg = false; };
+          home-manager.nixosModules.home-manager {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.spotlight = import ./home/home.nix;
+              extraSpecialArgs = { desktop = false; gpg = false; };
+            };
           }
         ];
       };
 
-      formatter = {
-        aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixpkgs-fmt;
-        x86_64-darwin = nixpkgs.legacyPackages.x86_64-darwin.nixpkgs-fmt;
-        aarch64-linux = nixpkgs.legacyPackages.aarch64-linux.nixpkgs-fmt;
-        x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixpkgs-fmt;
-      };
+      # Lastly, ensure a formatter is available for all systems.
+      formatter = allSystems (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
     };
 }
