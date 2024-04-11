@@ -41,6 +41,7 @@
     pwgen
     qemu
     radare2
+    ripgrep
     rustup
     socat
     swiftformat
