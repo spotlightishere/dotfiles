@@ -14,15 +14,15 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, linux-systems, darwin-systems, all-systems, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, ... }:
     let
       # TODO(spotlightishere): Is there a better way to approach this that doesn't
       # involve importing so many separate flakes?
       #
       # (We could manually merge Darwin and Linux themselves, but this is primarily for readability.)
-      allSystems = nixpkgs.lib.genAttrs (import all-systems);
-      darwinSystems = nixpkgs.lib.genAttrs (import darwin-systems);
-      linuxSystems = nixpkgs.lib.genAttrs (import linux-systems);
+      allSystems = nixpkgs.lib.genAttrs (import inputs.all-systems);
+      darwinSystems = nixpkgs.lib.genAttrs (import inputs.darwin-systems);
+      linuxSystems = nixpkgs.lib.genAttrs (import inputs.linux-systems);
 
       homeManager = { system, specialArgs ? { } }:
         home-manager.lib.homeManagerConfiguration {
@@ -88,7 +88,8 @@
       # (Again, we assume a default name of `spotlight` under Linux.)
       nixosModules.default = {
         imports = [
-          home-manager.nixosModules.home-manager {
+          home-manager.nixosModules.home-manager
+          {
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
