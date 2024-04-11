@@ -12,9 +12,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, nix-darwin, ... }:
     let
       # TODO(spotlightishere): Is there a better way to approach this that doesn't
       # involve importing so many separate flakes?
@@ -49,10 +53,6 @@
               # For now, this is effectively true, sans a few specific configurations :)
               spotlight = homeManager {
                 system = system;
-                specialArgs = {
-                  desktop = false;
-                  gpg = false;
-                };
               };
 
               # For a special case: with the Steam Deck, we have to assume the user
@@ -94,7 +94,23 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               users.spotlight = import ./home/home.nix;
-              extraSpecialArgs = { desktop = false; gpg = false; };
+            };
+          }
+        ];
+      };
+
+      # We define a default Darwin configuration via nix-darwin.
+      darwinConfigurations."spotlights-macbook-air" = nix-darwin.lib.darwinSystem {
+        modules = [
+          # System-wide configuration
+          ./darwin/darwin.nix
+          # Our provided home-manager configuration
+          home-manager.darwinModules.home-manager {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.spot = import ./home/home.nix;
+              extraSpecialArgs = { desktop = true; gpg = true; };
             };
           }
         ];
