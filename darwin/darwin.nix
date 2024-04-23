@@ -7,7 +7,15 @@
     variables.EDITOR = "${pkgs.vim}/bin/vim";
   };
 
-  system.activationScripts.extraActivation.text = '' 
+  # Per https://github.com/LnL7/nix-darwin/issues/663,
+  # nix-darwin only supports a few specific named activation scripts.
+  # We'll leverage `extraActivation` to symlink our JDKs.
+  system.activationScripts.extraActivation.text = ''
+    ##############
+    # Latest JDK #
+    ##############
+    # Regardless of version, we'd like the latest JDK available.
+
     # Remove the symlink if it doesn't already exist.
     rm -f /Library/Java/JavaVirtualMachines/zulu-latest.jdk
 
@@ -17,6 +25,14 @@
 
     # Symlink!
     ln -sf "$JDK_LOCATION" "/Library/Java/JavaVirtualMachines/zulu-latest.jdk"
+
+    ##########
+    # JDK 17 #
+    ##########
+    # We'd also like JDK 17 available, for legacy purposes.
+    # (The author of this is as disappointed in this as the reader should be.)
+    rm -f /Library/Java/JavaVirtualMachines/zulu-17.jdk
+    ln -sf "${pkgs.jdk17}/zulu-17.jdk" "/Library/Java/JavaVirtualMachines/zulu-17.jdk"
   '';
 
   # Auto upgrade nix package and the daemon service.
