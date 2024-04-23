@@ -7,6 +7,18 @@
     variables.EDITOR = "${pkgs.vim}/bin/vim";
   };
 
+  system.activationScripts.extraActivation.text = '' 
+    # Remove the symlink if it doesn't already exist.
+    rm -f /Library/Java/JavaVirtualMachines/zulu-latest.jdk
+
+    # We should only have a single JDK present within our package,
+    # but let's limit `find` regardless.
+    JDK_LOCATION="$(find "${pkgs.jdk}" -name "*.jdk" | head -n1)"
+
+    # Symlink!
+    ln -sf "$JDK_LOCATION" "/Library/Java/JavaVirtualMachines/zulu-latest.jdk"
+  '';
+
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   nix = {
