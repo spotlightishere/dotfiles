@@ -8,6 +8,7 @@
   home.packages = with pkgs; [
     binwalk
     bun
+    cachix
     cloc
     croc
     dmg2img
