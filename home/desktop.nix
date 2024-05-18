@@ -28,6 +28,7 @@
     libimobiledevice
     libusbmuxd
     meld
+    minicom
     monaco-powerline
     mtools
     mtr
