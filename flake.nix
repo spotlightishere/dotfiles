@@ -18,7 +18,7 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nix-darwin, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, ... }:
     let
       # TODO(spotlightishere): Is there a better way to approach this that doesn't
       # involve importing so many separate flakes?
@@ -30,6 +30,7 @@
 
       homeManager = { system, specialArgs ? { } }:
         home-manager.lib.homeManagerConfiguration {
+          nixpkgs.overlays = [ (import ../pkgs/default.nix) ];
           modules = [
             ./home/home.nix
           ];
@@ -39,33 +40,36 @@
     in
     {
       # There's a few things going on here that are all merged in the end.
-      # We start with system-specific packages, providing home-manager.
+      # We start with a generalized package overlay, providing several packages
+      # for e.g. nix-darwin, NixOS, and home-manager usage.
+      overlays.default = (import ./pkgs/default.nix);
+
+      # Secondly, we create system-specific home-manager configurations.
       packages =
         ##########################
         # Linux-specific options #
         ##########################
-        linuxSystems
-          (system: {
-            homeConfigurations = {
-              # First, we currently assume that Linux devices
-              # only require dotfiles and utilize the username `spotlight`.
-              #
-              # For now, this is effectively true, sans a few specific configurations :)
-              spotlight = homeManager {
-                system = system;
-              };
+        linuxSystems (system: {
+          homeConfigurations = {
+            # First, we currently assume that Linux devices
+            # only require dotfiles and utilize the username `spotlight`.
+            #
+            # For now, this is effectively true, sans a few specific configurations :)
+            spotlight = homeManager {
+              system = system;
+            };
 
-              # For a special case: with the Steam Deck, we have to assume the user
-              # is named `deck` due to its immutable system image.
-              deck = homeManager {
-                system = system;
-                specialArgs = {
-                  gpg = true;
-                  username = "deck";
-                };
+            # For a special case: with the Steam Deck, we have to assume the user
+            # is named `deck` due to its immutable system image.
+            deck = homeManager {
+              system = system;
+              specialArgs = {
+                gpg = true;
+                username = "deck";
               };
             };
-          })
+          };
+        })
 
         //
 
@@ -90,6 +94,7 @@
         imports = [
           home-manager.nixosModules.home-manager
           {
+            nixpkgs.overlays = [ self.overlays.default ];
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;
@@ -107,6 +112,7 @@
           # Our provided home-manager configuration
           home-manager.darwinModules.home-manager
           {
+            nixpkgs.overlays = [ self.overlays.default ];
             home-manager = {
               useGlobalPkgs = true;
               useUserPackages = true;

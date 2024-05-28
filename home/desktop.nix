@@ -1,9 +1,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  # Custom packages.
-  nixpkgs.overlays = [ (import ../pkgs/default.nix) ];
-
   # Commonly used packages.
   home.packages = with pkgs; [
     binwalk

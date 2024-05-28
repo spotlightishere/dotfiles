@@ -54,10 +54,6 @@
   nixpkgs = {
     # TODO(spotlightishere): Make this configurable beyond a singular device.
     hostPlatform = "aarch64-darwin";
-
-    # Custom packages.
-    # TODO(spotlightishere): Why does this need to be specified in both home-manager and globally?
-    overlays = [ (import ../pkgs/default.nix) ];
   };
 
   # Our singular user!
