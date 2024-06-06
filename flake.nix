@@ -33,7 +33,7 @@
           modules = [
             ./home/home.nix
           ];
-          pkgs = nixpkgs.legacyPackages.${system}.extend(import ./pkgs/default.nix);
+          pkgs = nixpkgs.legacyPackages.${system}.extend (import ./pkgs/default.nix);
           extraSpecialArgs = specialArgs;
         };
     in
@@ -48,27 +48,28 @@
         ##########################
         # Linux-specific options #
         ##########################
-        linuxSystems (system: {
-          homeConfigurations = {
-            # First, we currently assume that Linux devices
-            # only require dotfiles and utilize the username `spotlight`.
-            #
-            # For now, this is effectively true, sans a few specific configurations :)
-            spotlight = homeManager {
-              system = system;
-            };
+        linuxSystems
+          (system: {
+            homeConfigurations = {
+              # First, we currently assume that Linux devices
+              # only require dotfiles and utilize the username `spotlight`.
+              #
+              # For now, this is effectively true, sans a few specific configurations :)
+              spotlight = homeManager {
+                system = system;
+              };
 
-            # For a special case: with the Steam Deck, we have to assume the user
-            # is named `deck` due to its immutable system image.
-            deck = homeManager {
-              system = system;
-              specialArgs = {
-                gpg = true;
-                username = "deck";
+              # For a special case: with the Steam Deck, we have to assume the user
+              # is named `deck` due to its immutable system image.
+              deck = homeManager {
+                system = system;
+                specialArgs = {
+                  gpg = true;
+                  username = "deck";
+                };
               };
             };
-          };
-        })
+          })
 
         //
 
