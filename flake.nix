@@ -30,11 +30,10 @@
 
       homeManager = { system, specialArgs ? { } }:
         home-manager.lib.homeManagerConfiguration {
-          nixpkgs.overlays = [ (import ../pkgs/default.nix) ];
           modules = [
             ./home/home.nix
           ];
-          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs = nixpkgs.legacyPackages.${system}.extend(import ./pkgs/default.nix);
           extraSpecialArgs = specialArgs;
         };
     in
