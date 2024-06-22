@@ -20,7 +20,7 @@ in
     history = {
       ignoreAllDups = true;
       ignoreSpace = true;
-      size = 5000;
+      size = 15000;
     };
 
     # Common plugins.
