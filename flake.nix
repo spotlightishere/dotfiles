@@ -86,6 +86,19 @@
               gpg = true;
             };
           };
+        })
+
+        //
+
+        ####################
+        # Generic packages #
+        ####################
+        # We'll export some of our overlay's packages for CI to build.
+        allSystems (system: {
+          packages = {
+            swiftformat = import ./pkgs/swiftformat.nix;
+            monaco-powerline = import ./monaco-powerline/default.nix;
+          };
         });
 
       # We provide a NixOS module for easy usage within other system flakes.
