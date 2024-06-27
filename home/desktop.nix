@@ -16,6 +16,7 @@
     google-cloud-sdk
     gradle
     htop
+    hyfetch
     # telnet
     inetutils
     imagemagick
@@ -32,7 +33,6 @@
     nodejs_22.pkgs.pnpm
     ncdu
     nmap
-    neofetch
     p7zip
     pngcrush
     pry
