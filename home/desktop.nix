@@ -30,6 +30,7 @@
     monaco-powerline
     mtools
     mtr
+    nix-output-monitor
     nodejs_22.pkgs.pnpm
     ncdu
     nmap
