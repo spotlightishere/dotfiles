@@ -11,6 +11,10 @@ let
   };
 in
 {
+  # We want direnv support.
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+
   # Very opinionated :)
   programs.zsh = {
     enable = true;
