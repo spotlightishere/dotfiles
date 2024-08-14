@@ -66,6 +66,9 @@ in
         source $HOME/.keysrc
       fi
 
+      # Add iTerm2 utilities to our PATH.
+      export PATH="$HOME/.iterm2:$PATH"
+
       # History search, but from beginning
       bindkey "^[[A" history-beginning-search-backward
       bindkey "^[[B" history-beginning-search-forward
