@@ -103,6 +103,7 @@
 
       # We provide a NixOS module for easy usage within other system flakes.
       # (Again, we assume a default name of `spotlight` under Linux.)
+      # TODO(spotlightishere): Have this module accept arguments that we can pass on
       nixosModules.default = {
         imports = [
           home-manager.nixosModules.home-manager
@@ -112,6 +113,25 @@
               useGlobalPkgs = true;
               useUserPackages = true;
               users.spotlight = import ./home/home.nix;
+            };
+          }
+        ];
+      };
+
+      # We define a NixOS configuration for a PC workstation.
+      nixosConfigurations.cyclone = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./hosts/cyclone/configuration.nix
+          ./hosts/cyclone/hardware-configuration.nix
+
+          home-manager.nixosModules.home-manager
+          {
+            nixpkgs.overlays = [ self.overlays.default ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.spotlight = import ./home/home.nix;
+              extraSpecialArgs = { desktop = true; gpg = true; };
             };
           }
         ];
