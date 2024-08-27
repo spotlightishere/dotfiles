@@ -141,7 +141,7 @@
       darwinConfigurations."spotlights-macbook-air" = nix-darwin.lib.darwinSystem {
         modules = [
           # System-wide configuration
-          ./darwin/darwin.nix
+          ./hosts/spotlights-macbook-air/configuration.nix
           # Our provided home-manager configuration
           home-manager.darwinModules.home-manager
           {
