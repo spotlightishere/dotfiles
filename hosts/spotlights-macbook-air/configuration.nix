@@ -1,4 +1,4 @@
-{ pkgs, system, ... }: {
+{ lib, pkgs, system, ... }: {
   environment = {
     # We'll use Vim globally.
     systemPackages = [
@@ -52,8 +52,13 @@
   system.stateVersion = 4;
 
   nixpkgs = {
-    # TODO(spotlightishere): Make this configurable beyond a singular device.
-    hostPlatform = "aarch64-darwin";
+    hostPlatform = lib.mkDefault "aarch64-darwin";
+
+    # Regretfully, we use some non-free packages.
+    config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      # Visual Studio Code
+      "vscode"
+    ];
   };
 
   # Our singular user!

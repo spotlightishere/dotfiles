@@ -48,6 +48,7 @@
     tmux
     unar
     virt-manager
+    vscode
     watch
     wget
     xz
