@@ -109,14 +109,17 @@
   # Standard system utilities.
   # The bulk of user-specific packages should go within the home-manager configuration.
   environment.systemPackages = with pkgs; [
+    cider
     discord
+    firefox
     htop
     git
     gnome-tweaks
-    firefox
+    gnomeExtensions.appindicator
+    seafile-client
+    telegram-desktop
     tmux
     vim
-    vscode
     wget
   ];
 
