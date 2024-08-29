@@ -99,6 +99,10 @@
       "vscode"
       # Discord
       "discord"
+      # Steam
+      "steam"
+      "steam-original"
+      "steam-run"
     ];
   };
 
@@ -116,8 +120,11 @@
     wget
   ];
 
-  programs.gnupg.agent.enable = true;
-  programs.zsh.enable = true;
+  programs = {
+    gnupg.agent.enable = true;
+    steam.enable = true;
+    zsh.enable = true;
+  };
 
   # Please do not change this without reviewing release notes upstream.
   system.stateVersion = "24.11";
