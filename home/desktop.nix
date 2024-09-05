@@ -38,6 +38,7 @@
     pngcrush
     pry
     protobuf
+    python312
     pwgen
     qemu
     radare2
