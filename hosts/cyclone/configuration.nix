@@ -22,6 +22,7 @@
   nix.settings = {
     experimental-features = [ "flakes" "nix-command" ];
     trusted-users = [ "spotlight" ];
+    builders-use-substitutes = true;
   };
 
   # Select internationalisation properties.
