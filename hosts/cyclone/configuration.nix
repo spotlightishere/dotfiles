@@ -19,7 +19,10 @@
     ];
   };
 
-  nix.settings.experimental-features = [ "flakes" "nix-command" ];
+  nix.settings = {
+    experimental-features = [ "flakes" "nix-command" ];
+    trusted-users = [ "spotlight" ];
+  };
 
   # Select internationalisation properties.
   time.timeZone = "America/Chicago";
