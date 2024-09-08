@@ -59,6 +59,8 @@
         PermitRootLogin = "no";
       };
     };
+
+    tailscale.enable = true;
   };
 
   hardware = {
