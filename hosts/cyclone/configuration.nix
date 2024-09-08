@@ -61,6 +61,7 @@
     };
 
     tailscale.enable = true;
+    vscode-server.enable = true;
   };
 
   hardware = {

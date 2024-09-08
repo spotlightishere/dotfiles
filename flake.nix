@@ -16,9 +16,13 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, vscode-server, ... }:
     let
       # TODO(spotlightishere): Is there a better way to approach this that doesn't
       # involve importing so many separate flakes?
@@ -124,6 +128,7 @@
           ./hosts/cyclone/configuration.nix
           ./hosts/cyclone/hardware-configuration.nix
 
+          vscode-server.nixosModules.default
           home-manager.nixosModules.home-manager
           {
             nixpkgs.overlays = [ self.overlays.default ];
