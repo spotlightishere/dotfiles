@@ -17,9 +17,10 @@
     gradle
     htop
     hyfetch
+    imagemagick
     # telnet
     inetutils
-    imagemagick
+    ipsw
     jadx
     jdk21
     jq
