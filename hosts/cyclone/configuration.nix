@@ -36,7 +36,11 @@
 
       # GNOME!
       desktopManager.gnome.enable = true;
-      displayManager.gdm.enable = true;
+      displayManager.gdm = {
+        # At the login screen, don't automatically fall asleep.
+        autoSuspend = false;
+        enable = true;
+      };
 
       # Nvidia driver support.
       videoDrivers = [ "nvidia" ];
