@@ -112,6 +112,7 @@
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPQQO+c8ygVzRt55Z9qekqItSjYiw381cFPOqX+vGAGT MacBook Air 2020 macOS"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ/gyX9b80oml6z3UGOxVMJk/NS8R5w9NEITJcKb0MnU MacBook Air 2020 NixOS"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICpZtyCO6581/FdJHqSTXiFZ2XcxmUudP3sw7jjTzLiN Termius"
     ];
     shell = pkgs.zsh;
   };
