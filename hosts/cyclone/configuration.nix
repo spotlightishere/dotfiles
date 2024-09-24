@@ -55,6 +55,8 @@
       pulse.enable = true;
     };
 
+    gnome.gnome-remote-desktop.enable = true;
+
     # We'd like SSH available.
     openssh = {
       enable = true;
