@@ -40,8 +40,14 @@
   nix = {
     # Keep the latest version of Nix.
     package = pkgs.nix;
-    # Necessary for using flakes on this system.
-    settings.experimental-features = "nix-command flakes";
+    settings = {
+      # Necessary for using flakes on this system.
+      experimental-features = "nix-command flakes";
+  
+      # Include Garnix
+      extra-substituters = [ "https://cache.garnix.io" ];
+      extra-trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+    };
   };
 
   # Create /etc/zshrc that loads the nix-darwin environment.
