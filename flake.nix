@@ -37,7 +37,7 @@
           modules = [
             ./home/home.nix
           ];
-          pkgs = nixpkgs.legacyPackages.${system}.extend (import ./pkgs/default.nix);
+          pkgs = nixpkgs.legacyPackages.${system}.extend (self.overlays.default);
           extraSpecialArgs = specialArgs;
         };
     in
