@@ -1,0 +1,13 @@
+builds:
+  # Only build exported packages...
+  include:
+  - 'packages.*.*'
+  # ...but not home-manager configurations, or anything else.
+  exclude:
+  - 'packages.*.homeConfigurations'
+  # TODO(spotlightishere): Why is this necessary?
+  # They are otherwise built.
+  - devShell.x86_64-linux
+  - homeConfigurations.*
+  - darwinConfigurations.*
+  - nixosConfigurations.*
