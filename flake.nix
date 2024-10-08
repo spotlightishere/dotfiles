@@ -42,21 +42,24 @@
         };
     in
     {
-      # There's a few things going on here that are all merged in the end.
-      # We start with a generalized package overlay, providing several packages
+      # First, we provide a generalized package overlay, providing several packages
       # for e.g. nix-darwin, NixOS, and home-manager usage.
-      overlays.default = (import ./pkgs/default.nix);
+      # ./pkgs/default.nix's singular argument, `pkgs`, is provided by our `final`.
+      overlays.default = (final: prev: import ./pkgs/default.nix {
+        pkgs = final;
+      });
 
-      # Secondly, we create system-specific home-manager configurations.
+      # Next, we provide Linux-specific home-manager configurations,
+      # and expose our default packages to the world.
       packages =
-        ##########################
-        # Linux-specific options #
-        ##########################
-        linuxSystems
-          (system: {
+        let
+          ##########################
+          # Linux-specific options #
+          ##########################
+          linuxConfiguration = linuxSystems (system: {
             homeConfigurations = {
-              # First, we currently assume that Linux devices
-              # only require dotfiles and utilize the username `spotlight`.
+              # We currently assume that Linux devices only require
+              # dotfiles and utilize the username `spotlight`.
               #
               # For now, this is effectively true, sans a few specific configurations :)
               spotlight = homeManager {
@@ -73,37 +76,23 @@
                 };
               };
             };
-          })
+          });
 
-        //
+          # For all platforms, export our packages for CI to build.
+          exportedPackages = allSystems (system: import ./pkgs/default.nix {
+            pkgs = nixpkgs.legacyPackages.${system};
+          });
 
-        ###########################
-        # Darwin-specific options #
-        ###########################
-        darwinSystems (system: {
-          # We use the username `spot` under Darwin.
-          # We also assume that desktop applications should be made available, alongside GPG.
-          homeConfigurations.spot = homeManager {
-            system = system;
-            specialArgs = {
-              desktop = true;
-              gpg = true;
-            };
-          };
-        });
-
-      # //
-      #
-      # ####################
-      # # Generic packages #
-      # ####################
-      # # We'll export some of our overlay's packages for CI to build.
-      # allSystems (system: {
-      #   packages = {
-      #     swiftformat = import ./pkgs/swiftformat.nix;
-      #     monaco-powerline = import ./monaco-powerline/default.nix;
-      #   };
-      # });
+          # We must use recursiveUpdate in order to go deeper beyond one level.
+          # For example, `linuxConfiguration` provides `packages.x86_64-linux.homeConfiguration`
+          # and `exportedPackages` provides `packages.x86_64-linux.<package name>`.
+          #
+          # With the normal `//` syntax, `packages.x86_64-linux` is not recursively merged,
+          # and either packages or the home-manager configuration end up being replaced.
+          # This is not ideal :(
+          recursiveUpdate = nixpkgs.lib.recursiveUpdate;
+        in
+        recursiveUpdate linuxConfiguration exportedPackages;
 
       # We provide a NixOS module for easy usage within other system flakes.
       # (Again, we assume a default name of `spotlight` under Linux.)

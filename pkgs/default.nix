@@ -1,6 +1,5 @@
-self: super:
-{
-  ipsw = super.callPackage ./ipsw.nix { };
-  monaco-powerline = super.callPackage ./monaco-powerline/default.nix { };
-  swiftformat = super.callPackage ./swiftformat.nix { };
+{ pkgs, ... }: {
+  ipsw = pkgs.callPackage ./ipsw.nix { };
+  monaco-powerline = pkgs.callPackage ./monaco-powerline/default.nix { };
+  swiftformat = pkgs.callPackage ./swiftformat.nix { };
 }
