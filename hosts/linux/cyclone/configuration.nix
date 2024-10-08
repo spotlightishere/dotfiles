@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./hardware-configuration.nix
+  ]
+
   networking = {
     hostName = "cyclone";
     domain = "host.fox-int.cloud";

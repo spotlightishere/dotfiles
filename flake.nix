@@ -114,8 +114,7 @@
       # We define a NixOS configuration for a PC workstation.
       nixosConfigurations.cyclone = nixpkgs.lib.nixosSystem {
         modules = [
-          ./hosts/cyclone/configuration.nix
-          ./hosts/cyclone/hardware-configuration.nix
+          ./hosts/linux/cyclone/configuration.nix
 
           vscode-server.nixosModules.default
           home-manager.nixosModules.home-manager
