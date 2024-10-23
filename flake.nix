@@ -149,6 +149,24 @@
         ];
       };
 
+      darwinConfigurations."sequoia" = nix-darwin.lib.darwinSystem {
+        modules = [
+          # System-wide configuration
+          ./hosts/darwin/sequoia/configuration.nix
+          # Our provided home-manager configuration
+          home-manager.darwinModules.home-manager
+          {
+            nixpkgs.overlays = [ self.overlays.default ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.spot = import ./home/home.nix;
+              extraSpecialArgs = { desktop = true; gpg = true; };
+            };
+          }
+        ];
+      };
+
       # Lastly, ensure a formatter is available for all systems.
       formatter = allSystems (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
     };
