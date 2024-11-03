@@ -67,6 +67,12 @@
 
     gnome.gnome-remote-desktop.enable = true;
 
+    # Let's use our own API key.
+    geoclue2 = {
+      enable = true;
+      geoProviderUrl = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDwr302FpOSkGRpLlUpPThNTDPbXcIn_FM";
+    };
+
     # We'd like SSH available.
     openssh = {
       enable = true;
