@@ -84,6 +84,7 @@
 
     tailscale.enable = true;
     vscode-server.enable = true;
+    syncthing.enable = true;
   };
 
   hardware = {
@@ -166,11 +167,15 @@
     git
     gnome-tweaks
     gnomeExtensions.appindicator
+    pciutils
     seafile-client
     telegram-desktop
+    transmission_4-gtk
     tmux
+    usbutils
     vim
     wget
+    wl-clipboard
   ];
 
   programs = {
