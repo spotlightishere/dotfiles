@@ -10,7 +10,9 @@
     domain = "host.fox-int.cloud";
     hostId = "79696666";
     networkmanager.enable = true;
-    # useNetworkd = true;
+    useNetworkd = true;
+    # Allow WireGuard.
+    firewall.checkReversePath = "loose";
 
     # Use a set of known-good nameservers.
     nameservers = [
