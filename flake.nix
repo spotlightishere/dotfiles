@@ -4,6 +4,10 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    apple-silicon-support = {
+      url = "github:zzywysm/nixos-asahi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     # Allows for easy enumeration of available Darwin and Linux systems.
     all-systems.url = "github:nix-systems/default";
     darwin-systems.url = "github:nix-systems/default-darwin";
@@ -128,6 +132,29 @@
             };
           }
         ];
+      };
+
+      nixosConfigurations = {
+        "spotlights-macbook-air" = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+
+          modules = [
+            # Asahi-specific tweaks
+            inputs.apple-silicon-support.nixosModules.default
+            ./hosts/linux/spotlights-macbook-air/configuration.nix
+
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs.overlays = [ self.overlays.default ];
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.spotlight = import ./home/home.nix;
+                extraSpecialArgs = { desktop = true; gpg = true; };
+              };
+            }
+          ];
+        };
       };
 
       # We define a default Darwin configuration via nix-darwin.
