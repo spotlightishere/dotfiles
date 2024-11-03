@@ -17,7 +17,7 @@
   boot.loader.efi.canTouchEfiVariables = false;
   # GPU enablement
   hardware.asahi = {
-    peripheralFirmwareDirectory = ./firmware;
+    peripheralFirmwareDirectory = /boot/asahi;
     # GPU enablement
     useExperimentalGPUDriver = true;
     experimentalGPUInstallMode = "replace";
