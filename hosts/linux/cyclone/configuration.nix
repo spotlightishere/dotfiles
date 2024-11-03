@@ -3,75 +3,23 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ../shared.nix
   ];
 
   networking = {
     hostName = "cyclone";
-    domain = "host.fox-int.cloud";
     hostId = "79696666";
-    networkmanager.enable = true;
-    useNetworkd = true;
     # Allow WireGuard.
     firewall.checkReversePath = "loose";
-
-    # Use a set of known-good nameservers.
-    nameservers = [
-      # Quad9
-      "2620:fe::fe"
-      "9.9.9.9"
-      # Cloudflare
-      "2606:4700:4700::1111"
-      "1.1.1.1"
-    ];
   };
-
-  nix.settings = {
-    experimental-features = [ "flakes" "nix-command" ];
-    trusted-users = [ "spotlight" ];
-    builders-use-substitutes = true;
-
-    # Include Garnix
-    substituters = [ "https://cache.garnix.io" ];
-    trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
-  };
-
-  # Select internationalisation properties.
-  time.timeZone = "America/Chicago";
-  i18n.defaultLocale = "en_US.UTF-8";
 
   # General service configuration.
   services = {
-    xserver = {
-      enable = true;
+    # Ensure xserver is using the Nvidia drivers.
+    xserver.videoDrivers = [ "nvidia" ];
 
-      # GNOME!
-      desktopManager.gnome.enable = true;
-      displayManager.gdm = {
-        # At the login screen, don't automatically fall asleep.
-        autoSuspend = false;
-        enable = true;
-      };
-
-      # Nvidia driver support.
-      videoDrivers = [ "nvidia" ];
-    };
-
-    # CUPS might be nice.
-    printing.enable = true;
-
-    # Audio support.
-    pipewire = {
-      enable = true;
-      pulse.enable = true;
-    };
-
+    # Allow for RDP access.
     gnome.gnome-remote-desktop.enable = true;
-
-    # Let's use our own API key.
-    geoclue2 = {
-      enable = true;
-      geoProviderUrl = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDwr302FpOSkGRpLlUpPThNTDPbXcIn_FM";
-    };
 
     # We'd like SSH available.
     openssh = {
@@ -88,9 +36,6 @@
   };
 
   hardware = {
-    # Pipewire conflicts with PulseAudio.
-    pulseaudio.enable = false;
-
     # Nvidia
     graphics.enable = true;
     nvidia = {
@@ -124,18 +69,6 @@
     };
   };
 
-  # Hey, world!
-  users.users.spotlight = {
-    isNormalUser = true;
-    extraGroups = [ "libvirtd" "wheel" ];
-    openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPQQO+c8ygVzRt55Z9qekqItSjYiw381cFPOqX+vGAGT MacBook Air 2020 macOS"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJ/gyX9b80oml6z3UGOxVMJk/NS8R5w9NEITJcKb0MnU MacBook Air 2020 NixOS"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICpZtyCO6581/FdJHqSTXiFZ2XcxmUudP3sw7jjTzLiN Termius"
-    ];
-    shell = pkgs.zsh;
-  };
-
   nixpkgs = {
     hostPlatform = lib.mkDefault "x86_64-linux";
 
@@ -157,32 +90,14 @@
     ];
   };
 
-  # Standard system utilities.
+  # Standard system utilities. Many of these are within ../shared.nix.
   # The bulk of user-specific packages should go within the home-manager configuration.
   environment.systemPackages = with pkgs; [
     cider
     discord
-    firefox
-    htop
-    git
-    gnome-tweaks
-    gnomeExtensions.appindicator
-    pciutils
-    seafile-client
-    telegram-desktop
-    transmission_4-gtk
-    tmux
-    usbutils
-    vim
-    wget
-    wl-clipboard
   ];
 
-  programs = {
-    gnupg.agent.enable = true;
-    steam.enable = true;
-    zsh.enable = true;
-  };
+  programs.steam.enable = true;
 
   # Please do not change this without reviewing release notes upstream.
   system.stateVersion = "24.11";
