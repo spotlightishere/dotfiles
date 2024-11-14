@@ -95,6 +95,7 @@
   environment.systemPackages = with pkgs; [
     cider
     discord
+    vscode
   ];
 
   programs.steam.enable = true;

@@ -57,15 +57,7 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
 
-  nixpkgs = {
-    hostPlatform = lib.mkDefault "aarch64-darwin";
-
-    # Regretfully, we use some non-free packages.
-    config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      # Visual Studio Code
-      "vscode"
-    ];
-  };
+  nixpkgs.hostPlatform = lib.mkDefault "aarch64-darwin";
 
   # Our singular user!
   users.users.spot = {
