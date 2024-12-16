@@ -3,6 +3,7 @@
 {
   # Commonly used packages.
   home.packages = with pkgs; [
+    aria2
     binwalk
     bun
     cachix
