@@ -3,7 +3,7 @@
 
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
-    nixpkgs.url = "github:nixos/nixpkgs/staging-next";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     apple-silicon-support = {
       url = "github:zzywysm/nixos-asahi";
       inputs.nixpkgs.follows = "nixpkgs";
