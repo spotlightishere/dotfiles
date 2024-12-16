@@ -9,5 +9,4 @@ builds:
   # They are otherwise built.
   - devShell.x86_64-linux
   - homeConfigurations.*
-  - darwinConfigurations.*
   - nixosConfigurations.*
