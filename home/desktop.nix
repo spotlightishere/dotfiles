@@ -7,6 +7,8 @@
     binwalk
     bun
     cachix
+    # clang-format
+    clang-tools
     cloc
     croc
     dmg2img
