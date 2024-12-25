@@ -40,7 +40,6 @@
     nmap
     p7zip
     pngcrush
-    pry
     protobuf
     python313
     pwgen
