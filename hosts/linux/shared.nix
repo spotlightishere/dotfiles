@@ -61,6 +61,9 @@
       pulse.enable = true;
     };
 
+    # Pipewire conflicts with PulseAudio.
+    pulseaudio.enable = false;
+
     # As Mozilla's Location Service has shut down,
     # we'll use geolocation via the Arch Linux API key.
     geoclue2 = {
@@ -68,9 +71,6 @@
       geoProviderUrl = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDwr302FpOSkGRpLlUpPThNTDPbXcIn_FM";
     };
   };
-
-  # Pipewire conflicts with PulseAudio.
-  hardware.pulseaudio.enable = false;
 
   # Our user!
   users.users.spotlight = {
