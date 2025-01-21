@@ -100,6 +100,14 @@
 
   programs.steam.enable = true;
 
+  # Docker support
+  boot.kernel.sysctl."net.ipv4.ip_forward" = true;
+  networking.firewall.trustedInterfaces = [ "docker0" ];
+  users.users.spotlight.extraGroups = [ "docker" ];
+  virtualisation.docker.enable = true;
+  # Docker NVIDIA runtime support
+  hardware.nvidia-container-toolkit.enable = true;
+
   # Please do not change this without reviewing release notes upstream.
   system.stateVersion = "24.11";
 }
