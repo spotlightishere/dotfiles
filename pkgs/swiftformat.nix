@@ -1,6 +1,6 @@
 { clangStdenv, lib, fetchFromGitHub, swift, swiftpm, swiftPackages }:
 
-clangStdenv.mkDerivation rec {
+swiftPackages.stdenv.mkDerivation rec {
   pname = "swiftformat";
   version = "0.55.5";
 
