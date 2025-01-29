@@ -157,6 +157,25 @@
         };
       };
 
+      # We define a NixOS configuration for a scratch VM.
+      nixosConfigurations.flareon = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./hosts/linux/flareon/configuration.nix
+
+          vscode-server.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            nixpkgs.overlays = [ self.overlays.default ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.spotlight = import ./home/home.nix;
+              extraSpecialArgs = { desktop = false; gpg = false; };
+            };
+          }
+        ];
+      };
+
       # We define a default Darwin configuration via nix-darwin.
       darwinConfigurations."spotlights-macbook-air" = nix-darwin.lib.darwinSystem {
         modules = [
