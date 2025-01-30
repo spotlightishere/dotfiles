@@ -5,7 +5,7 @@
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     apple-silicon-support = {
-      url = "github:zzywysm/nixos-asahi/supreme-asahi-6.12";
+      url = "github:tpwrules/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Allows for easy enumeration of available Darwin and Linux systems.

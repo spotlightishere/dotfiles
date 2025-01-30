@@ -20,20 +20,20 @@
         "flake-compat": "flake-compat",
         "nixpkgs": [
           "nixpkgs"
-        ]
+        ],
+        "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1737847061,
-        "narHash": "sha256-ikJOASJJMHVjxyY69qbS2d00eHGcjbMfcjRz+TnUbJs=",
-        "owner": "zzywysm",
-        "repo": "nixos-asahi",
-        "rev": "0b2c42b477aec0c37ce51ffe25a556e8671979d3",
+        "lastModified": 1737610453,
+        "narHash": "sha256-OLgl/kgjOmDFrkU04PlqVklXj1m9y8xF7xbD+blAdg8=",
+        "owner": "tpwrules",
+        "repo": "nixos-apple-silicon",
+        "rev": "1f7bdbb82f6b9ec1d8d206e2c64d36f13bae91a1",
         "type": "github"
       },
       "original": {
-        "owner": "zzywysm",
-        "ref": "supreme-asahi-6.12",
-        "repo": "nixos-asahi",
+        "owner": "tpwrules",
+        "repo": "nixos-apple-silicon",
         "type": "github"
       }
     },
@@ -166,6 +166,22 @@
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
         "vscode-server": "vscode-server"
+      }
+    },
+    "rust-overlay": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1738117527,
+        "narHash": "sha256-GFviGfaezjGLFUlxdv3zyC7rSZvTXqwcG/YsF6MDkOw=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "6a3dc6ce4132bd57359214d986db376f2333c14d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "systems": {
