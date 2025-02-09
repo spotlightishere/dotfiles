@@ -12,10 +12,12 @@
   ];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = false;
+  };
 
-  # GPU enablement
+  # Asahi Linux support
   hardware.asahi = {
     peripheralFirmwareDirectory = /boot/asahi;
     # GPU enablement
@@ -25,11 +27,11 @@
   };
 
   networking = {
+    hostName = "spotlights-macbook-air";
     wireless.iwd = {
       enable = true;
       settings.General.EnableNetworkConfiguration = true;
     };
-    networkmanager.enable = true;
   };
 
   environment.systemPackages = with pkgs; [
