@@ -92,6 +92,9 @@
 
   # Common utilities across most Linux installs.
   environment.systemPackages = with pkgs; [
+    # Since not all applications are currently GTK 4,
+    # we need to manually add the Adwaita GTK 3 dark mode theme.
+    adw-gtk3
     firefox
     htop
     git
