@@ -35,8 +35,7 @@
     ln -sf "${pkgs.jdk17}/zulu-17.jdk" "/Library/Java/JavaVirtualMachines/zulu-17.jdk"
   '';
 
-  # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  # Auto upgrade the nix package.
   nix = {
     # Keep the latest version of Nix.
     package = pkgs.nix;
