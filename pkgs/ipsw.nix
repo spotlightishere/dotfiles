@@ -1,19 +1,19 @@
-{ buildGo123Module, lib, fetchFromGitHub, pkgs }:
+{ buildGo124Module, lib, fetchFromGitHub, pkgs }:
 
-# As of writing, this requires Go 1.23.
-# `buildGoModule` currently uses Go 1.22.
-buildGo123Module rec {
+# As of writing, this requires Go 1.24.
+# `buildGoModule` currently uses Go 1.23.
+buildGo124Module rec {
   pname = "ipsw";
-  version = "3.1.568";
+  version = "3.1.572";
 
   src = fetchFromGitHub {
     owner = "blacktop";
     repo = "ipsw";
     rev = "v${version}";
-    hash = "sha256-U10yPpB48utCYUNLnPLuVl+77bOwnrredEp36pDq72Y=";
+    hash = "sha256-rnpc8OqIBh82RXHoraxDj2XSsXgrT4lkK//SaqqDVrs=";
   };
 
-  vendorHash = "sha256-3QBSuuBp3K1q91b912gIhdXyGlhCLbpHEZeYSi6qDcI=";
+  vendorHash = "sha256-oXCBjqq9OKPdZ9gPVuvQfGidzQkbMeY0+idsjqhd6I8=";
 
   buildInputs = with pkgs; [
     unicorn
