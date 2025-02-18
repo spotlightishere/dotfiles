@@ -25,7 +25,7 @@
     inetutils
     ipsw
     jadx
-    jdk21
+    jdk23
     jq
     libimobiledevice
     libusbmuxd
