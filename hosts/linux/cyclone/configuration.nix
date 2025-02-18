@@ -95,6 +95,9 @@
   environment.systemPackages = with pkgs; [
     cider
     discord
+    (prismlauncher.override {
+      jdks = [ pkgs.jdk23 ];
+    })
     vscode
   ];
 
