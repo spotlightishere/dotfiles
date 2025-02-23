@@ -24,7 +24,6 @@
     # telnet
     inetutils
     ipsw
-    jadx
     jdk23
     jq
     libimobiledevice
