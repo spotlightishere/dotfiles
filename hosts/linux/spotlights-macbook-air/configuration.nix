@@ -35,9 +35,9 @@
   };
 
   nixpkgs.overlays = [
-    # We need SMBIOS generation enabled for libvirtd,
-    # as it otherwise stumbles over executing dmidecode.
     (final: prev: {
+      # We need SMBIOS generation enabled for libvirtd,
+      # as it otherwise stumbles over executing dmidecode.
       uboot-asahi = prev.uboot-asahi.overrideAttrs (old: {
         # TODO(spotlightishere): It'd be far more ideal to actually override.
         # However, somehow overriding extraConfig seems to coerce things into a string.
@@ -56,6 +56,21 @@
           CONFIG_GENERATE_SMBIOS_TABLE=y
         '';
       });
+
+      # muvm requires a few things for libkrun.
+      libkrun = prev.callPackage ./libkrun/package.nix { };
+
+      # https://github.com/NixOS/nixpkgs/pull/347792#issuecomment-2667343848
+      virglrenderer = prev.virglrenderer.overrideAttrs (old: {
+        src = final.fetchurl {
+          url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20241205.2/virglrenderer-asahi-20241205.2.tar.bz2";
+          hash = "sha256-mESFaB//RThS5Uts8dCRExfxT5DQ+QQgTDWBoQppU7U=";
+        };
+        mesonFlags = old.mesonFlags ++ [ (final.lib.mesonOption "drm-renderers" "asahi-experimental") ];
+      });
+
+      # https://github.com/NixOS/nixpkgs/pull/347792
+      muvm = prev.callPackage ./muvm/package.nix { };
     })
   ];
 
@@ -78,8 +93,17 @@
     };
   };
 
+  users.users.spotlight.extraGroups = [ "docker" ];
+  virtualisation.docker.enable = true;
+
+  services.syncthing.enable = true;
+
   environment.systemPackages = with pkgs; [
+    # For usage with FEXRootFSFetcher
+    erofs-utils
+    fex
     legcord
+    muvm
     vscode
   ];
 

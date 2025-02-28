@@ -1,0 +1,13 @@
+diff --git a/crates/muvm/src/monitor.rs b/crates/muvm/src/monitor.rs
+index 836acd5..a7cee1c 100644
+--- a/crates/muvm/src/monitor.rs
++++ b/crates/muvm/src/monitor.rs
+@@ -49,7 +49,7 @@ fn set_guest_pressure(pressure: GuestPressure) -> Result<()> {
+     let wsf: u32 = pressure.into();
+     debug!("setting watermark_scale_factor to {wsf}");
+ 
+-    let command = PathBuf::from("/sbin/sysctl");
++    let command = PathBuf::from("sysctl");
+     let command_args = vec![format!("vm.watermark_scale_factor={}", wsf)];
+     let env = HashMap::new();
+     request_launch(command, command_args, env, 0, false, true)
