@@ -1,5 +1,6 @@
 { lib
 , stdenv
+, fetchurl
 , fetchFromGitHub
 , rustPlatform
 , cargo
@@ -57,7 +58,17 @@ stdenv.mkDerivation (finalAttrs: {
     ++ lib.optionals withGpu [
       libepoxy
       libdrm
-      virglrenderer
+      # We want to override the virglrenderer input.
+      # (Overriding for all of nixpkgs means that QEMU is repeatedly rebuilt.)
+      # https://github.com/NixOS/nixpkgs/pull/347792#issuecomment-2667343848
+      (virglrenderer.overrideAttrs
+        (old: {
+          src = fetchurl {
+            url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20241205.2/virglrenderer-asahi-20241205.2.tar.bz2";
+            hash = "sha256-mESFaB//RThS5Uts8dCRExfxT5DQ+QQgTDWBoQppU7U=";
+          };
+          mesonFlags = old.mesonFlags ++ [ (lib.mesonOption "drm-renderers" "asahi-experimental") ];
+        }))
     ]
     ++ lib.optional withSound pipewire
     ++ lib.optional sevVariant openssl;

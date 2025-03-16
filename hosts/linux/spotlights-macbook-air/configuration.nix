@@ -57,19 +57,15 @@
         '';
       });
 
-      # muvm requires a few things for libkrun.
+      # muvm requires a few custom flags for libkrun.
+      # Additionally, we override the upstream version of
+      # `virglrenderer` to use separate other flags.
+      #
+      # This could also be accomplished with overriding inputs,
+      # but as we control the actual source, this is easier.
       libkrun = prev.callPackage ./libkrun/package.nix { };
 
-      # https://github.com/NixOS/nixpkgs/pull/347792#issuecomment-2667343848
-      virglrenderer = prev.virglrenderer.overrideAttrs (old: {
-        src = final.fetchurl {
-          url = "https://gitlab.freedesktop.org/asahi/virglrenderer/-/archive/asahi-20241205.2/virglrenderer-asahi-20241205.2.tar.bz2";
-          hash = "sha256-mESFaB//RThS5Uts8dCRExfxT5DQ+QQgTDWBoQppU7U=";
-        };
-        mesonFlags = old.mesonFlags ++ [ (final.lib.mesonOption "drm-renderers" "asahi-experimental") ];
-      });
-
-      # https://github.com/NixOS/nixpkgs/pull/347792
+      # Derived from https://github.com/NixOS/nixpkgs/pull/347792
       muvm = prev.callPackage ./muvm/package.nix { };
     })
   ];
