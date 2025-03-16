@@ -32,6 +32,9 @@
       enable = true;
       settings.General.EnableNetworkConfiguration = true;
     };
+
+    # Necessary for WireGuard
+    firewall.checkReversePath = false;
   };
 
   nixpkgs.overlays = [
@@ -101,6 +104,7 @@
     legcord
     muvm
     vscode
+wireguard-tools
   ];
 
   # :(
