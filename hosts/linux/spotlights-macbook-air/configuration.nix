@@ -17,6 +17,12 @@
     efi.canTouchEfiVariables = false;
   };
 
+  # Allow GNOME to dynamically set the
+  # time zone based on current location.
+  #
+  # https://www.reddit.com/r/NixOS/comments/1411gjs/comment/jo4wau3/
+  time.timeZone = lib.mkForce null;
+
   # Asahi Linux support
   hardware.asahi = {
     peripheralFirmwareDirectory = /boot/asahi;
