@@ -68,7 +68,12 @@
     # we'll use geolocation via the Arch Linux API key.
     geoclue2 = {
       enable = true;
-      geoProviderUrl = "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDwr302FpOSkGRpLlUpPThNTDPbXcIn_FM";
+      geoProviderUrl = "https://api.beacondb.net/v1/geolocate";
+
+      # Let's be generous :)
+      submitData = true;
+      submissionUrl = "https://api.beacondb.net/v2/geosubmit";
+      submissionNick = "geoclue";
     };
   };
 
