@@ -98,10 +98,16 @@
     };
   };
 
+  # Docker
   users.users.spotlight.extraGroups = [ "docker" ];
   virtualisation.docker.enable = true;
 
-  services.syncthing.enable = true;
+  services = {
+    # iOS tethering, etc
+    usbmuxd.enable = true;
+
+    syncthing.enable = true;
+  };
 
   environment.systemPackages = with pkgs; [
     # For usage with FEXRootFSFetcher
