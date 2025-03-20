@@ -103,6 +103,7 @@
     firefox
     htop
     git
+    github-desktop
     gnome-tweaks
     gnomeExtensions.appindicator
     minicom
