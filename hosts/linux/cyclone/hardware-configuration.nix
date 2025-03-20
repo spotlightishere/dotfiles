@@ -16,7 +16,7 @@
     initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
     # Use the latest kernel.
     # As such, we'll also use unstable ZFS.
-    kernelPackages = pkgs.linuxPackages_6_12;
+    kernelPackages = pkgs.linuxPackages_6_13;
     zfs = {
       package = pkgs.zfs_unstable;
       # For reasons unbeknownst to humanity, this drive
