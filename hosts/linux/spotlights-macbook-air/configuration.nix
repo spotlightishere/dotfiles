@@ -5,7 +5,6 @@
 { config, lib, pkgs, ... }:
 
 {
-
   imports = [
     ./hardware-configuration.nix
     ../shared.nix
@@ -106,6 +105,8 @@
     # iOS tethering, etc
     usbmuxd.enable = true;
 
+    tailscale.enable = true;
+
     syncthing.enable = true;
   };
 
@@ -116,7 +117,7 @@
     legcord
     muvm
     vscode
-wireguard-tools
+    wireguard-tools
   ];
 
   # :(
