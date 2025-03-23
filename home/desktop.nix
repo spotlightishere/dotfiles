@@ -17,7 +17,6 @@
     gcc-arm-embedded
     go
     google-cloud-sdk
-    gradle
     htop
     hyfetch
     imagemagick
