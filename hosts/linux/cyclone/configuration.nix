@@ -101,12 +101,15 @@
     vscode
   ];
 
-  programs.steam.enable = true;
+  programs = {
+    adb.enable = true;
+    steam.enable = true;
+  };
 
   # Docker support
   boot.kernel.sysctl."net.ipv4.ip_forward" = true;
   networking.firewall.trustedInterfaces = [ "docker0" ];
-  users.users.spotlight.extraGroups = [ "docker" ];
+  users.users.spotlight.extraGroups = [ "adbusers" "docker" ];
   virtualisation.docker.enable = true;
   # Docker NVIDIA runtime support
   hardware.nvidia-container-toolkit.enable = true;
