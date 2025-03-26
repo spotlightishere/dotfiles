@@ -5,7 +5,9 @@
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     apple-silicon-support = {
-      url = "github:tpwrules/nixos-apple-silicon";
+      # Temporarily use https://github.com/tpwrules/nixos-apple-silicon/pull/284
+      # due to Mesa changes upstream necessary for functional Vulkan.
+      url = "github:tpwrules/nixos-apple-silicon?ref=pull/284/head";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Allows for easy enumeration of available Darwin and Linux systems.
