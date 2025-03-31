@@ -4,16 +4,16 @@
 # `buildGoModule` currently uses Go 1.23.
 buildGo124Module rec {
   pname = "ipsw";
-  version = "3.1.587";
+  version = "3.1.588";
 
   src = fetchFromGitHub {
     owner = "blacktop";
     repo = "ipsw";
     rev = "v${version}";
-    hash = "sha256-4opW9veCG7XZG/JRlGh/fyIq3LkhC+BjwKREh0mseT8=";
+    hash = "sha256-kGBQQKEptDu+wx9C7SulI52HXDCHbiqLZXSRAEdjSCo=";
   };
 
-  vendorHash = "sha256-KzVXdPu8r+B/MzlzRmtONmP+DIGQQX5kTQTfwY0xM74=";
+  vendorHash = "sha256-j7sptEtkbCzztF7D2kW69CKIRPev3kvRHycVq2abeeY=";
 
   buildInputs = with pkgs; [
     unicorn
@@ -31,7 +31,7 @@ buildGo124Module rec {
   ];
 
   meta = {
-    description = "Simple command-line snippet manager, written in Go";
+    description = "iOS/macOS Research Swiss Army Knife ";
     homepage = "https://github.com/blacktop/ipsw";
     license = lib.licenses.mit;
   };
