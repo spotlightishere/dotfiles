@@ -27,12 +27,11 @@
     ln -sf "$JDK_LOCATION" "/Library/Java/JavaVirtualMachines/zulu-latest.jdk"
 
     ##########
-    # JDK 17 #
+    # JDK 21 #
     ##########
-    # We'd also like JDK 17 available, for legacy purposes.
-    # (The author of this is as disappointed in this as the reader should be.)
-    rm -f /Library/Java/JavaVirtualMachines/zulu-17.jdk
-    ln -sf "${pkgs.jdk17}/zulu-17.jdk" "/Library/Java/JavaVirtualMachines/zulu-17.jdk"
+    # We'd also like the latest LTS version of the JDK available.
+    rm -f /Library/Java/JavaVirtualMachines/zulu-21.jdk
+    ln -sf "${pkgs.jdk21}/zulu-21.jdk" "/Library/Java/JavaVirtualMachines/zulu-21.jdk"
   '';
 
   # Auto upgrade the nix package.
