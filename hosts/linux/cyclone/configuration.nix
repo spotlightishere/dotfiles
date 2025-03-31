@@ -95,6 +95,8 @@
       "steam-original"
       "steam-run"
       "steam-unwrapped"
+      # IntelliJ
+      "idea-ultimate"
     ];
   };
 
@@ -105,9 +107,9 @@
     cider
     discord
     fractal
-    (prismlauncher.override {
-      jdks = [ pkgs.jdk23 ];
-    })
+    jetbrains.idea-ultimate
+    signal-desktop
+    srain
     tuba
     vscode
   ];
