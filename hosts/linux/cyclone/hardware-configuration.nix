@@ -14,17 +14,36 @@
     };
 
     initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
-    # Use the latest kernel.
-    # As such, we'll also use unstable ZFS.
-    kernelPackages = pkgs.linuxPackages_6_13;
+
+    # Where possible, we'd like to use the latest kernel version,
+    # alongside the latest version of ZFS.
+    #
+    # The latest version of ZFS (as of writing, 2.3.1)
+    # supports kernel 6.14 with no changes necessary.
+    #
+    # We'll temporarily override it to not mark it as broken.
+    kernelPackages = pkgs.linuxPackages_6_14.extend (final: prev: {
+      zfs_unstable = prev.zfs_unstable.overrideAttrs (oldAttrs: {
+        # Well.. that's partially a lie, it does need
+        # one patch to specify it's compatible.
+        patches = [
+          (pkgs.fetchpatch {
+            url = "https://patch-diff.githubusercontent.com/raw/openzfs/zfs/pull/17172.patch";
+            hash = "sha256-c8YP1a36uwYvvW+h4yT6s3PIKkHq6IMjVal2CcNI4p4=";
+          })
+        ];
+        meta.broken = false;
+      });
+    });
+
     zfs = {
-      package = pkgs.zfs_unstable;
+      package = pkgs.zfs_unstable.overrideAttrs (oldAttrs: rec {
+        meta.broken = false;
+      });
       # For reasons unbeknownst to humanity, this drive
-      # appears to keep changing identifiers or similar.
-      # Prefer by-partuuid instead.
+      # appeared to keep changing identifiers.
       #
-      # (We could also do by-uuid, but it'd be best not
-      # to have a drive's serial number publicly.)
+      # We're forcing its device to be read from by-uuid.
       devNodes = "/dev/disk/by-uuid";
     };
 
