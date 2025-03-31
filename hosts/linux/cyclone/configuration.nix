@@ -32,7 +32,15 @@
 
     tailscale.enable = true;
     vscode-server.enable = true;
-    syncthing.enable = true;
+
+    # Ensure Syncthing has the ability to write
+    # within the user's home directory.
+    syncthing = {
+      enable = true;
+      user = "spotlight";
+      group = "users";
+      dataDir = "/home/spotlight";
+    };
   };
 
   hardware = {
@@ -93,11 +101,14 @@
   # Standard system utilities. Many of these are within ../shared.nix.
   # The bulk of user-specific packages should go within the home-manager configuration.
   environment.systemPackages = with pkgs; [
+    blender
     cider
     discord
+    fractal
     (prismlauncher.override {
       jdks = [ pkgs.jdk23 ];
     })
+    tuba
     vscode
   ];
 
