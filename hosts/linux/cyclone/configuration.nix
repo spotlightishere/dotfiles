@@ -54,25 +54,41 @@
       package = config.boot.kernelPackages.nvidiaPackages.beta;
     };
 
+    # Docker NVIDIA runtime support
+    nvidia-container-toolkit.enable = true;
+
     # AMD
     cpu.amd.updateMicrocode = true;
   };
 
-  # As recommended in https://nixos.wiki/wiki/Libvirt#Setup
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      package = pkgs.qemu_kvm;
-      runAsRoot = true;
-      swtpm.enable = true;
-      ovmf = {
-        enable = true;
-        packages = [
-          (pkgs.OVMF.override {
-            secureBoot = true;
-            tpmSupport = true;
-          }).fd
-        ];
+  # Container programs
+  boot.kernel.sysctl."net.ipv4.ip_forward" = true;
+  networking.firewall.trustedInterfaces = [ "docker0" "incusbr0" ];
+  users.users.spotlight.extraGroups = [ "adbusers" "docker" "incus-admin" ];
+
+  virtualisation = {
+    # Docker
+    docker.enable = true;
+
+    # Incus (LXD)
+    incus.enable = true;
+
+    # As recommended in https://nixos.wiki/wiki/Libvirt#Setup
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = true;
+        swtpm.enable = true;
+        ovmf = {
+          enable = true;
+          packages = [
+            (pkgs.OVMF.override {
+              secureBoot = true;
+              tpmSupport = true;
+            }).fd
+          ];
+        };
       };
     };
   };
@@ -118,14 +134,6 @@
     adb.enable = true;
     steam.enable = true;
   };
-
-  # Docker support
-  boot.kernel.sysctl."net.ipv4.ip_forward" = true;
-  networking.firewall.trustedInterfaces = [ "docker0" ];
-  users.users.spotlight.extraGroups = [ "adbusers" "docker" ];
-  virtualisation.docker.enable = true;
-  # Docker NVIDIA runtime support
-  hardware.nvidia-container-toolkit.enable = true;
 
   # Please do not change this without reviewing release notes upstream.
   system.stateVersion = "24.11";

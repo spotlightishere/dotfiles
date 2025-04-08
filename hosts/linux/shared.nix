@@ -15,6 +15,7 @@
   networking = {
     domain = "host.fox-int.cloud";
     networkmanager.enable = true;
+    nftables.enable = true;
 
     nameservers = [
       # Quad9
