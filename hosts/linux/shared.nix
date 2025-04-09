@@ -102,11 +102,12 @@
     # we need to manually add the Adwaita GTK 3 dark mode theme.
     adw-gtk3
     firefox
-    htop
     git
     github-desktop
     gnome-tweaks
     gnomeExtensions.appindicator
+    htop
+    jdk23
     minicom
     pciutils
     seafile-client
