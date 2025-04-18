@@ -214,6 +214,24 @@
           }
         ];
       };
+      
+      darwinConfigurations."spotlights-mac-pro" = nix-darwin.lib.darwinSystem {
+        modules = [
+          # System-wide configuration
+          ./hosts/darwin/spotlights-mac-pro/configuration.nix
+          # Our provided home-manager configuration
+          home-manager.darwinModules.home-manager
+          {
+            nixpkgs.overlays = [ self.overlays.default ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.spot = import ./home/home.nix;
+              extraSpecialArgs = { desktop = true; gpg = true; };
+            };
+          }
+        ];
+      };
 
       darwinConfigurations."sequoia" = nix-darwin.lib.darwinSystem {
         modules = [
