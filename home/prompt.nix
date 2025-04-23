@@ -53,10 +53,11 @@ in
     # We use powerlevel10k as our ZSH theme.
     # By using the derivation in nixpkgs, we also get gitstatusd.
     # The .p10k.zsh config is beneath.
-    initExtraBeforeCompInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+    #
+    # We then add custom configurations.
+    initContent = ''
+      source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 
-    # Some custom configurations:
-    initExtra = ''
       # pushd
       setopt AUTO_PUSHD
 
