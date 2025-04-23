@@ -19,8 +19,6 @@
     htop
     hyfetch
     imagemagick
-    # telnet
-    inetutils
     ipsw
     jq
     libimobiledevice
@@ -45,6 +43,7 @@
     rustup
     socat
     swiftformat
+    telnet
     tmux
     unar
     virt-manager
