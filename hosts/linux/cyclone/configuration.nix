@@ -127,6 +127,7 @@
     signal-desktop
     srain
     tuba
+    wireshark
     vscode
   ];
 
