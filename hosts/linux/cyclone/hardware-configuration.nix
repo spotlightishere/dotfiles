@@ -22,24 +22,10 @@
     # supports kernel 6.14 with no changes necessary.
     #
     # We'll temporarily override it to not mark it as broken.
-    kernelPackages = pkgs.linuxPackages_6_14.extend (final: prev: {
-      zfs_unstable = prev.zfs_unstable.overrideAttrs (oldAttrs: {
-        # Well.. that's partially a lie, it does need
-        # one patch to specify it's compatible.
-        patches = [
-          (pkgs.fetchpatch {
-            url = "https://patch-diff.githubusercontent.com/raw/openzfs/zfs/pull/17172.patch";
-            hash = "sha256-c8YP1a36uwYvvW+h4yT6s3PIKkHq6IMjVal2CcNI4p4=";
-          })
-        ];
-        meta.broken = false;
-      });
-    });
+    kernelPackages = pkgs.linuxPackages_6_14;
 
     zfs = {
-      package = pkgs.zfs_unstable.overrideAttrs (oldAttrs: rec {
-        meta.broken = false;
-      });
+      package = pkgs.zfs_unstable;
       # For reasons unbeknownst to humanity, this drive
       # appeared to keep changing identifiers.
       #
