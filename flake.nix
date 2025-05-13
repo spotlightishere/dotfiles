@@ -212,7 +212,7 @@
           }
         ];
       };
-      
+
       darwinConfigurations."spotlights-mac-pro" = nix-darwin.lib.darwinSystem {
         modules = [
           # System-wide configuration
