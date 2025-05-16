@@ -9,8 +9,22 @@
   networking = {
     hostName = "cyclone";
     hostId = "79696666";
-    # Allow WireGuard.
-    firewall.checkReversePath = "loose";
+    firewall = {
+      # Allow WireGuard.
+      checkReversePath = "loose";
+
+      interfaces = {
+        # Syncthing
+        "enp14s0" = {
+          allowedTCPPorts = [ 22000 ];
+          allowedUDPPorts = [ 21027 ];
+        };
+        "tailscale0" = {
+          allowedTCPPorts = [ 22000 ];
+          allowedUDPPorts = [ 21027 ];
+        };
+      };
+    };
   };
 
   # General service configuration.
@@ -126,6 +140,7 @@
     jetbrains.idea-ultimate
     signal-desktop
     srain
+    tcpdump
     tuba
     wireshark
     vscode
