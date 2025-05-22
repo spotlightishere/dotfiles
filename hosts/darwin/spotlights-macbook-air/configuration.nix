@@ -21,7 +21,7 @@
 
     # We should only have a single JDK present within our package,
     # but let's limit `find` regardless.
-    JDK_LOCATION="$(find "${pkgs.jdk23}" -name "*.jdk" | head -n1)"
+    JDK_LOCATION="$(find "${pkgs.jdk24}" -name "*.jdk" | head -n1)"
 
     # Symlink!
     ln -sf "$JDK_LOCATION" "/Library/Java/JavaVirtualMachines/zulu-latest.jdk"

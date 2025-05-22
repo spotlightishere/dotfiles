@@ -107,7 +107,7 @@
     gnome-tweaks
     gnomeExtensions.appindicator
     htop
-    jdk23
+    jdk24
     minicom
     pciutils
     seafile-client
