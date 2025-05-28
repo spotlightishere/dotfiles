@@ -4,8 +4,10 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # Temporarily use https://github.com/tpwrules/nixos-apple-silicon/pull/303
+    # as stable mesa now supports the Asahi ABI fully.
     apple-silicon-support = {
-      url = "github:tpwrules/nixos-apple-silicon";
+      url = "github:tpwrules/nixos-apple-silicon?ref=pull/303/head";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     # Allows for easy enumeration of available Darwin and Linux systems.
@@ -54,13 +56,14 @@
       });
 
       # Next, we provide Linux-specific home-manager configurations,
+      # assist Garnix in building the linux-asahi kernel for aarch64-linux,
       # and expose our default packages to the world.
       packages =
         let
-          ##########################
-          # Linux-specific options #
-          ##########################
-          linuxConfiguration = linuxSystems (system: {
+          ###############################
+          # Linux-specific home manager #
+          ###############################
+          linuxHomeManager = linuxSystems (system: {
             homeConfigurations = {
               # We currently assume that Linux devices only require
               # dotfiles and utilize the username `spotlight`.
@@ -83,9 +86,18 @@
           });
 
           # For all platforms, export our packages for CI to build.
-          exportedPackages = allSystems (system: import ./pkgs/default.nix {
+          overlayPackages = allSystems (system: import ./pkgs/default.nix {
             pkgs = nixpkgs.legacyPackages.${system};
           });
+
+          # On aarch64-linux, additionally re-export Asahi-related packages.
+          # This allows it to be cached via Garnix if necessary, saving local build time.
+          asahiPackages = {
+            aarch64-linux = {
+              linux-asahi-kernel = inputs.apple-silicon-support.packages.aarch64-linux.linux-asahi.kernel;
+              m1n1 = inputs.apple-silicon-support.packages.aarch64-linux.m1n1;
+            };
+          };
 
           # We must use recursiveUpdate in order to go deeper beyond one level.
           # For example, `linuxConfiguration` provides `packages.x86_64-linux.homeConfiguration`
@@ -95,8 +107,9 @@
           # and either packages or the home-manager configuration end up being replaced.
           # This is not ideal :(
           recursiveUpdate = nixpkgs.lib.recursiveUpdate;
+          exportedPackages = recursiveUpdate overlayPackages asahiPackages;
         in
-        recursiveUpdate linuxConfiguration exportedPackages;
+        recursiveUpdate linuxHomeManager exportedPackages;
 
       # We provide a NixOS module for easy usage within other system flakes.
       # (Again, we assume a default name of `spotlight` under Linux.)

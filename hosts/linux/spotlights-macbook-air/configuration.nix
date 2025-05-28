@@ -23,13 +23,8 @@
   time.timeZone = lib.mkForce null;
 
   # Asahi Linux support
-  hardware.asahi = {
-    peripheralFirmwareDirectory = /boot/asahi;
-    # GPU enablement
-    useExperimentalGPUDriver = true;
-    experimentalGPUInstallMode = "replace";
-    withRust = true;
-  };
+  # Options such as `withRust` are no longer necessary.
+  hardware.asahi.peripheralFirmwareDirectory = /boot/asahi;
 
   networking = {
     hostName = "spotlights-macbook-air";
