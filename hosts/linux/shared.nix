@@ -41,16 +41,11 @@
     };
 
     # We should have GNOME on all desktop installs.
-    xserver = {
+    desktopManager.gnome.enable = true;
+    displayManager.gdm = {
+      # At the login screen, don't automatically fall asleep.
+      autoSuspend = false;
       enable = true;
-
-      # GNOME!
-      desktopManager.gnome.enable = true;
-      displayManager.gdm = {
-        # At the login screen, don't automatically fall asleep.
-        autoSuspend = false;
-        enable = true;
-      };
     };
 
     # We'd also like printing support.
