@@ -32,6 +32,9 @@
     # Ensure xserver is using the Nvidia drivers.
     xserver.videoDrivers = [ "nvidia" ];
 
+    # iOS tethering, etc
+    usbmuxd.enable = true;
+
     # Allow for RDP access.
     gnome.gnome-remote-desktop.enable = true;
 
