@@ -73,6 +73,10 @@ in
       # History search, but from beginning
       bindkey "^[[A" history-beginning-search-backward
       bindkey "^[[B" history-beginning-search-forward
+
+      # Prefer /usr/bin/log over the zsh shell built-in.
+      # This is primarily for Darwin usage.
+      disable log
     '';
   };
 
