@@ -4,16 +4,16 @@
 # `buildGoModule` currently uses Go 1.23.
 buildGo124Module rec {
   pname = "ipsw";
-  version = "3.1.608";
+  version = "3.1.609";
 
   src = fetchFromGitHub {
     owner = "blacktop";
     repo = "ipsw";
     rev = "v${version}";
-    hash = "sha256-aO/K7RU7xxCCevPdwq6N4iiyrCGnBS8fS1IzhakrHxA=";
+    hash = "sha256-kPcjV2bMZAQgw0A7sDSXhNyDdjLb4IWIJxU4V/woJL0=";
   };
 
-  vendorHash = "sha256-cNJ4L3aQ3AlSeqW/wsPg5+G7ypwpzDsSIgb+jYhau6Q=";
+  vendorHash = "sha256-89URx/xDFfzO35O4GLf+NVIcOzxEEHG/Jv/d2kfvftQ=";
 
   buildInputs = with pkgs; [
     unicorn
