@@ -90,12 +90,16 @@
             pkgs = nixpkgs.legacyPackages.${system};
           });
 
-          # On aarch64-linux, additionally re-export Asahi-related packages.
-          # This allows it to be cached via Garnix if necessary, saving local build time.
-          asahiPackages = {
+          # Re-export various packages that we use (e.g. Asahi, i686).
+          # This allows them to be cached via Garnix if necessary, saving local build time.
+          inputPackages = {
             aarch64-linux = {
               linux-asahi-kernel = inputs.apple-silicon-support.packages.aarch64-linux.linux-asahi.kernel;
               m1n1 = inputs.apple-silicon-support.packages.aarch64-linux.m1n1;
+            };
+            i686-linux = {
+              grub2 = inputs.nixpkgs.legacyPackages.i686-linux.grub2;
+              grub2_efi = inputs.nixpkgs.legacyPackages.i686-linux.grub2_efi;
             };
           };
 
@@ -107,7 +111,7 @@
           # and either packages or the home-manager configuration end up being replaced.
           # This is not ideal :(
           recursiveUpdate = nixpkgs.lib.recursiveUpdate;
-          exportedPackages = recursiveUpdate overlayPackages asahiPackages;
+          exportedPackages = recursiveUpdate overlayPackages inputPackages;
         in
         recursiveUpdate linuxHomeManager exportedPackages;
 
