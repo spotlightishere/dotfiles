@@ -91,6 +91,23 @@
     zsh.enable = true;
   };
 
+  # Temporary fix to remove the `future` Python package.
+  # This is roughly an application of the following pull request:
+  # https://github.com/NixOS/nixpkgs/pull/418675/files
+  nixpkgs.overlays = [
+    (final: prev: {
+      seafile-shared = prev.seafile-shared.overrideAttrs(old: {
+        postPatch = ''
+          substituteInPlace scripts/breakpad.py --replace-fail "from __future__ import print_function" ""
+        '';
+
+        pythonPath = with prev.python3.pkgs; [
+          pysearpc
+        ];
+      });
+    })
+  ];
+
   # Common utilities across most Linux installs.
   environment.systemPackages = with pkgs; [
     # Since not all applications are currently GTK 4,

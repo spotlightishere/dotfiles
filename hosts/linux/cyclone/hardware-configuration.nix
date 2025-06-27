@@ -17,33 +17,10 @@
 
     # Where possible, we'd like to use the latest kernel version,
     # alongside the latest version of ZFS.
-    #
-    # The latest version of ZFS (as of writing, 2.3.1)
-    # supports kernel 6.14 with no changes necessary.
-    #
-    # We'll temporarily override it to not mark it as broken.
-    kernelPackages = pkgs.linuxPackages_6_15.extend (final: prev: {
-      zfs_unstable = prev.zfs_unstable.overrideAttrs (oldAttrs: {
-        # Well.. that's partially a lie, it does need
-        # one patch to specify it's compatible.
-        patches = [
-          (pkgs.fetchpatch {
-            url = "https://patch-diff.githubusercontent.com/raw/openzfs/zfs/pull/17371.patch";
-            hash = "sha256-GTfeFz8j8h6nPIAjMOhsF1NQkyMUxYNCEaQp0rylXlo=";
-          })
-          (pkgs.fetchpatch {
-            url = "https://patch-diff.githubusercontent.com/raw/openzfs/zfs/pull/17393.patch";
-            hash = "sha256-1SiM+XImy/8y1A32kv65Kj4kwgA4p8BlOi6qDLwq/+4=";
-          })
-        ];
-        meta.broken = false;
-      });
-    });
+    kernelPackages = pkgs.linuxPackages_6_15;
 
     zfs = {
-      package = pkgs.zfs_unstable.overrideAttrs (oldAttrs: rec {
-        meta.broken = false;
-      });
+      package = pkgs.zfs_unstable;
       # For reasons unbeknownst to humanity, this drive
       # appeared to keep changing identifiers.
       #
