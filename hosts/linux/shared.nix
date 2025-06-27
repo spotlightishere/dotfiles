@@ -96,7 +96,7 @@
   # https://github.com/NixOS/nixpkgs/pull/418675/files
   nixpkgs.overlays = [
     (final: prev: {
-      seafile-shared = prev.seafile-shared.overrideAttrs(old: {
+      seafile-shared = prev.seafile-shared.overrideAttrs (old: {
         postPatch = ''
           substituteInPlace scripts/breakpad.py --replace-fail "from __future__ import print_function" ""
         '';
