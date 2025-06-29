@@ -59,17 +59,6 @@
           CONFIG_GENERATE_SMBIOS_TABLE=y
         '';
       });
-
-      # muvm requires a few custom flags for libkrun.
-      # Additionally, we override the upstream version of
-      # `virglrenderer` to use separate other flags.
-      #
-      # This could also be accomplished with overriding inputs,
-      # but as we control the actual source, this is easier.
-      libkrun = prev.callPackage ./libkrun/package.nix { };
-
-      # Derived from https://github.com/NixOS/nixpkgs/pull/347792
-      muvm = prev.callPackage ./muvm/package.nix { };
     })
   ];
 
