@@ -10,10 +10,6 @@
       url = "github:tpwrules/nixos-apple-silicon?ref=pull/303/head";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # Allows for easy enumeration of available Darwin and Linux systems.
-    all-systems.url = "github:nix-systems/default";
-    darwin-systems.url = "github:nix-systems/default-darwin";
-    linux-systems.url = "github:nix-systems/default-linux";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -30,13 +26,9 @@
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, vscode-server, ... }:
     let
-      # TODO(spotlightishere): Is there a better way to approach this that doesn't
-      # involve importing so many separate flakes?
-      #
-      # (We could manually merge Darwin and Linux themselves, but this is primarily for readability.)
-      allSystems = nixpkgs.lib.genAttrs (import inputs.all-systems);
-      darwinSystems = nixpkgs.lib.genAttrs (import inputs.darwin-systems);
-      linuxSystems = nixpkgs.lib.genAttrs (import inputs.linux-systems);
+      # We'll target the systems we use the most.
+      # This may be expanded in the future (e.g. x86_64-freebsd).
+      allSystems = nixpkgs.lib.genAttrs [ "aarch64-darwin" "x86_64-darwin" "aarch64-linux" "x86_64-linux" ];
 
       homeManager = { system, specialArgs ? { } }:
         home-manager.lib.homeManagerConfiguration {
@@ -51,36 +43,26 @@
       # First, we provide a generalized package overlay, providing several packages
       # for e.g. nix-darwin, NixOS, and home-manager usage.
       # ./pkgs/default.nix's singular argument, `pkgs`, is provided by our `final`.
-      overlays.default = (final: prev: import ./pkgs/default.nix {
-        pkgs = final;
-      });
+      overlays.default = import ./pkgs/default.nix;
 
       # Next, we provide Linux-specific home-manager configurations,
-      # assist Garnix in building the linux-asahi kernel for aarch64-linux,
-      # and expose our default packages to the world.
-      packages =
-        let
-          ###############################
-          # Linux-specific home manager #
-          ###############################
-          linuxHomeManager = linuxSystems (system: {
-            homeConfigurations = {
-              # We currently assume that Linux devices only require
-              # dotfiles and utilize the username `spotlight`.
-              #
-              # For now, this is effectively true, sans a few specific configurations :)
-              spotlight = homeManager {
-                system = system;
-              };
+      # and re-export several functions for Garnix to build.
+      packages = {
+        ###############################
+        # Linux-specific home manager #
+        ###############################
+        x86_64-linux = {
+          homeConfigurations = {
+            # We currently assume that Linux devices only require
+            # dotfiles and utilize the username `spotlight`.
+            #
+            # For now, this is effectively true, sans a few specific configurations :)
+            spotlight = homeManager {
+              system = "x86_64-linux";
+            };
 
-              # For a special case: with the Steam Deck, we have to assume the user
-              # is named `deck` due to its immutable system image.
-              deck = homeManager {
-                system = system;
-                specialArgs = {
-                  gpg = true;
-                  username = "deck";
-                };
+            # For a special case: with the Steam Deck, we have to assume the user
+            # is named `deck` due to its immutable system image.
               };
             };
           });
@@ -94,26 +76,20 @@
           # This allows them to be cached via Garnix if necessary, saving local build time.
           inputPackages = {
             aarch64-linux = {
-              linux-asahi-kernel = inputs.apple-silicon-support.packages.aarch64-linux.linux-asahi.kernel;
-              m1n1 = inputs.apple-silicon-support.packages.aarch64-linux.m1n1;
-            };
-            i686-linux = {
-              grub2 = inputs.nixpkgs.legacyPackages.i686-linux.grub2;
-              grub2_efi = inputs.nixpkgs.legacyPackages.i686-linux.grub2_efi;
-            };
           };
+        };
 
-          # We must use recursiveUpdate in order to go deeper beyond one level.
-          # For example, `linuxConfiguration` provides `packages.x86_64-linux.homeConfiguration`
-          # and `exportedPackages` provides `packages.x86_64-linux.<package name>`.
-          #
-          # With the normal `//` syntax, `packages.x86_64-linux` is not recursively merged,
-          # and either packages or the home-manager configuration end up being replaced.
-          # This is not ideal :(
-          recursiveUpdate = nixpkgs.lib.recursiveUpdate;
-          exportedPackages = recursiveUpdate overlayPackages inputPackages;
-        in
-        recursiveUpdate linuxHomeManager exportedPackages;
+        # Re-export various packages that we use (e.g. Asahi, i686).
+        # This allows them to be cached via Garnix if necessary, saving local build time.
+        aarch64-linux = {
+          linux-asahi-kernel = inputs.apple-silicon-support.packages.aarch64-linux.linux-asahi.kernel;
+          m1n1 = inputs.apple-silicon-support.packages.aarch64-linux.m1n1;
+        };
+        i686-linux = {
+          grub2 = inputs.nixpkgs.legacyPackages.i686-linux.grub2;
+          grub2_efi = inputs.nixpkgs.legacyPackages.i686-linux.grub2_efi;
+        };
+      };
 
       # We provide a NixOS module for easy usage within other system flakes.
       # (Again, we assume a default name of `spotlight` under Linux.)
