@@ -43,47 +43,68 @@
       # First, we provide a generalized package overlay, providing several packages
       # for e.g. nix-darwin, NixOS, and home-manager usage.
       # ./pkgs/default.nix's singular argument, `pkgs`, is provided by our `final`.
-      overlays.default = import ./pkgs/default.nix;
+      overlays.default = (final: prev: import ./pkgs/default.nix {
+        pkgs = final;
+      });
 
       # Next, we provide Linux-specific home-manager configurations,
       # and re-export several functions for Garnix to build.
-      packages = {
-        ###############################
-        # Linux-specific home manager #
-        ###############################
-        x86_64-linux = {
-          homeConfigurations = {
-            # We currently assume that Linux devices only require
-            # dotfiles and utilize the username `spotlight`.
-            #
-            # For now, this is effectively true, sans a few specific configurations :)
-            spotlight = homeManager {
-              system = "x86_64-linux";
-            };
+      packages =
+        let
+          # First, let us export Home Manager configurations,
+          # and various packages to accelerate e.g. Asahi usage.
+          exportedPackages = {
+            ###############################
+            # Linux-specific home manager #
+            ###############################
+            x86_64-linux = {
+              homeConfigurations = {
+                # We currently assume that Linux devices only require
+                # dotfiles and utilize the username `spotlight`.
+                #
+                # For now, this is effectively true, sans a few specific configurations :)
+                spotlight = homeManager {
+                  system = "x86_64-linux";
+                };
 
-            # For a special case: with the Steam Deck, we have to assume the user
-            # is named `deck` due to its immutable system image.
-            deck = homeManager {
-              system = "x86_64-linux";
-              specialArgs = {
-                gpg = true;
-                username = "deck";
+                # For a special case: with the Steam Deck, we have to assume the user
+                # is named `deck` due to its immutable system image.
+                deck = homeManager {
+                  system = "x86_64-linux";
+                  specialArgs = {
+                    gpg = true;
+                    username = "deck";
+                  };
+                };
               };
             };
-          };
-        };
 
-        # Re-export various packages that we use (e.g. Asahi, i686).
-        # This allows them to be cached via Garnix if necessary, saving local build time.
-        aarch64-linux = {
-          linux-asahi-kernel = inputs.apple-silicon-support.packages.aarch64-linux.linux-asahi.kernel;
-          m1n1 = inputs.apple-silicon-support.packages.aarch64-linux.m1n1;
-        };
-        i686-linux = {
-          grub2 = inputs.nixpkgs.legacyPackages.i686-linux.grub2;
-          grub2_efi = inputs.nixpkgs.legacyPackages.i686-linux.grub2_efi;
-        };
-      };
+            # Re-export various packages that we use (e.g. Asahi, i686).
+            # This allows them to be cached via Garnix if necessary, saving local build time.
+            aarch64-linux = {
+              linux-asahi-kernel = inputs.apple-silicon-support.packages.aarch64-linux.linux-asahi.kernel;
+              m1n1 = inputs.apple-silicon-support.packages.aarch64-linux.m1n1;
+            };
+            i686-linux = {
+              grub2 = inputs.nixpkgs.legacyPackages.i686-linux.grub2;
+              grub2_efi = inputs.nixpkgs.legacyPackages.i686-linux.grub2_efi;
+            };
+          };
+
+          overlayPackages = allSystems (system: import ./pkgs/default.nix {
+            pkgs = nixpkgs.legacyPackages.${system};
+          });
+
+          # We must use recursiveUpdate in order to go deeper beyond one level.
+          # For example, `linuxConfiguration` provides `packages.x86_64-linux.homeConfiguration`
+          # and `exportedPackages` provides `packages.x86_64-linux.<package name>`.
+          #
+          # With the normal `//` syntax, `packages.x86_64-linux` is not recursively merged,
+          # and either packages or the home-manager configuration end up being replaced.
+          # This is not ideal :(
+          recursiveUpdate = nixpkgs.lib.recursiveUpdate;
+        in
+        recursiveUpdate exportedPackages overlayPackages;
 
       # We provide a NixOS module for easy usage within other system flakes.
       # (Again, we assume a default name of `spotlight` under Linux.)
