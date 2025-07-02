@@ -1,5 +1,6 @@
 { pkgs, ... }: {
   imports = [
+    ./defaults.nix
     ./java.nix
   ];
 
@@ -20,6 +21,7 @@
     home = "/Users/spot";
     shell = pkgs.zsh;
   };
+  system.primaryUser = "spot";
 
   nix = {
     # Keep the latest version of Nix.
