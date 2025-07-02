@@ -63,19 +63,13 @@
 
             # For a special case: with the Steam Deck, we have to assume the user
             # is named `deck` due to its immutable system image.
+            deck = homeManager {
+              system = "x86_64-linux";
+              specialArgs = {
+                gpg = true;
+                username = "deck";
               };
             };
-          });
-
-          # For all platforms, export our packages for CI to build.
-          overlayPackages = allSystems (system: import ./pkgs/default.nix {
-            pkgs = nixpkgs.legacyPackages.${system};
-          });
-
-          # Re-export various packages that we use (e.g. Asahi, i686).
-          # This allows them to be cached via Garnix if necessary, saving local build time.
-          inputPackages = {
-            aarch64-linux = {
           };
         };
 
