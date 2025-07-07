@@ -40,12 +40,12 @@
         };
     in
     {
-      # First, we provide a generalized package overlay, providing several packages
-      # for e.g. nix-darwin, NixOS, and home-manager usage.
+      # First, we provide a generalized package overlay,
+      # providing several packages for e.g. nix-darwin and NixOS usage.
+      #
+      # This does not contain standalone packages.
       # ./pkgs/default.nix's singular argument, `pkgs`, is provided by our `final`.
-      overlays.default = (final: prev: import ./pkgs/default.nix {
-        pkgs = final;
-      });
+      overlays.default = import ./pkgs/default.nix;
 
       # Next, we provide Linux-specific home-manager configurations,
       # and re-export several functions for Garnix to build.
@@ -91,9 +91,41 @@
             };
           };
 
-          overlayPackages = allSystems (system: import ./pkgs/default.nix {
-            pkgs = nixpkgs.legacyPackages.${system};
-          });
+          # We additionally have an overlay consisting of
+          # standlone packages, and overriden packages.
+          #
+          # Export these for Garnix as well.
+          overlayContents = allSystems (system:
+            let
+              # Append our custom overlay to the current system's packages.
+              pkgs = nixpkgs.legacyPackages.${system};
+              overlayPkgs = pkgs.extend (self.overlays.default);
+
+              # TODO(spotlightishere): Find a way to automate
+              # retrieving the packages within our overlay.
+              packageList = [
+                # Standalone packages
+                "ipsw"
+                "monaco-powerline"
+                "telnet"
+                "corellium-cli"
+                "usbfluxd"
+
+                # Overridden packages within overlay
+                "libtatsu"
+                "libimobiledevice"
+                "libimobiledevice-glue"
+                "usbmuxd"
+                "libusbmuxd"
+                "libirecovery"
+                "libplist"
+                "idevicerestore"
+              ];
+            in
+            # This is equivalent to taking the set [ ipsw ]
+              # and emitting the attribute set { ipsw = overlayPkgs.ipsw }.
+            nixpkgs.lib.genAttrs packageList (package: overlayPkgs.${package})
+          );
 
           # We must use recursiveUpdate in order to go deeper beyond one level.
           # For example, `linuxConfiguration` provides `packages.x86_64-linux.homeConfiguration`
@@ -104,7 +136,7 @@
           # This is not ideal :(
           recursiveUpdate = nixpkgs.lib.recursiveUpdate;
         in
-        recursiveUpdate exportedPackages overlayPackages;
+        recursiveUpdate exportedPackages overlayContents;
 
       # We provide a NixOS module for easy usage within other system flakes.
       # (Again, we assume a default name of `spotlight` under Linux.)
