@@ -18,6 +18,7 @@
     google-cloud-sdk
     htop
     hyfetch
+    ideviceinstaller
     idevicerestore
     imagemagick
     ipsw

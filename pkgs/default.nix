@@ -81,6 +81,12 @@ let
       # Similar to libimobildevice, we need libtatsu.
       buildInputs = [ final.libtatsu ];
     };
+
+    ideviceinstaller = updateDevicePackage {
+      name = "ideviceinstaller";
+      rev = "5bdc4dcda97bee0a304609fbab54e71489243253";
+      hash = "sha256-nP4LhF0K+ja57pL3DaGrU0vXfSYByHWfamFwH67l8xc=";
+    };
   };
 in
 standalonePackages // mobiledevicePackages
