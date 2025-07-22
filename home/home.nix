@@ -37,7 +37,10 @@ in
     userName = "Spotlight";
     userEmail = "spotlight@joscomputing.space";
     extraConfig = {
-      core.editor = "${pkgs.vim}/bin/vim";
+      core = {
+        editor = "${pkgs.vim}/bin/vim";
+        fsmonitor = true;
+      };
       color.ui = "auto";
       pull.rebase = true;
       init.defaultBranch = "main";
