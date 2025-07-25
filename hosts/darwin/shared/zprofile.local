@@ -1,0 +1,23 @@
+# Respect system-provided PATHs.
+# https://github.com/nix-darwin/nix-darwin/issues/391#issuecomment-2690508643
+if [ -d /private/etc/paths.d ]; then
+  for f in /private/etc/paths.d/*; do
+    while IFS='' read -r l || [ -n "$l" ]; do
+      PATH="$PATH:$l"
+    done <"$f"
+  done
+
+  export PATH
+fi
+
+# Similarly, respect system-provided MANPATHs.
+# https://github.com/nix-darwin/nix-darwin/issues/391#issuecomment-2799025602
+if [ -d /private/etc/manpaths.d ]; then
+  for f in /private/etc/manpaths.d/*; do
+    while IFS='' read -r l || [ -n "$l" ]; do
+      MANPATH="$MANPATH:$l"
+    done <"$f"
+  done
+
+  export MANPATH
+fi

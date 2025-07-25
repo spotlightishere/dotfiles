@@ -10,6 +10,10 @@
       pkgs.vim
     ];
     variables.EDITOR = "${pkgs.vim}/bin/vim";
+
+    # Ensure that the macOS-provided paths and man page paths are respected.
+    # See also: https://github.com/nix-darwin/nix-darwin/issues/391
+    etc."zprofile.local".source = ./zprofile.local;
   };
 
   # Similarly, we'd like to use zsh.
