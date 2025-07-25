@@ -6,10 +6,17 @@
     ../shared.nix
   ];
 
+  # Allow GNOME to dynamically set the
+  # time zone based on current location.
+  #
+  # https://www.reddit.com/r/NixOS/comments/1411gjs/comment/jo4wau3/
+  time.timeZone = lib.mkForce null;
+
   networking = {
     hostName = "cyclone";
     hostId = "79696666";
     firewall = {
+      enable = false;
       # Allow WireGuard.
       checkReversePath = "loose";
 
@@ -140,7 +147,10 @@
     cider
     discord
     fractal
-    jetbrains.idea-ultimate
+    # https://github.com/NixOS/nixpkgs/issues/425328#issuecomment-3073728060
+    (jetbrains.idea-ultimate.override {
+      jdk = jdk24;
+    })
     signal-desktop
     srain
     tcpdump
