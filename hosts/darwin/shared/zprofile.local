@@ -1,6 +1,6 @@
 # Respect system-provided PATHs.
 # https://github.com/nix-darwin/nix-darwin/issues/391#issuecomment-2690508643
-if [ -d /private/etc/paths.d ]; then
+if [ -z "$(find /private/etc/paths.d -prune -empty 2>/dev/null)" ]; then
   for f in /private/etc/paths.d/*; do
     while IFS='' read -r l || [ -n "$l" ]; do
       PATH="$PATH:$l"
@@ -12,7 +12,7 @@ fi
 
 # Similarly, respect system-provided MANPATHs.
 # https://github.com/nix-darwin/nix-darwin/issues/391#issuecomment-2799025602
-if [ -d /private/etc/manpaths.d ]; then
+if [ -z "$(find /private/etc/manpaths.d -prune -empty 2>/dev/null)" ]; then
   for f in /private/etc/manpaths.d/*; do
     while IFS='' read -r l || [ -n "$l" ]; do
       MANPATH="$MANPATH:$l"
