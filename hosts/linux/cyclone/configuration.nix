@@ -130,6 +130,11 @@
       "vscode"
       # Discord
       "discord"
+      # Steam
+      "steam"
+      "steam-original"
+      "steam-run"
+      "steam-unwrapped"
       # IntelliJ
       "idea-ultimate"
     ];
@@ -154,7 +159,10 @@
     vscode
   ];
 
-  programs.adb.enable = true;
+  programs = {
+    adb.enable = true;
+    steam.enable = true;
+  };
 
   # Please do not change this without reviewing release notes upstream.
   system.stateVersion = "24.11";
