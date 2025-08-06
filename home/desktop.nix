@@ -37,6 +37,7 @@
     p7zip
     pngcrush
     protobuf
+    pry
     python313
     pwgen
     qemu

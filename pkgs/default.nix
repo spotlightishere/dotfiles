@@ -32,6 +32,10 @@ let
     });
 
   mobiledevicePackages = {
+    # This isn't an libimobiledevice package, but I want to edit this in quickly
+    # TODO(spotlightishere): Fix this up, or upstream it
+    pry = prev.callPackage ./pry/default.nix { };
+
     libtatsu = prev.callPackage ./libtatsu.nix { };
 
     libimobiledevice = updateDevicePackage {
