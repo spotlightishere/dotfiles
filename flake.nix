@@ -4,10 +4,8 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    # Temporarily use https://github.com/tpwrules/nixos-apple-silicon/pull/303
-    # as stable mesa now supports the Asahi ABI fully.
     apple-silicon-support = {
-      url = "github:tpwrules/nixos-apple-silicon?ref=pull/303/head";
+      url = "github:tpwrules/nixos-apple-silicon";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
