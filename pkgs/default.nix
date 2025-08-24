@@ -69,12 +69,6 @@ let
       name = "libirecovery";
       rev = "638056a593b3254d05f2960fab836bace10ff105";
       hash = "sha256-loIbNSbwiVE8/jDVIbCVReV7ZkEOxIC7g8zPaSbOA3E=";
-    }).overrideAttrs(old: {
-        # https://github.com/NixOS/nixpkgs/pull/419291/files
-        configureFlags = [
-        "--with-udevrulesdir=${placeholder "out"}/lib/udev/rules.d"
-        ''--with-udevrule=OWNER="root",GROUP="myusergroup",MODE="0660"''
-      ];
     });
 
     libplist = updateDevicePackage {
