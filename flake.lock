@@ -9,11 +9,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1756049400,
-        "narHash": "sha256-C3l1CIvKA7mvkiDUbCviCWb74gxm2RkCLz2f/+WuqwA=",
+        "lastModified": 1756110286,
+        "narHash": "sha256-NE0HwcQCQTgM+HuYqmiemPf/5e+3fjwowceAyJj+ikU=",
         "owner": "tpwrules",
         "repo": "nixos-apple-silicon",
-        "rev": "9cf43d45714dbf4da92c856819f6a4731e5c2bff",
+        "rev": "b99bf9bf7445416fe55da09034fc4a6cd733805c",
         "type": "github"
       },
       "original": {
