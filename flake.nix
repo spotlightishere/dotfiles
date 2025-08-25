@@ -80,7 +80,7 @@
             # Re-export various packages that we use (e.g. Asahi, i686).
             # This allows them to be cached via Garnix if necessary, saving local build time.
             aarch64-linux = {
-              linux-asahi-kernel = inputs.apple-silicon-support.packages.aarch64-linux.linux-asahi.kernel;
+              linux-asahi-kernel = inputs.apple-silicon-support.packages.aarch64-linux.linux-asahi;
               m1n1 = inputs.apple-silicon-support.packages.aarch64-linux.m1n1;
             };
             i686-linux = {
