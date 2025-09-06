@@ -105,7 +105,8 @@
     jdk24
     minicom
     pciutils
-    seafile-client
+    # TODO: https://github.com/nixos/nix/issues/13876
+    # seafile-client
     telegram-desktop
     transmission_4-gtk
     tmux
