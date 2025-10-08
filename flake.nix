@@ -82,10 +82,17 @@
             aarch64-linux = {
               linux-asahi-kernel = inputs.apple-silicon-support.packages.aarch64-linux.linux-asahi;
               m1n1 = inputs.apple-silicon-support.packages.aarch64-linux.m1n1;
+
+              # Helper to have Garnix rebuild GNOME dependencies using libimobiledevice.
+              gnome-session = inputs.nixpkgs.legacyPackages.aarch64-linux.gnome-session;
             };
             i686-linux = {
               grub2 = inputs.nixpkgs.legacyPackages.i686-linux.grub2;
               grub2_efi = inputs.nixpkgs.legacyPackages.i686-linux.grub2_efi;
+            };
+            x86_64-linux = {
+              # Similar to aarch64-linux, helper to rebuild GNOME dependencies.
+              gnome-session = inputs.nixpkgs.legacyPackages.x86_64-linux.gnome-session;
             };
           };
 
