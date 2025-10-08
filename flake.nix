@@ -143,6 +143,7 @@
                 "idevicerestore"
               ] ++ lib.optionals pkgs.stdenv.isLinux [
                 "gnome-calendar"
+                "gnome-session"
               ];
             in
             # This is equivalent to taking the set [ ipsw ]

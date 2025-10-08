@@ -12,9 +12,10 @@ let
     # TODO(spotlightishere): Fix this up, or upstream it
     pry = prev.callPackage ./pry/default.nix { };
 
-    # TODO: This is re-exported to assist in rebuilding
+    # TODO: These are re-exported to assist in rebuilding
     # GNOME packages with libimobiledevice dependencies.
     gnome-calendar = prev.gnome-calendar;
+    gnome-session = prev.gnome-session;
   };
 
   # Secondly, we wish to upgrade several libimobiledevice packages.
