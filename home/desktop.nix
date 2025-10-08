@@ -4,7 +4,7 @@
   # Commonly used packages.
   home.packages = with pkgs; [
     aria2
-    # binwalk
+    binwalk
     bun
     cachix
     # clang-format
