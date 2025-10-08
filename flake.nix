@@ -77,16 +77,39 @@
               };
             };
 
-            # Re-export various packages that we use (e.g. Asahi, i686).
+            # Re-export various packages that we use.
             # This allows them to be cached via Garnix if necessary, saving local build time.
             aarch64-linux = {
+              # Ensure U-Boot and the Asahi fork of the Linux kernel are available.
               linux-asahi-kernel = inputs.apple-silicon-support.packages.aarch64-linux.linux-asahi;
-              m1n1 = inputs.apple-silicon-support.packages.aarch64-linux.m1n1;
+              uboot-asahi = inputs.apple-silicon-support.packages.aarch64-linux.uboot-asahi.overrideAttrs (old: {
+                # We need SMBIOS generation enabled for libvirtd,
+                # as it otherwise stumbles over executing dmidecode.
+                #
+                # TODO(spotlightishere): It'd be far more ideal to override instead of replacing.
+                # However, somehow overriding `extraConfig` seems to coerce things into a string.
+                # We wholly override it here, and thus should monitor to see if it changes upstream.
+                extraConfig = ''
+                  # Upstream
+                  CONFIG_IDENT_STRING=" ${old.version}"
+                  CONFIG_VIDEO_FONT_4X6=n
+                  CONFIG_VIDEO_FONT_8X16=n
+                  CONFIG_VIDEO_FONT_SUN12X22=n
+                  CONFIG_VIDEO_FONT_16X32=y
+                  CONFIG_CMD_BOOTMENU=y
+
+                  # Custom modifications
+                  CONFIG_SMBIOS=y
+                  CONFIG_GENERATE_SMBIOS_TABLE=y
+                '';
+
+              });
 
               # Helper to have Garnix rebuild GNOME dependencies using libimobiledevice.
               gnome-session = inputs.nixpkgs.legacyPackages.aarch64-linux.gnome-session;
             };
             i686-linux = {
+              # grub2 can take a while to build on older i686 machines.
               grub2 = inputs.nixpkgs.legacyPackages.i686-linux.grub2;
               grub2_efi = inputs.nixpkgs.legacyPackages.i686-linux.grub2_efi;
             };
