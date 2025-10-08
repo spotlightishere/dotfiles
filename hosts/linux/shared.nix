@@ -102,7 +102,7 @@
     gnome-tweaks
     gnomeExtensions.appindicator
     htop
-    jdk24
+    jdk25
     minicom
     pciutils
     # TODO: https://github.com/nixos/nix/issues/13876

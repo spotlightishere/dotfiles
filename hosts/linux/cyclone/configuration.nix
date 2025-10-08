@@ -149,7 +149,7 @@
     fractal
     # https://github.com/NixOS/nixpkgs/issues/425328#issuecomment-3073728060
     (jetbrains.idea-ultimate.override {
-      jdk = jdk24;
+      jdk = jdk25;
     })
     signal-desktop
     srain
