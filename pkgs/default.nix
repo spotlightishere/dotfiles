@@ -8,6 +8,13 @@ let
     telnet = prev.callPackage ./telnet.nix { };
     corellium-cli = prev.callPackage ./corellium-cli/default.nix { };
     usbfluxd = prev.callPackage ./usbfluxd.nix { };
+
+    # TODO(spotlightishere): Fix this up, or upstream it
+    pry = prev.callPackage ./pry/default.nix { };
+
+    # TODO: This is re-exported to assist in rebuilding
+    # GNOME packages with libimobiledevice dependencies.
+    gnome-calendar = prev.gnome-calendar;
   };
 
   # Secondly, we wish to upgrade several libimobiledevice packages.
@@ -32,10 +39,6 @@ let
     });
 
   mobiledevicePackages = {
-    # This isn't an libimobiledevice package, but I want to edit this in quickly
-    # TODO(spotlightishere): Fix this up, or upstream it
-    pry = prev.callPackage ./pry/default.nix { };
-
     libtatsu = prev.callPackage ./libtatsu.nix { };
 
     libimobiledevice = updateDevicePackage {

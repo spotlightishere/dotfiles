@@ -79,25 +79,16 @@
 
             # Re-export various packages that we use.
             # This allows them to be cached via Garnix if necessary, saving local build time.
-            aarch64-linux = {
+            aarch64-linux = let
+                asahi-packages = inputs.apple-silicon-support.packages.aarch64-linux;
+            in {
               # Ensure U-Boot and the Asahi fork of the Linux kernel are available.
-              linux-asahi-kernel = inputs.apple-silicon-support.packages.aarch64-linux.linux-asahi;
-              uboot-asahi = inputs.apple-silicon-support.packages.aarch64-linux.uboot-asahi.overrideAttrs (old: {
+              linux-asahi-kernel = asahi-packages.linux-asahi;
+              uboot-asahi = asahi-packages.uboot-asahi.overrideAttrs (old: {
                 # We need SMBIOS generation enabled for libvirtd,
-                # as it otherwise stumbles over executing dmidecode.
-                #
-                # TODO(spotlightishere): It'd be far more ideal to override instead of replacing.
-                # However, somehow overriding `extraConfig` seems to coerce things into a string.
-                # We wholly override it here, and thus should monitor to see if it changes upstream.
+                # as it otherwise stumbles when executing dmidecode.
                 extraConfig = ''
-                  # Upstream
-                  CONFIG_IDENT_STRING=" ${old.version}"
-                  CONFIG_VIDEO_FONT_4X6=n
-                  CONFIG_VIDEO_FONT_8X16=n
-                  CONFIG_VIDEO_FONT_SUN12X22=n
-                  CONFIG_VIDEO_FONT_16X32=y
-                  CONFIG_CMD_BOOTMENU=y
-
+                  ${old.extraConfig}
                   # Custom modifications
                   CONFIG_SMBIOS=y
                   CONFIG_GENERATE_SMBIOS_TABLE=y
