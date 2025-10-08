@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -16,8 +16,6 @@
     hostName = "flareon";
     networkmanager.enable = true;
   };
-
-  time.timeZone = "America/Chicago";
 
   services = {
     # We're a VM, so enable related services.

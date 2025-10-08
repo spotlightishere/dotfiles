@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ lib, pkgs, ... }: {
   # We want to ensure flakes, new Nix commands,
   # and Garnix are available across all installs.
   nix.settings = {
@@ -27,8 +27,11 @@
     ];
   };
 
-  # Similarly, enforce baseline localisation.
-  time.timeZone = "America/Chicago";
+  # Allow GNOME to dynamically set the
+  # time zone based on current location.
+  #
+  # https://www.reddit.com/r/NixOS/comments/1411gjs/comment/jo4wau3/
+  time.timeZone = lib.mkForce null;
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Some common services:

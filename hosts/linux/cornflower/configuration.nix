@@ -1,5 +1,5 @@
 # TODO(spotlightishere): Find a better way to disable desktop-specific components 
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -45,8 +45,7 @@
     ];
   };
 
-  # Similarly, enforce baseline localisation.
-  time.timeZone = "America/Chicago";
+  # Enforce baseline localisation.
   i18n.defaultLocale = "en_US.UTF-8";
 
   # We'd like Bonjour available.

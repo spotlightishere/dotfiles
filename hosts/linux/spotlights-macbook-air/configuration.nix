@@ -1,7 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system. Help is available in the configuration.nix(5) man page, on
-# https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
-
 { config, lib, pkgs, ... }:
 
 {
@@ -15,12 +11,6 @@
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = false;
   };
-
-  # Allow GNOME to dynamically set the
-  # time zone based on current location.
-  #
-  # https://www.reddit.com/r/NixOS/comments/1411gjs/comment/jo4wau3/
-  time.timeZone = lib.mkForce null;
 
   # Asahi Linux support
   # Options such as `withRust` are no longer necessary.

@@ -6,12 +6,6 @@
     ../shared.nix
   ];
 
-  # Allow GNOME to dynamically set the
-  # time zone based on current location.
-  #
-  # https://www.reddit.com/r/NixOS/comments/1411gjs/comment/jo4wau3/
-  time.timeZone = lib.mkForce null;
-
   networking = {
     hostName = "cyclone";
     hostId = "79696666";
