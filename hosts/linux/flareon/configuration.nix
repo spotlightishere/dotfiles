@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports = [
@@ -23,18 +23,32 @@
     qemuGuest.enable = true;
     spice-vdagentd.enable = true;
 
+    # Printers are scary.
+    printing.enable = lib.mkForce false;
+
     # vscode-server
     vscode-server.enable = true;
   };
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
+  # As we are a VM, we only want a subset of normal packages.
   environment.systemPackages = with pkgs; [
+    firefox
     nix-output-monitor
     ripgrep
   ];
 
   services.openssh.enable = true;
+
+  # Ensure Rosetta is available for use.
+  virtualisation.rosetta.enable = true;
+
+  # Expose Virtiofs share via UTM.
+  fileSystems = {
+    "/home/spotlight/Projects" = {
+      device = "share";
+      fsType = "virtiofs";
+    };
+  };
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
