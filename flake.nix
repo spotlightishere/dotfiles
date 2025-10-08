@@ -108,13 +108,15 @@
 
               # TODO(spotlightishere): Find a way to automate
               # retrieving the packages within our overlay.
+              #
+              # Note that `usbfluxd` is not included as it cannot
+              # be built within the sandbox due to Xcode constraints.
               packageList = [
                 # Standalone packages
                 "ipsw"
                 "monaco-powerline"
                 "telnet"
                 "corellium-cli"
-                "usbfluxd"
 
                 # Overridden packages within overlay
                 "libtatsu"
