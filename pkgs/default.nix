@@ -14,6 +14,7 @@ let
 
     # TODO: These are re-exported to assist in rebuilding
     # GNOME packages with libimobiledevice dependencies.
+    geary = prev.geary;
     gnome-calendar = prev.gnome-calendar;
     gnome-session = prev.gnome-session;
   };

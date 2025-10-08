@@ -142,6 +142,7 @@
                 "libplist"
                 "idevicerestore"
               ] ++ lib.optionals pkgs.stdenv.isLinux [
+                "geary"
                 "gnome-calendar"
                 "gnome-session"
               ];
