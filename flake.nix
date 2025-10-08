@@ -106,7 +106,7 @@
               });
 
               # Helper to have Garnix rebuild GNOME dependencies using libimobiledevice.
-              gnome-session = inputs.nixpkgs.legacyPackages.aarch64-linux.gnome-session;
+              gnome-calendar = inputs.nixpkgs.legacyPackages.aarch64-linux.gnome-calendar;
             };
             i686-linux = {
               # grub2 can take a while to build on older i686 machines.
@@ -115,7 +115,7 @@
             };
             x86_64-linux = {
               # Similar to aarch64-linux, helper to rebuild GNOME dependencies.
-              gnome-session = inputs.nixpkgs.legacyPackages.x86_64-linux.gnome-session;
+              gnome-calendar = inputs.nixpkgs.legacyPackages.x86_64-linux.gnome-calendar;
             };
           };
 
