@@ -95,18 +95,11 @@
                 '';
 
               });
-
-              # Helper to have Garnix rebuild GNOME dependencies using libimobiledevice.
-              gnome-calendar = inputs.nixpkgs.legacyPackages.aarch64-linux.gnome-calendar;
             };
             i686-linux = {
               # grub2 can take a while to build on older i686 machines.
               grub2 = inputs.nixpkgs.legacyPackages.i686-linux.grub2;
               grub2_efi = inputs.nixpkgs.legacyPackages.i686-linux.grub2_efi;
-            };
-            x86_64-linux = {
-              # Similar to aarch64-linux, helper to rebuild GNOME dependencies.
-              gnome-calendar = inputs.nixpkgs.legacyPackages.x86_64-linux.gnome-calendar;
             };
           };
 
@@ -118,6 +111,7 @@
             let
               # Append our custom overlay to the current system's packages.
               pkgs = nixpkgs.legacyPackages.${system};
+              lib = pkgs.lib;
               overlayPkgs = pkgs.extend (self.overlays.default);
 
               # TODO(spotlightishere): Find a way to automate
@@ -132,6 +126,10 @@
                 "telnet"
                 "corellium-cli"
 
+                # Fix-up
+                # TODO: Upstream
+                "pry"
+
                 # Overridden packages within overlay
                 "libtatsu"
                 "libimobiledevice"
@@ -141,6 +139,8 @@
                 "libirecovery"
                 "libplist"
                 "idevicerestore"
+              ] ++ lib.optionals pkgs.stdenv.isLinux [
+                "gnome-calendar"
               ];
             in
             # This is equivalent to taking the set [ ipsw ]
