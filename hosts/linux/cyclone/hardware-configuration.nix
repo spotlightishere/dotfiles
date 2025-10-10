@@ -17,7 +17,7 @@
 
     # Where possible, we'd like to use the latest kernel version,
     # alongside the latest version of ZFS.
-    kernelPackages = pkgs.linuxPackages_6_16;
+    kernelPackages = pkgs.linuxPackages_6_17;
 
     zfs = {
       package = pkgs.zfs_unstable;
