@@ -34,9 +34,11 @@ in
     enable = true;
     lfs.enable = true;
 
-    userName = "Spotlight";
-    userEmail = "spotlight@joscomputing.space";
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Spotlight";
+        email = "spotlight@joscomputing.space";
+      };
       core = {
         editor = "${pkgs.vim}/bin/vim";
         fsmonitor = true;
