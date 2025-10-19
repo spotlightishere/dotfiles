@@ -141,6 +141,7 @@
                 "libirecovery"
                 "libplist"
                 "idevicerestore"
+                "ideviceinstaller"
               ] ++ lib.optionals pkgs.stdenv.isLinux [
                 "geary"
                 "gnome-calendar"
