@@ -16,6 +16,12 @@
       # See also: https://github.com/nix-darwin/nix-darwin/issues/391
       "zprofile.local".source = ./zprofile.local;
 
+      # Add the PCC VM tooling to our system-wide PATH.
+      # https://security.apple.com/documentation/private-cloud-compute/vresetup
+      "paths.d/20-vre".text = ''
+        /System/Library/SecurityResearch/usr/bin
+      '';
+
       # macOS `man` (alongside BSD `man`) is a shell script
       # that shells out to `xcode-select --show-manpaths`:
       # https://github.com/apple-oss-distributions/man/blob/248fab9b46e4f2de53e002a2c341367c1f156c9e/man/man.sh#L112-L114
