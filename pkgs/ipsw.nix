@@ -1,8 +1,6 @@
-{ buildGo124Module, lib, fetchFromGitHub, pkgs }:
+{ buildGoLatestModule, lib, fetchFromGitHub, pkgs }:
 
-# As of writing, this requires Go 1.24.
-# `buildGoModule` currently uses Go 1.23.
-buildGo124Module rec {
+buildGoLatestModule rec {
   pname = "ipsw";
   version = "3.1.634";
 
