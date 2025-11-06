@@ -12,6 +12,10 @@ let
     # TODO(spotlightishere): Fix this up, or upstream it
     pry = prev.callPackage ./pry/default.nix { };
 
+    # TODO(spotlightishere): Similarly, upstream Frida updates.
+    # Due to the length of wheel hashes, we override in a separate file.
+    frida-tools = import ./frida-tools.nix { pkgs = prev; };
+
     # TODO: These are re-exported to assist in rebuilding
     # GNOME packages with libimobiledevice dependencies.
     geary = prev.geary;
