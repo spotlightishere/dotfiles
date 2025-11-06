@@ -1,17 +1,33 @@
 { buildGoLatestModule, lib, fetchFromGitHub, pkgs }:
+let
+  # TODO: Nixpkgs does not yet ship Go v1.25.3:
+  # https://github.com/NixOS/nixpkgs/issues/456759
+  # This is necessary for a dependency of `ipsw`.
+  #
+  # We'll just temporarily update Go to v1.25.3.
+  buildGoLatestModuleReal = buildGoLatestModule.override {
+    go = pkgs.go_1_25.overrideAttrs (old: {
+      version = "1.25.3";
+      src = pkgs.fetchurl {
+        url = "https://go.dev/dl/go1.25.3.src.tar.gz";
+        hash = "sha256-qBpLpZPQAV4QxR4mfeP/B8eskU38oDfZUX0ClRcJd5U=";
+      };
+    });
+  };
 
-buildGoLatestModule rec {
+in
+buildGoLatestModuleReal rec {
   pname = "ipsw";
-  version = "3.1.634";
+  version = "3.1.635";
 
   src = fetchFromGitHub {
     owner = "blacktop";
     repo = "ipsw";
     rev = "v${version}";
-    hash = "sha256-QO09AwI8/QqMqfxhsQMApsmYAzBVh37jezmX/y6cLH4=";
+    hash = "sha256-Dc6Anh+h0bV2DD//DlkBlTTz+m1YwAzBibYKcVKIZLQ=";
   };
 
-  vendorHash = "sha256-7RA2kjHODUXHscO+rVBVPqJChZffMXJNjWjf/ePKYCY=";
+  vendorHash = "sha256-uCTDkihZSlTnBBoKfPK5R8JjYUlA0EKVYo9G8d87ajY=";
 
   buildInputs = with pkgs; [
     unicorn
