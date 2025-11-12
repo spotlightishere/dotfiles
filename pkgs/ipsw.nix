@@ -18,16 +18,23 @@ let
 in
 buildGoLatestModuleReal rec {
   pname = "ipsw";
-  version = "3.1.636";
+  version = "3.1.637";
 
   src = fetchFromGitHub {
     owner = "blacktop";
     repo = "ipsw";
     rev = "v${version}";
-    hash = "sha256-PeAQ2lMFtYBwn0DJX5MEAOv+idLZr5djzePOehJo34U=";
+    hash = "sha256-5wo4FmYzjm68lCCtJ95EJ872IHy6HCrM+5AtMezI7tM=";
   };
 
-  vendorHash = "sha256-Q61uW5KC26TIlej/m4rvT96bygVqLFJdYmBfpTNX4HQ=";
+  vendorHash = "sha256-0KQ0v6yDwzk69L2+xNSbuF+PGiBWrVXh91K8kEXam3I=";
+
+  overrideModAttrs = (old: {
+    # TODO: Temporary fix for 3.1.637
+    preBuild = old.preBuild + ''
+      go mod tidy
+    '';
+  });
 
   buildInputs = with pkgs; [
     unicorn
