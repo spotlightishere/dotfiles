@@ -5,13 +5,11 @@
   home.packages = with pkgs; [
     aria2
     binwalk
-    bun
     cachix
     # clang-format
     clang-tools
     cloc
     croc
-    dmg2img
     exiftool
     ffmpeg-full
     go
