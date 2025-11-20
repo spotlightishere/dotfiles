@@ -18,16 +18,16 @@ let
 in
 buildGoLatestModuleReal rec {
   pname = "ipsw";
-  version = "3.1.638";
+  version = "3.1.639";
 
   src = fetchFromGitHub {
     owner = "blacktop";
     repo = "ipsw";
     rev = "v${version}";
-    hash = "sha256-7Z4QJO3AbIAuuNcwYrfDSxnNX1/rxcMznCBz0IbNN4o=";
+    hash = "sha256-RSMhGZGV3Lqd4dzWOOXXIBIJ+1KKl5yMPa9uxFpZeX8=";
   };
 
-  vendorHash = "sha256-A90HN8UMsbUiPAICkTifhJvvsIUx20vohC7ZIkAsvFM=";
+  vendorHash = "sha256-yAyFQHza+IHRO85v5oIMqj2wiXf3IgypOePjQcsQRUg=";
 
   buildInputs = with pkgs; [
     unicorn
