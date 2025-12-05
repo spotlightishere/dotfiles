@@ -279,6 +279,24 @@
         ];
       };
 
+      darwinConfigurations."work-macbook-pro" = nix-darwin.lib.darwinSystem {
+        modules = [
+          # System-wide configuration
+          ./hosts/darwin/work-macbook-pro/configuration.nix
+          # Our provided home-manager configuration
+          home-manager.darwinModules.home-manager
+          {
+            nixpkgs.overlays = [ self.overlays.default ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.joshua = import ./home/home.nix;
+              extraSpecialArgs = { desktop = true; gpg = true; username = "joshua"; };
+            };
+          }
+        ];
+      };
+
       # Lastly, ensure a formatter is available for all systems.
       formatter = allSystems (system: nixpkgs.legacyPackages.${system}.nixpkgs-fmt);
     };
