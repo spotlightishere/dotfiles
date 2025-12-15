@@ -26,7 +26,7 @@ let
   # We upgrade it to 17.5.1.
   frida-python = pkgs.python3Packages.frida-python.overrideAttrs (old: rec {
     version = "17.5.1";
-    
+
     src = old.src.override {
       inherit version;
 
@@ -37,13 +37,13 @@ let
 in
 
 # Next, the wrapping frida-tools CLI.
-# We similarly want to update it.
+  # We similarly want to update it.
 pkgs.frida-tools.overridePythonAttrs (old: rec {
   version = "14.5.0";
 
   src = pkgs.fetchPypi {
     inherit version;
-  
+
     pname = "frida_tools";
     hash = "sha256-Wdjx0NDGojpaycHcgXp+UiBsiAoR3V3UaWw9948HWZ0=";
   };
