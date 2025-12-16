@@ -131,6 +131,7 @@
                 # Fix-up
                 # TODO: Upstream
                 "pry"
+                "frida-tools"
 
                 # Overridden packages within overlay
                 "libtatsu"

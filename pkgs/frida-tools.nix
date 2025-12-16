@@ -5,27 +5,27 @@ let
   system = pkgs.stdenvNoCC.hostPlatform.system;
   wheelMetadata = {
     x86_64-linux = {
-      hash = "sha256-gUYHLjKLoUI/aXzB+aU5yvfmObcA9hctkBqLgZxHvi0=";
+      hash = "sha256-5ARTtnpqAp3aFnre26xAHWC7QwmsBgUpWJOT0MkwNOw=";
       platform = "manylinux1_x86_64";
     };
     aarch64-linux = {
-      hash = "sha256-zU9mmxU8WWs2dG3lHnSiY0oTDN2tUFTMolV22SHtBbc=";
+      hash = "sha256-TFRH35GUKqzj/p129gUA2z4msD5O52dnjRE1qUX4/YQ=";
       platform = "manylinux2014_aarch64";
     };
     x86_64-darwin = {
-      hash = "sha256-hgsUQHS/DCVXSMm8ViC4zd/UVvEqYH7uwedv4ag48Mc=";
+      hash = "sha256-zYOenwaZPFfppCN7r/iR8eQXx1a0J3RM5aFr7XUTdKQ=";
       platform = "macosx_10_13_x86_64";
     };
     aarch64-darwin = {
-      hash = "sha256-HgjAVeACzWis0WFgf/D40GAqMbqSmZ8XBilgID3Yk5A=";
+      hash = "sha256-uiINI54mZz/CxoqguKonm0iNZWyeX6dY+FEuiFX5YSw=";
       platform = "macosx_11_0_arm64";
     };
   }.${system} or (throw "Unsupported system: ${system}");
 
   # Our actual frida-python package, the "frida" package.
-  # We upgrade it to 17.5.1.
+  # We upgrade it to 17.5.2.
   frida-python = pkgs.python3Packages.frida-python.overrideAttrs (old: rec {
-    version = "17.5.1";
+    version = "17.5.2";
 
     src = old.src.override {
       inherit version;
