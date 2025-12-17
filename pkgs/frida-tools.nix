@@ -5,11 +5,11 @@ let
   system = pkgs.stdenvNoCC.hostPlatform.system;
   wheelMetadata = {
     x86_64-linux = {
-      hash = "sha256-5ARTtnpqAp3aFnre26xAHWC7QwmsBgUpWJOT0MkwNOw=";
+      hash = "sha256-aOkASL1R1dka3lyzYUm9pYbEASVwHdh7YTdfRkCqopc=";
       platform = "manylinux1_x86_64";
     };
     aarch64-linux = {
-      hash = "sha256-TFRH35GUKqzj/p129gUA2z4msD5O52dnjRE1qUX4/YQ=";
+      hash = "sha256-1a/BOEiwCHL9TeyUcpcCvGCveX/PFGwLyK/Xf5UTLW0=";
       platform = "manylinux2014_aarch64";
     };
     x86_64-darwin = {
