@@ -25,6 +25,7 @@
     ##########
     # We'd also like the latest LTS version of the JDK available.
     rm -f /Library/Java/JavaVirtualMachines/zulu-21.jdk
-    ln -sf "${pkgs.jdk21}/zulu-21.jdk" "/Library/Java/JavaVirtualMachines/zulu-21.jdk"
+    JDK_LOCATION="$(find "${pkgs.jdk21}" -name "*.jdk" | head -n1)"
+    ln -sf "$JDK_LOCATION" "/Library/Java/JavaVirtualMachines/zulu-21.jdk"
   '';
 }
