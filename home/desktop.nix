@@ -21,6 +21,7 @@
     imagemagick
     ipsw
     jq
+    kaitai-struct-compiler
     libimobiledevice
     libusbmuxd
     meld
