@@ -63,14 +63,14 @@ let
 
     libimobiledevice-glue = updateDevicePackage {
       name = "libimobiledevice-glue";
-      rev = "077963174182b6f71f8d8d4e373482addcf4ff3d";
-      hash = "sha256-5czWHRmO1VpoTLhsqTw8GGfeSvtkgJIHjlHu9icnHwQ=";
+      rev = "da770a7687f35fbb981db4d7b47b1b032cd5c2c7";
+      hash = "sha256-xIeDMn9N7GohiPoi6yZ8B5xoGWu5MkScRaNb4A8IkMY=";
     };
 
     usbmuxd = updateDevicePackage {
       name = "usbmuxd";
-      rev = "2efa75a0a9ca73f2a5b6ec71e5ae6cb43cdab580";
-      hash = "sha256-8Dx8yN/vatD1lp3mzUUSKyx2/plv3geJhz3oQRhl7UM=";
+      rev = "3ded00c9985a5108cfc7591a309f9a23d57a8cba";
+      hash = "sha256-0ZxEdU6LAUT0XfRk/PnRGl+r2ofttpffI8MiQljukVA=";
     };
 
     libusbmuxd = updateDevicePackage {
@@ -87,14 +87,14 @@ let
 
     libplist = updateDevicePackage {
       name = "libplist";
-      rev = "7355dc8e8344f00fae0e24db72e461d985eb6381";
-      hash = "sha256-wKqXmTc3rvRtDDcE60FmJOt6jADOpBX0MAjcxYRXOoM=";
+      rev = "15164ebe870590376b2286b09dc97890a07dd373";
+      hash = "sha256-CUlyXsBd/9tTrKqNFTLAe0xIflD1C6HWY5Q7KBC86Lo=";
     };
 
     idevicerestore = updateDevicePackage {
       name = "idevicerestore";
-      rev = "f4d0f7e83105cc362527566315abee07b0840848";
-      hash = "sha256-fqTVAHTxamk2lIllr7ZNHOJ1YTJHM4JpVQylMV33CJI=";
+      rev = "74e3bd9286d16fc1290abde061ee00831d5b36f8";
+      hash = "sha256-e2CC+GqQ7IpnMfjRq8+8+ikSoL62CKgdbDhiaA90M+w=";
 
       # Similar to libimobildevice, we need libtatsu.
       buildInputs = [ final.libtatsu ];
@@ -102,8 +102,8 @@ let
 
     ideviceinstaller = updateDevicePackage {
       name = "ideviceinstaller";
-      rev = "baa9b5d16e1b387afebef98e96f48fc8b60332ce";
-      hash = "sha256-d8jqsgidN1T4JG/ksbsxwC7e05x+hebWhtaNRY0augU=";
+      rev = "1762d5f12fc590b48877aac644ba3bccb72f33f9";
+      hash = "sha256-V4zJ85wF3jjBlWOY+oxo6veNeiSHVAUBipmokzhRgaI=";
     };
   };
 in
