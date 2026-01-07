@@ -121,22 +121,22 @@
       "steam-run"
       "steam-unwrapped"
       # IntelliJ
-      "idea-ultimate"
+      "idea"
     ];
   };
 
   # Standard system utilities. Many of these are within ../shared.nix.
   # The bulk of user-specific packages should go within the home-manager configuration.
   environment.systemPackages = with pkgs; [
+    android-tools
     blender
     cider
     discord
     fractal
     # https://github.com/NixOS/nixpkgs/issues/425328#issuecomment-3073728060
-    (jetbrains.idea-ultimate.override {
+    (jetbrains.idea.override {
       jdk = jdk25;
     })
-    signal-desktop
     srain
     tcpdump
     tuba
@@ -144,10 +144,7 @@
     vscode
   ];
 
-  programs = {
-    adb.enable = true;
-    steam.enable = true;
-  };
+  programs.steam.enable = true;
 
   # Please do not change this without reviewing release notes upstream.
   system.stateVersion = "24.11";
