@@ -6,9 +6,15 @@
     trusted-users = [ "spotlight" ];
     builders-use-substitutes = true;
 
-    # Include Garnix
-    substituters = [ "https://cache.garnix.io" ];
-    trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
+    # Include Garnix and personal Cachix
+    substituters = [
+      "https://cache.garnix.io"
+      "https://spotlight.cachix.org"
+    ];
+    trusted-public-keys = [
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      "spotlight.cachix.org-1:fnQ+Z1FhgjrEf2BqMUAIsk88PrS1ZRkzU21TLoBqN5Y="
+    ];
   };
 
   # We generally want these network preferences across all installs.
