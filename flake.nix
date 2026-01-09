@@ -16,17 +16,21 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-orangepi-rv2 = {
+      url = "github:alekseysidorov/nixos-orangepi-rv2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     vscode-server = {
       url = "github:nix-community/nixos-vscode-server";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, vscode-server, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, nix-darwin, nixos-orangepi-rv2, vscode-server, ... }:
     let
       # We'll target the systems we use the most.
       # This may be expanded in the future (e.g. x86_64-freebsd).
-      allSystems = nixpkgs.lib.genAttrs [ "aarch64-darwin" "x86_64-darwin" "aarch64-linux" "x86_64-linux" ];
+      allSystems = nixpkgs.lib.genAttrs [ "aarch64-darwin" "x86_64-darwin" "aarch64-linux" "x86_64-linux" "riscv64-linux" ];
 
       homeManager = { system, specialArgs ? { } }:
         home-manager.lib.homeManagerConfiguration {
@@ -230,6 +234,25 @@
           ./hosts/linux/flareon/configuration.nix
 
           vscode-server.nixosModules.default
+          home-manager.nixosModules.home-manager
+          {
+            nixpkgs.overlays = [ self.overlays.default ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.spotlight = import ./home/home.nix;
+              extraSpecialArgs = { desktop = false; gpg = false; };
+            };
+          }
+        ];
+      };
+
+      # An experimental RISC-V board.
+      nixosConfigurations.kumquat = nixpkgs.lib.nixosSystem {
+        modules = [
+          ./hosts/linux/kumquat/configuration.nix
+
+          nixos-orangepi-rv2.nixosModules.boot
           home-manager.nixosModules.home-manager
           {
             nixpkgs.overlays = [ self.overlays.default ];
