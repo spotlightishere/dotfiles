@@ -16,11 +16,13 @@ let
     # Due to the length of wheel hashes, we override in a separate file.
     frida-tools = import ./frida-tools.nix { pkgs = prev; };
 
-    # TODO: These are re-exported to assist in rebuilding
+    # Note: These are re-exported to assist in rebuilding
     # GNOME packages with libimobiledevice dependencies.
     geary = prev.geary;
+    gnome-control-center = prev.gnome-control-center;
     gnome-calendar = prev.gnome-calendar;
     gnome-session = prev.gnome-session;
+    papers = prev.papers;
   };
 
   # Secondly, we wish to upgrade several libimobiledevice packages.

@@ -150,7 +150,9 @@
               ] ++ lib.optionals pkgs.stdenv.isLinux [
                 "geary"
                 "gnome-calendar"
+                "gnome-control-center"
                 "gnome-session"
+                "papers"
               ];
             in
             # This is equivalent to taking the set [ ipsw ]
