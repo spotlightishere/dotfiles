@@ -25,7 +25,7 @@
       # appeared to keep changing identifiers.
       #
       # We're forcing its device to be read from by-uuid.
-      devNodes = "/dev/disk/by-uuid";
+      devNodes = "/dev/disk/by-id";
     };
 
     kernelModules = [ "kvm-amd" ];
@@ -69,7 +69,7 @@
     };
 
     "/boot" = {
-      device = "/dev/disk/by-uuid/6073-ACA7";
+      device = "/dev/disk/by-uuid/6125-EA53";
       fsType = "vfat";
       options = [ "fmask=0022" "dmask=0022" ];
     };
