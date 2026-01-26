@@ -6,6 +6,12 @@
     ../shared.nix
   ];
 
+  # Allow RISC-V emulation.
+  boot.binfmt = {
+    emulatedSystems = [ "riscv64-linux" ];
+    preferStaticEmulators = true;
+  };
+
   networking = {
     hostName = "cyclone";
     hostId = "79696666";
@@ -36,8 +42,7 @@
     # iOS tethering, etc
     usbmuxd.enable = true;
 
-    # Allow for RDP access.
-    gnome.gnome-remote-desktop.enable = true;
+    fwupd.enable = true;
 
     # We'd like SSH available.
     openssh = {
