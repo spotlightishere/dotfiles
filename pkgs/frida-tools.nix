@@ -5,26 +5,26 @@ let
   system = pkgs.stdenvNoCC.hostPlatform.system;
   wheelMetadata = {
     x86_64-linux = {
-      hash = "sha256-CW8YHvMwZdm5qLbaMhm4L2cwWOIUhjk9AgXwPbMJ7E8=";
+      hash = "sha256-nEUIxCe+RV7olzB4a9k4PtpyOPs9si+FwlWmZ91LxJE=";
       platform = "manylinux1_x86_64";
     };
     aarch64-linux = {
-      hash = "sha256-YzAILJobHndoatM/NmTQTUAaBiKjGXj+Oe2UHctYXBE=";
+      hash = "sha256-6FRIJv7A9ZIhOxxtO4p2GFByi7BqwBEuhy0+snWATmk=";
       platform = "manylinux2014_aarch64";
     };
     x86_64-darwin = {
-      hash = "sha256-Y1uMKLesh8p4LFA2Xh8lBTMDtKGv6TepEd0sRqs+fAc=";
+      hash = "sha256-l2PXKXZDSSoG03oPoh1D9BTDt+WNsOgVksFdNmpq23k=";
       platform = "macosx_10_13_x86_64";
     };
     aarch64-darwin = {
-      hash = "sha256-4TldP/xkMkHy2KgF9OYmZhU9ZBufhSRq5CZgDXktZkE=";
+      hash = "sha256-y9p41jqSFQhsfGoF2ya+DWAW9vkZ5xNdO5/7Rnk648s=";
       platform = "macosx_11_0_arm64";
     };
   }.${system} or (throw "Unsupported system: ${system}");
 
   # Our actual frida-python package, the "frida" package.
   frida-python = pkgs.python3Packages.frida-python.overrideAttrs (old: rec {
-    version = "17.6.1";
+    version = "17.6.2";
 
     src = old.src.override {
       inherit version;
