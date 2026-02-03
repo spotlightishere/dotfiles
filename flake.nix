@@ -4,10 +4,6 @@
   inputs = {
     # Specify the source of Home Manager and Nixpkgs.
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    apple-silicon-support = {
-      url = "github:tpwrules/nixos-apple-silicon";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -79,25 +75,6 @@
 
             # Re-export various packages that we use.
             # This allows them to be cached via Garnix if necessary, saving local build time.
-            aarch64-linux =
-              let
-                asahi-packages = inputs.apple-silicon-support.packages.aarch64-linux;
-              in
-              {
-                # Ensure U-Boot and the Asahi fork of the Linux kernel are available.
-                linux-asahi-kernel = asahi-packages.linux-asahi;
-                uboot-asahi = asahi-packages.uboot-asahi.overrideAttrs (old: {
-                  # We need SMBIOS generation enabled for libvirtd,
-                  # as it otherwise stumbles when executing dmidecode.
-                  extraConfig = ''
-                    ${old.extraConfig}
-                    # Custom modifications
-                    CONFIG_SMBIOS=y
-                    CONFIG_GENERATE_SMBIOS_TABLE=y
-                  '';
-
-                });
-              };
             i686-linux = {
               # grub2 can take a while to build on older i686 machines.
               grub2 = inputs.nixpkgs.legacyPackages.i686-linux.grub2;
@@ -201,29 +178,6 @@
             };
           }
         ];
-      };
-
-      nixosConfigurations = {
-        "spotlights-macbook-air" = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-
-          modules = [
-            # Asahi-specific tweaks
-            inputs.apple-silicon-support.nixosModules.default
-            ./hosts/linux/spotlights-macbook-air/configuration.nix
-
-            home-manager.nixosModules.home-manager
-            {
-              nixpkgs.overlays = [ self.overlays.default ];
-              home-manager = {
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.spotlight = import ./home/home.nix;
-                extraSpecialArgs = { desktop = true; gpg = true; };
-              };
-            }
-          ];
-        };
       };
 
       # We define a NixOS configuration for a scratch VM.
