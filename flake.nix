@@ -109,17 +109,6 @@
                 # TODO: Upstream
                 "pry"
                 "frida-tools"
-
-                # Overridden packages within overlay
-                "libtatsu"
-                "libimobiledevice"
-                "libimobiledevice-glue"
-                "usbmuxd"
-                "libusbmuxd"
-                "libirecovery"
-                "libplist"
-                "idevicerestore"
-                "ideviceinstaller"
               ] ++ lib.optionals pkgs.stdenv.isLinux [
                 "geary"
                 "gnome-calendar"
