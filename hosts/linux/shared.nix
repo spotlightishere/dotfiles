@@ -106,6 +106,7 @@
     # we need to manually add the Adwaita GTK 3 dark mode theme.
     adw-gtk3
     firefox
+    geary
     git
     github-desktop
     gnome-tweaks
