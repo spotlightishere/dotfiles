@@ -9,9 +9,6 @@ stdenvNoCC.mkDerivation rec {
   postBuild = ''
     mkdir -p $out/bin
     ln -sf "${pkgs.inetutils}/bin/telnet" $out/bin/telnet
-
-    mkdir -p $out/share/man/man1
-    ln -sf "${pkgs.inetutils}/share/man/man1" $out/share/man/man1
   '';
 
   meta = with lib; {
