@@ -6,8 +6,8 @@ let
   iterm2_shell_integration = pkgs.fetchFromGitHub {
     owner = "gnachman";
     repo = "iTerm2-shell-integration";
-    rev = "f8ef4c73f85ce68b081929f55ca9aeec983713d0";
-    hash = "sha256-9tZlqvKQzg8+7R7v/pMvD84koceOtAIF2xG3sQzDc8c=";
+    rev = "39b448033ff8adfa1bea5a275b598421d3059a04";
+    hash = "sha256-NgVHEcIWOWnvEixsxpzuvf0AOfMwwkjmqFFS2XoOAZA=";
   };
 in
 {
