@@ -49,6 +49,7 @@
     tmux
     unar
     virt-manager
+    uv
     watch
     wget
     xz
