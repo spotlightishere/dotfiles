@@ -1,6 +1,5 @@
 { pkgs }:
 let
-
   # stdenvNoCC allows us to determine the targeted platform.
   system = pkgs.stdenvNoCC.hostPlatform.system;
   wheelMetadata = {
@@ -33,21 +32,47 @@ let
       platform = wheelMetadata.platform;
     };
   });
-in
 
-# Next, the wrapping frida-tools CLI.
-pkgs.frida-tools.overridePythonAttrs (old: rec {
+  # Overriding this is a hassle.
+  # We're going to entirely copy frida-tools.
+  # https://github.com/NixOS/nixpkgs/blob/b314521edc6a41029806005d97ed11f57402ee50/pkgs/by-name/fr/frida-tools/package.nix#L4
+in
+pkgs.python3Packages.buildPythonApplication (finalAttrs: {
+  pname = "frida-tools";
   version = "14.6.1";
+  pyproject = true;
 
   src = pkgs.fetchPypi {
-    inherit version;
-
+    inherit (finalAttrs) version;
     pname = "frida_tools";
     hash = "sha256-EwpoRBHT6NyR1sHV4oEXqu5R/Wcud4n3DWxEkeZXdzM=";
   };
 
-  # Inject our updated `frida` package.
-  packageOverrides = [
+  build-system = with pkgs.python3Packages; [
+    setuptools
+  ];
+
+  pythonRelaxDeps = [
+    "websockets"
+  ];
+
+  dependencies = with pkgs.python3Packages; [
+    pygments
+    prompt-toolkit
+    colorama
+    websockets
+  ] ++ [
+    # Our updated version.
     frida-python
   ];
+
+  meta = {
+    description = "Dynamic instrumentation toolkit for developers, reverse-engineers, and security researchers (client tools)";
+    homepage = "https://www.frida.re/";
+    maintainers = with pkgs.lib.maintainers; [ spotlightishere ];
+    license = with pkgs.lib.licenses; [
+      lgpl2Plus
+      wxWindowsException31
+    ];
+  };
 })
