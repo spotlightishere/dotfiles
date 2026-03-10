@@ -2,13 +2,13 @@
 
 buildGoLatestModule rec {
   pname = "ipsw";
-  version = "3.1.661";
+  version = "3.1.662";
 
   src = fetchFromGitHub {
     owner = "blacktop";
     repo = "ipsw";
     rev = "v${version}";
-    hash = "sha256-WcHc2AgU5YJP188eP5Yxi5KwnZVhs4XMk6KAYC56faE=";
+    hash = "sha256-0AuYImgPebvgKJOnYCIS2KFF4asucnfvyp8klvJITR0=";
   };
 
   vendorHash = "sha256-CfQQOhPXxNNzjxcipyIyVEHufLL9HNMoPB6q2B0q2dI=";
