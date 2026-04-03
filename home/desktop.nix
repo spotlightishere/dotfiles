@@ -30,11 +30,11 @@
     mtools
     mtr
     nix-output-monitor
-    nodejs_22.pkgs.pnpm
     ncdu
     nmap
     p7zip
     pngcrush
+    pnpm
     protobuf
     pry
     python313
