@@ -135,14 +135,13 @@
   environment.systemPackages = with pkgs; [
     android-tools
     blender
-    cider
     discord
+    efibootmgr
     fractal
     # https://github.com/NixOS/nixpkgs/issues/425328#issuecomment-3073728060
     (jetbrains.idea.override {
       jdk = jdk25;
     })
-    srain
     tcpdump
     tuba
     wireshark
