@@ -77,6 +77,12 @@ in
       # Prefer /usr/bin/log over the zsh shell built-in.
       # This is primarily for Darwin usage.
       disable log
+
+      # Occasionally, individual devices may have custom scripts.
+      # These are stored in $HOME/bin.
+      if [ -d $HOME/bin ]; then
+        export PATH="$HOME/bin:$PATH"
+      fi
     '';
   };
 
