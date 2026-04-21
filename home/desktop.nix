@@ -29,6 +29,7 @@
     monaco-powerline
     mtools
     mtr
+    ninja
     nix-output-monitor
     ncdu
     nmap
