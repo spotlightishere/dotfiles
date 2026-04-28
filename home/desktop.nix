@@ -5,6 +5,7 @@
   home.packages = with pkgs; [
     aria2
     binwalk
+    black
     cachix
     # clang-format
     clang-tools
