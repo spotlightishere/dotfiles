@@ -32,6 +32,7 @@
     mtr
     ninja
     nix-output-monitor
+    nixd
     ncdu
     nmap
     p7zip
