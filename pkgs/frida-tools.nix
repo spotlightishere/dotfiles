@@ -16,8 +16,8 @@ let
       platform = "macosx_10_13_x86_64";
     };
     aarch64-darwin = {
-        hash = "sha256-9JmPcE4CxzHiNLg6jMpSt/CC0eGk0VyKr1uzUTyQRqI=";
-        platform = "macosx_11_0_arm64";
+      hash = "sha256-9JmPcE4CxzHiNLg6jMpSt/CC0eGk0VyKr1uzUTyQRqI=";
+      platform = "macosx_11_0_arm64";
     };
   }.${system} or (throw "Unsupported system: ${system}");
 

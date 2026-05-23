@@ -12,21 +12,21 @@ buildGoLatestModule rec {
   };
 
   postPatch = ''
-     # These rely on Go packages that are not open-source.
-     # As they import packages not present on GitHub,
-     # Nix's default action of running `go mod tidy` fails.
-     #
-     # As of writing, these are the following:
-     #    - github.com/blacktop/ipsw/pkg/sandbox
-     #    - github.com/blacktop/ipsw/pkg/sandbox/normalize
-     #
-     # One way to detect this is the presence of the sandbox tag:
-     #     `//go:build sandbox`
+    # These rely on Go packages that are not open-source.
+    # As they import packages not present on GitHub,
+    # Nix's default action of running `go mod tidy` fails.
+    #
+    # As of writing, these are the following:
+    #    - github.com/blacktop/ipsw/pkg/sandbox
+    #    - github.com/blacktop/ipsw/pkg/sandbox/normalize
+    #
+    # One way to detect this is the presence of the sandbox tag:
+    #     `//go:build sandbox`
 
-     rm ./internal/diff/sandbox.go
-     rm ./internal/diff/sandbox_test.go
-     rm ./cmd/ipsw/cmd/diff_sandbox.go
-     rm ./cmd/ipsw/cmd/sb/sb_diff.go
+    rm ./internal/diff/sandbox.go
+    rm ./internal/diff/sandbox_test.go
+    rm ./cmd/ipsw/cmd/diff_sandbox.go
+    rm ./cmd/ipsw/cmd/sb/sb_diff.go
   '';
 
   vendorHash = "sha256-WdFta9joa9Xgu48lh4rDRNXhVLbVUIQzcRscR/ZJtTY=";
