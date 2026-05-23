@@ -21,6 +21,7 @@
 
     zfs = {
       package = pkgs.zfs_unstable;
+      forceImportRoot = true;
       # For reasons unbeknownst to humanity, this drive
       # appeared to keep changing identifiers.
       #
