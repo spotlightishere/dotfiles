@@ -144,12 +144,19 @@
     })
     tcpdump
     tuba
-    wireshark
     vscode
     zed-editor
   ];
 
-  programs.steam.enable = true;
+  programs = {
+    steam.enable = true;
+    wireshark = {
+      enable = true;
+      # Prefer the GUI version over CLI.
+      package = pkgs.wireshark;
+      usbmon.enable = true;
+    };
+  };
 
   # Please do not change this without reviewing release notes upstream.
   system.stateVersion = "24.11";
