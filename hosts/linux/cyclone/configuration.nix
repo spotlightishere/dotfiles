@@ -146,6 +146,7 @@
     tuba
     wireshark
     vscode
+    zed-editor
   ];
 
   programs.steam.enable = true;
