@@ -57,13 +57,7 @@
   nix = {
     # Keep the latest version of Nix.
     package = pkgs.nix;
-    settings = {
-      # Necessary for using flakes on this system.
-      experimental-features = "nix-command flakes";
-
-      # Include Garnix
-      substituters = [ "https://cache.garnix.io" ];
-      trusted-public-keys = [ "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=" ];
-    };
+    # Necessary for using flakes on this system.
+    settings.experimental-features = "nix-command flakes";
   };
 }

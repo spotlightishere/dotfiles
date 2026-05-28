@@ -1,21 +1,7 @@
 { lib, pkgs, ... }: {
-  # We want to ensure flakes, new Nix commands,
-  # and Garnix are available across all installs.
-  nix.settings = {
-    experimental-features = [ "flakes" "nix-command" ];
-    trusted-users = [ "spotlight" ];
-    builders-use-substitutes = true;
-
-    # Include Garnix and personal Cachix
-    substituters = [
-      "https://cache.garnix.io"
-      "https://spotlight.cachix.org"
-    ];
-    trusted-public-keys = [
-      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
-      "spotlight.cachix.org-1:fnQ+Z1FhgjrEf2BqMUAIsk88PrS1ZRkzU21TLoBqN5Y="
-    ];
-  };
+  # We want to ensure flakes and new Nix commands
+  # are available across all installs.
+  nix.settings.experimental-features = [ "flakes" "nix-command" ];
 
   # We generally want these network preferences across all installs.
   networking = {
