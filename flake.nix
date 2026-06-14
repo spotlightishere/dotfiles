@@ -72,14 +72,6 @@
                 };
               };
             };
-
-            # Re-export various packages that we use.
-            # This allows them to be cached via Garnix if necessary, saving local build time.
-            i686-linux = {
-              # grub2 can take a while to build on older i686 machines.
-              grub2 = inputs.nixpkgs.legacyPackages.i686-linux.grub2;
-              grub2_efi = inputs.nixpkgs.legacyPackages.i686-linux.grub2_efi;
-            };
           };
 
           # We additionally have an overlay consisting of
@@ -90,7 +82,6 @@
             let
               # Append our custom overlay to the current system's packages.
               pkgs = nixpkgs.legacyPackages.${system};
-              lib = pkgs.lib;
               overlayPkgs = pkgs.extend (self.overlays.default);
 
               # TODO(spotlightishere): Find a way to automate
@@ -109,12 +100,6 @@
                 # TODO: Upstream
                 "pry"
                 "frida-tools"
-              ] ++ lib.optionals pkgs.stdenv.isLinux [
-                "geary"
-                "gnome-calendar"
-                "gnome-control-center"
-                "gnome-session"
-                "papers"
               ];
             in
             # This is equivalent to taking the set [ ipsw ]
