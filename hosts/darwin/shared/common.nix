@@ -14,7 +14,7 @@
     etc = {
       # Ensure that the macOS-provided paths and man page paths are respected.
       # See also: https://github.com/nix-darwin/nix-darwin/issues/391
-      "zprofile.local".source = ./zprofile.local;
+      "zprofile.local".text = builtins.readFile ./zprofile.local;
 
       # Add the PCC VM tooling to our system-wide PATH.
       # https://security.apple.com/documentation/private-cloud-compute/vresetup
