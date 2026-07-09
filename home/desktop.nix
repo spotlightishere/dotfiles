@@ -39,7 +39,7 @@
     pnpm
     protobuf
     pry
-    python313
+    python314
     pwgen
     qemu
     radare2
