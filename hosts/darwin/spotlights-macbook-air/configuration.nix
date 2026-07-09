@@ -7,5 +7,9 @@
   # $ darwin-rebuild changelog
   system.stateVersion = 6;
 
+  environment.systemPackages = with pkgs; [
+    google-cloud-sdk
+  ];
+
   nixpkgs.hostPlatform = lib.mkDefault "aarch64-darwin";
 }

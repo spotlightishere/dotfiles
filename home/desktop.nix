@@ -14,7 +14,6 @@
     exiftool
     ffmpeg-full
     go
-    google-cloud-sdk
     htop
     hyfetch
     ideviceinstaller
