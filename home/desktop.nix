@@ -29,11 +29,12 @@
     monaco-powerline
     mtools
     mtr
+    ncdu
     ninja
     nix-output-monitor
     nixd
-    ncdu
     nmap
+    nodejs
     p7zip
     pngcrush
     pnpm
