@@ -45,6 +45,7 @@
     radare2
     ripgrep
     rustup
+    shellcheck
     socat
     swiftformat
     telnet
