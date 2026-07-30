@@ -13,6 +13,7 @@
     croc
     exiftool
     ffmpeg-full
+    gh
     go
     htop
     hyfetch
