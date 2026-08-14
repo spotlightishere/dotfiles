@@ -13,7 +13,7 @@ let
   # "spot" - regretfully, "spotlight" is reserved by the system.
   # (Sigh... the downsides of sharing a namesake.)
   nativeUsername =
-    if pkgs.stdenv.isDarwin then
+    if pkgs.stdenv.hostPlatform.isDarwin then
       "spot"
     else
       "spotlight";
@@ -24,7 +24,7 @@ in
   home.username = username;
 
   home.homeDirectory =
-    if pkgs.stdenv.isDarwin then
+    if pkgs.stdenv.hostPlatform.isDarwin then
       "/Users/" + username
     else
       "/home/" + username;
@@ -41,7 +41,7 @@ in
       };
       core = {
         editor = "${pkgs.vim}/bin/vim";
-        fsmonitor = true;
+        fsmonitor = false;
       };
       color.ui = "auto";
       pull.rebase = true;
