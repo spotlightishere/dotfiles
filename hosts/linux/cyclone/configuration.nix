@@ -74,7 +74,7 @@
 
       # The open source drivers are now recommended.
       open = true;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
+      package = config.boot.kernelPackages.nvidiaPackages.latest;
     };
 
     # Docker NVIDIA runtime support
@@ -87,7 +87,7 @@
   # Container programs
   boot.kernel.sysctl."net.ipv4.ip_forward" = true;
   networking.firewall.trustedInterfaces = [ "docker0" "incusbr0" ];
-  users.users.spotlight.extraGroups = [ "adbusers" "docker" "incus-admin" ];
+  users.users.spotlight.extraGroups = [ "adbusers" "docker" "incus-admin" "wireshark" ];
 
   virtualisation = {
     # Docker
@@ -120,6 +120,7 @@
       "vscode"
       # Discord
       "discord"
+      "discord-unwrapped"
       # Steam
       "steam"
       "steam-original"
@@ -138,13 +139,10 @@
     discord
     efibootmgr
     fractal
-    # https://github.com/NixOS/nixpkgs/issues/425328#issuecomment-3073728060
-    (jetbrains.idea.override {
-      jdk = jdk25;
-    })
+    jetbrains.idea
+    ghidra
     tcpdump
     tuba
-    vscode
     zed-editor
   ];
 
