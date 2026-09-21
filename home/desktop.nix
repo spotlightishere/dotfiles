@@ -46,6 +46,7 @@
     qemu
     radare2
     ripgrep
+    ruff
     rustup
     shellcheck
     socat
