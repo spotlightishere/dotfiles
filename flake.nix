@@ -96,6 +96,7 @@
                 # Fix-up
                 # TODO: Upstream
                 "pry"
+                "frida-python"
                 "frida-tools"
               ];
             in
