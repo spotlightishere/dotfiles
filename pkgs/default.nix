@@ -1,7 +1,7 @@
 # These are standalone packages.
 # These do not require any sort of overriding whatsoever.
 
-(final: prev: {
+(final: prev: rec {
   ipsw = prev.callPackage ./ipsw.nix { };
   monaco-powerline = prev.callPackage ./monaco-powerline/default.nix { };
   telnet = prev.callPackage ./telnet.nix { };
@@ -12,6 +12,9 @@
   pry = prev.callPackage ./pry/default.nix { };
 
   # TODO(spotlightishere): Similarly, upstream Frida updates.
-  # Due to the length of wheel hashes, we override in a separate file.
-  frida-tools = import ./frida-tools.nix { pkgs = prev; };
+  frida-python = import ./frida/frida-python.nix { pkgs = prev; };
+  frida-tools = import ./frida/frida-tools.nix {
+    inherit frida-python;
+    pkgs = prev;
+  };
 })
