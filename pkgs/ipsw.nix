@@ -2,13 +2,13 @@
 
 buildGoLatestModule rec {
   pname = "ipsw";
-  version = "3.1.733";
+  version = "3.1.734";
 
   src = fetchFromGitHub {
     owner = "blacktop";
     repo = "ipsw";
     rev = "v${version}";
-    hash = "sha256-+lYqL9zcwLT4bHyQ1rBNOzNEFIH6OSv2fwBMzHSlHd0=";
+    hash = "sha256-k4MuJq+6DqG+5kw8ktKwSkAH9jnQ9ja9Z61cTCCtb4Q=";
   };
 
   postPatch = ''
@@ -31,7 +31,7 @@ buildGoLatestModule rec {
     rm ./cmd/ipsw/cmd/sb/sb_reach_test.go
   '';
 
-  vendorHash = "sha256-kt6XdMQtyInOIpxVChZJHFNhlV0/u/W0Qhrq4S02wds=";
+  vendorHash = "sha256-++66j+M99yqm2Ia9+j2iwDWblvsmx1ixNvEkUaR/cMc=";
 
   buildInputs = with pkgs; [
     unicorn
