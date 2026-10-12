@@ -127,7 +127,7 @@
       "steam-run"
       "steam-unwrapped"
       # IntelliJ
-      "idea"
+      "intellij-idea"
     ];
   };
 
@@ -139,7 +139,7 @@
     discord
     efibootmgr
     fractal
-    jetbrains.idea
+    intellij-idea
     ghidra
     tcpdump
     tuba
