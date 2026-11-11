@@ -19,7 +19,7 @@
     let
       # We'll target the systems we use the most.
       # This may be expanded in the future (e.g. x86_64-freebsd).
-      allSystems = nixpkgs.lib.genAttrs [ "aarch64-darwin" "x86_64-darwin" "aarch64-linux" "x86_64-linux" ];
+      allSystems = nixpkgs.lib.genAttrs [ "aarch64-darwin" "aarch64-linux" "x86_64-linux" ];
 
       homeManager = { system, specialArgs ? { } }:
         home-manager.lib.homeManagerConfiguration {
@@ -176,24 +176,6 @@
         modules = [
           # System-wide configuration
           ./hosts/darwin/spotlights-macbook-air/configuration.nix
-          # Our provided home-manager configuration
-          home-manager.darwinModules.home-manager
-          {
-            nixpkgs.overlays = [ self.overlays.default ];
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              users.spot = import ./home/home.nix;
-              extraSpecialArgs = { desktop = true; gpg = true; };
-            };
-          }
-        ];
-      };
-
-      darwinConfigurations."spotlights-mac-pro" = nix-darwin.lib.darwinSystem {
-        modules = [
-          # System-wide configuration
-          ./hosts/darwin/spotlights-mac-pro/configuration.nix
           # Our provided home-manager configuration
           home-manager.darwinModules.home-manager
           {

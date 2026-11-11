@@ -11,10 +11,6 @@ let
       hash = "sha256-9sUaarEDj1S8N8APql+26X67p8xDhNelyUnpRvwwcTI=";
       platform = "manylinux2014_aarch64";
     };
-    x86_64-darwin = {
-      hash = "sha256-TdEOn/TXtHPliPlwpWwfMvyDA1o7nTrn+C2fAtCwbJs=";
-      platform = "macosx_10_13_x86_64";
-    };
     aarch64-darwin = {
       hash = "sha256-59sYvYjtkqrkJcnZZAANybTbn1IfJ9mkuWpueIzUVXY=";
       platform = "macosx_11_0_arm64";
