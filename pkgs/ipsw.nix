@@ -2,7 +2,7 @@
 
 buildGoLatestModule rec {
   pname = "ipsw";
-  version = "3.1.747";
+  version = "3.1.748";
 
   src = fetchFromGitHub {
     owner = "blacktop";
