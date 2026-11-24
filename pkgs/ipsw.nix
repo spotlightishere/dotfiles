@@ -1,37 +1,25 @@
 { buildGoLatestModule, lib, fetchFromGitHub, pkgs }:
 
-buildGoLatestModule rec {
+buildGoLatestModule (final: {
   pname = "ipsw";
   version = "3.1.749";
 
   src = fetchFromGitHub {
     owner = "blacktop";
     repo = "ipsw";
-    rev = "v${version}";
+    tag = "v${final.version}";
     hash = "sha256-QE8rWNWTmQBDqWqek2wiWloR2aIi9cGfTpUrL4lNSNA=";
   };
 
-  postPatch = ''
-    # These rely on Go packages that are not open-source.
-    # As they import packages not present on GitHub,
-    # Nix's default action of running `go mod tidy` fails.
-    #
-    # As of writing, these are the following:
-    #    - github.com/blacktop/ipsw/pkg/sandbox
-    #    - github.com/blacktop/ipsw/pkg/sandbox/normalize
-    #
-    # One way to detect this is the presence of the sandbox tag:
-    #     `//go:build sandbox`
-
-    rm ./internal/diff/sandbox.go
-    rm ./internal/diff/sandbox_test.go
-    rm ./cmd/ipsw/cmd/diff_sandbox.go
-    rm ./cmd/ipsw/cmd/sb/sb_diff.go
-    rm ./cmd/ipsw/cmd/sb/sb_reach.go
-    rm ./cmd/ipsw/cmd/sb/sb_reach_test.go
-  '';
-
-  vendorHash = "sha256-ALBJnrfU2wOVbc38iQJvcR72rF08YsL6XxyMRioisME=";
+  # Some modules rely on Go packages that are not open-source.
+  # As they import packages not present on GitHub,
+  # Nix's default action of running `go mod tidy` fails.
+  # As of writing, these largely involve the `sandbox` build tag.
+  #
+  # Upstream takes the approach of setting `proxyVendor`,
+  # having Go download via its proxy instead of directly vendoring them.
+  proxyVendor = true;
+  vendorHash = "sha256-ISB3fL/0ZHNh4Zpcarl5kTtBvQt5Sw5VwveBP1hdDe0=";
 
   buildInputs = with pkgs; [
     unicorn
@@ -44,8 +32,10 @@ buildGoLatestModule rec {
   ];
 
   ldflags = [
-    "-X github.com/blacktop/ipsw/cmd/ipsw/cmd.AppVersion=v${version}"
-    # There's also `cmd.AppBuildCommit`, but this would be a hassle.
+    "-s"
+    "-w"
+    "-X github.com/blacktop/ipsw/cmd/ipsw/cmd.AppVersion=v${final.version}"
+    "-X github.com/blacktop/ipsw/cmd/ipsw/cmd.AppBuildCommit=${final.src.tag}"
   ];
 
   meta = {
@@ -53,4 +43,4 @@ buildGoLatestModule rec {
     homepage = "https://github.com/blacktop/ipsw";
     license = lib.licenses.mit;
   };
-}
+})
