@@ -2,13 +2,13 @@
 
 buildGoLatestModule (final: {
   pname = "ipsw";
-  version = "3.1.749";
+  version = "3.1.750";
 
   src = fetchFromGitHub {
     owner = "blacktop";
     repo = "ipsw";
     tag = "v${final.version}";
-    hash = "sha256-QE8rWNWTmQBDqWqek2wiWloR2aIi9cGfTpUrL4lNSNA=";
+    hash = "sha256-vvq4miTpY0EajPm/bGCx86fvQPtXqZmQRsghhP2WuA8=";
   };
 
   # Some modules rely on Go packages that are not open-source.
@@ -19,7 +19,7 @@ buildGoLatestModule (final: {
   # Upstream takes the approach of setting `proxyVendor`,
   # having Go download via its proxy instead of directly vendoring them.
   proxyVendor = true;
-  vendorHash = "sha256-ISB3fL/0ZHNh4Zpcarl5kTtBvQt5Sw5VwveBP1hdDe0=";
+  vendorHash = "sha256-vN+MhVKYCfXf5FG+MALd5EQ9prVgMzSEEzcnw1UeZsM=";
 
   buildInputs = with pkgs; [
     unicorn
